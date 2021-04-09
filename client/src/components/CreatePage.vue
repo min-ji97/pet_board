@@ -134,24 +134,6 @@
 
 
 
- <!-- ===============================================================================================================     -->   
-
-
-                        <!-- <button
-                        class="menubar__button"
-                        :class="{ 'is-active': isActive.blockquote() }"
-                        @click="commands.blockquote"
-                        >
-                            <icon name="quote" />
-                        </button> -->
-
-                        <!-- <button
-                        class="menubar__button"
-                        :class="{ 'is-active': isActive.code_block() }"
-                        @click="commands.code_block"
-                        >
-                            <icon name="code" />
-                        </button> -->
 
                         <button
                         class="menubar__button"
