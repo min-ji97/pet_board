@@ -121,8 +121,9 @@
                            
                         </a-upload>         
 
+ <!-- enctype="multipart/form-data" -->
                                         <!-- 3번째 시도 -->
-                        <input type="file" ref="contentFile" style="display: none" @change="onFileChange"/>
+                        <input type="file" ref="contentFile" id="contentFile" style="display: none"  @click="onFileChange(commands.image)"   />
                         <button
                             class="menubar__button"
                             @click="$refs.contentFile.click(commands.image)"
@@ -178,17 +179,14 @@
                 <!-- class="editor__content" -->
             </div>
 
-
-
-
                 <!-- <textarea class="contents" id="contents-label" placeholder="내용을 입력해주세요."></textarea> -->
                 <a-button type="primary" class="write-btn" @click="onSubmit">글 작성</a-button>
         </div>
     </div>   
 </template>
 
-<script>
 
+<script>
 import api from '@/api/ApiService';
 // import Icon from './../icon'
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
@@ -216,6 +214,7 @@ import {
 export default {
     data() {
         return {
+            testSrc: '',
             tmpImage: '', // content에 들어갈 이미지 ( 미리보기 )
             labelCol: { span: 4 },
             wrapperCol: { span: 14 },
@@ -257,7 +256,6 @@ export default {
                     `
                 ,
              
-                
                 onUpdate: ({ getHTML }) => {
                     let content = getHTML();
                     console.log(content);
@@ -265,10 +263,8 @@ export default {
                 },
                 onPaste: () =>{
                     console.log('복붙함!!');
-                    // this.onFileChange();
                 },
             }),
-      /////////////////////////////////////////////////////여기까지 
         }
     },
     components: {
@@ -280,7 +276,9 @@ export default {
         this.editor.destroy()
     },
     methods: {
-        onFileChange() {
+        async onFileChange(e) {
+          
+            // document.querySelector("#contentFile").addEventListener("click",commands.image);
             console.log('사진이 들어왔음.../!????');
             console.log('refs : ',this.$refs.contentFile);        
             // console.log('컨텐츠에 들어갈 사진',this.contentImage);
@@ -291,40 +289,72 @@ export default {
                 return;
             // this.createImage(files[0]); // 미리보기 
 
-            this.tmpImage = this.$refs.contentFile.files[0];            
-            console.log('과연 사진이 잘 뜰까욯ㅎㅎㅎ^^ ',this.tmpImage);
+            const tmpImage = this.$refs.contentFile.files[0];            
+            console.log('과연 사진이 잘 뜰까욯ㅎㅎㅎ^^ ',tmpImage);
 
             const formData = new FormData();
-            formData.append('src', this.tmpImage);
+            formData.append('src', tmpImage);
             
             console.log('과연...^^ ',this.$refs.editorContent);
             // this.$store.dispatch('post/uploadContentImgProcess',{
             //     formData : formData
             // })
-            // const result = await api.uploadContentImg(formData)
-            //     .then(res=>res)
-            //     .catch(err=>err)
-            // console.log(result.content_image);
-        },
-        onSubmit() {
-            console.log('submit!!', this.form);
-            console.log(this.content);
-        },
-        showImagePrompt(command) {
-           
-            const src = prompt('Enter the url of your image here');
-            if (src !== null) {
-                command({ src })
-            }
-             console.log('command=> ',command);
-             console.log('요로케하면..?');
-        },
-        testImageUpload(command){    // 이미지 업로드 연습합니다 ^^
-            console.log('잘 클릭되니111???^^');
-            console.log('refs => ',this.$refs.contentImage);
-            console.log('이건 command인데 설마 이게 뜨낭?! => ',command);
+            const result = await api.uploadContentImg(formData)
+                .then(res=>res)
+                .catch(err=>err)
+            console.log('결과는?! : ',result);
+            console.log('이게 뜬다면 enctype써줘서 된것 : ',result.content_image);
+            console.log('이게 뜬다면 이유는 나도모름^^ : ',result.data.content_image);
+            
+            const src = result.content_image;
+            this.testSrc = src;
+            // this.test(commands.image);
 
-        }
+             
+            // command({src});
+        },
+        onFileChange(command){
+          
+            const handleOnChange = async e => {
+                var files = e.target.files || e.dataTransfer.files;
+                console.log(files);
+                if (!files.length)
+                    return;
+            
+                const tmpImage = this.$refs.contentFile.files[0];            
+
+                const formData = new FormData();
+                formData.append('src', tmpImage);
+                
+                const result = await api.uploadContentImg(formData)
+                    .then(res=>res)
+                    .catch(err=>err) 
+                const contentImage = result.data.content_image;
+                
+                // this.testSrc = src;
+                this.testSrc = contentImage;
+
+                const src = "http://localhost:3000/images/"+contentImage;
+               
+                if(src !== null){
+                    command({ src });
+                }
+            }
+
+            document.querySelector("#contentFile").addEventListener("change",handleOnChange);
+                
+        },
+        
+        onSubmit() {
+            console.log('========글작성 버튼을 누름========');
+    
+            console.log('this.editor.content : ',this.editor.getHTML());
+            const test = '<h1>되냐...?<h1>';
+              // this.editor.view.dispatch(test);
+            
+      
+        },
+    
 
     }//  https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif
     

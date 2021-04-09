@@ -12,7 +12,6 @@
                     :src="`${userAvatar}`" 안됨 
                     src="./1612982928920.jpg"  이건 됨
                     :src="require(`${userAvatar}`)" 됨!!!!!!!!!!!!!!!이거임!!!!!!!!!!!!
-
                     "require(`@/assets/images/stooges/${item.img}.jpg`)
                     -->
                     <a-avatar v-else class="primary-user-img" :size="78" icon="user"  />    
