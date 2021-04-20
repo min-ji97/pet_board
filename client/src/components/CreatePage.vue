@@ -2,7 +2,7 @@
     <div class="container">
 
         <div class="write">
-            <input type="text" id="title-label" class="title" placeholder="제목을 입력해주세요." />
+            <input type="text" id="title-label" class="title" v-model="titleValue" placeholder="제목을 입력해주세요." />
 
             <div class="editor">
                 <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
@@ -97,7 +97,7 @@
                         </button>
 
 
- <!-- =================================이미지 업로드 연습합니다 ㅎㅎ ^^ ========================================     -->   
+ <!-- =================================이미지 업로드 연습합니다 ㅎㅎ ^^ ========================================     
                         <button
                         class="menubar__button"
                         @click="showImagePrompt(commands.image)"
@@ -105,7 +105,7 @@
                             <a-icon type="file-image" />  
                         </button>
 
-<!--  2번째 시도 -->
+  2번째 시도 
                         <a-upload
                             :show-upload-list="false"
                             ref="contentImage"
@@ -117,10 +117,8 @@
                             @click="showImagePrompt(commands.image)"
                             >
                                 <a-icon type="file-image" />                           
-                            </button>
-                           
-                        </a-upload>         
-
+                            </button>                        
+                        </a-upload>          -->
  <!-- enctype="multipart/form-data" -->
                                         <!-- 3번째 시도 -->
                         <input type="file" ref="contentFile" id="contentFile" style="display: none"  @click="onFileChange(commands.image)"   />
@@ -130,10 +128,6 @@
                             > 
                                 <a-icon type="file-image" />  
                         </button> 
-
-
-
-
 
                         <button
                         class="menubar__button"
@@ -162,7 +156,7 @@
             </div>
 
                 <!-- <textarea class="contents" id="contents-label" placeholder="내용을 입력해주세요."></textarea> -->
-                <a-button type="primary" class="write-btn" @click="onSubmit">글 작성</a-button>
+                <a-button type="primary" class="write-btn" @click="onSubmit">작 성</a-button>
         </div>
     </div>   
 </template>
@@ -196,6 +190,10 @@ import {
 export default {
     data() {
         return {
+            
+            userId : this.$store.state.user.user.userId,
+            titleValue : '',
+            
             testSrc: '',
             tmpImage: '', // content에 들어갈 이미지 ( 미리보기 )
             labelCol: { span: 4 },
@@ -232,9 +230,9 @@ export default {
                     new Image(),
                 ],
                 content: `
-                    <h2>
-                    내용을 입력해주세요
-                    </h2>
+                    <h3>
+                    내용을 입력해주세요.
+                    </h3>
                     `
                 ,
              
@@ -257,13 +255,14 @@ export default {
     beforeDestroy() {
         this.editor.destroy()
     },
+
     methods: {
         async onFileChange(e) {
           
-            // document.querySelector("#contentFile").addEventListener("click",commands.image);
+            //document.querySelector("#contentFile").addEventListener("click",commands.image);
             console.log('사진이 들어왔음.../!????');
             console.log('refs : ',this.$refs.contentFile);        
-            // console.log('컨텐츠에 들어갈 사진',this.contentImage);
+            //console.log('컨텐츠에 들어갈 사진',this.contentImage);
             
             var files = e.target.files || e.dataTransfer.files;
             console.log(files);
@@ -291,7 +290,10 @@ export default {
             const src = result.content_image;
             this.testSrc = src;
             // this.test(commands.image);
-
+            
+//             $("img").resize(function(){
+//                 console.log("saadsdsaadsasdsaijashjadshsakjhsakjasn");
+// }           );
              
             // command({src});
         },
@@ -329,21 +331,42 @@ export default {
         
         onSubmit() {
             console.log('========글작성 버튼을 누름========');
-    
-            console.log('this.editor.content : ',this.editor.getHTML());
-            const test = '<h1>되냐...?<h1>';
-              // this.editor.view.dispatch(test);
+            // 
+            /*
+            user_id / 작성한 시간 / 콘텐츠 ( getHTML()로 불러올라고..!  ) / 썸네일 사진  /제목
+            */
+            // const test1 = html.match(/<img[^>]+src="http([^">]+)/g);
+            console.log("디스.에디터 뭐라 뜨는지 어디 보쟈^^",this.editor);
+            console.log("this.editor.view.dom => ",this.editor.view.dom);
             
-      
-        },
-    
+
+
+            const editorHtml = this.editor.view.dom;    
+            const imgPath = editorHtml.getElementsByTagName("img")[0].src;
+            console.log("자! src 경로를 잘 받아오는갸!! : ",imgPath);
+            const img = imgPath.replace("http://localhost:3000/images/","");
+
+            console.log("자 파일 이름만 잘 추출했는가!?!? : ",img);
+
+            console.log("user_id : ",this.userId);
+            console.log("제목 :",this.titleValue);
+            console.log('콘텐츠 첫번째 방법 : ',this.editor.getHTML());
+            console.log('콘텐츠 두번째 방법 : ',this.editor.view.dom);
+            console.log("썸네일 : ");
+            console.log("게시 날짜 : 이건 디비에서 해줄 문제일듯ㅎㅎ^^"); // 이건 디비에서 하는것인갸...?!!??!?!
+            // console.log(test1);
+               
+
+            // const test = '<h1>되냐...?<h1>';
+              // this.editor.view.dispatch(test);
+        }
 
     }//  https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif
     
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
     // @import '@/styles/tiptap/variables.scss';   
     // @import '@/styles/tiptap/editor.scss';
     // @import '@/styles/tiptap/main.scss'; 
@@ -369,9 +392,9 @@ export default {
         justify-content: center;
         align-items: center;
 
-        width : 80%;
+        width : 60%;
         /* border: 1px solid peachpuff ;  */
-        background-color: rgb(250, 234, 234);
+        // background-color: rgb(247, 240, 240);
     
     }   
     .title-box{
@@ -386,25 +409,33 @@ export default {
     } */
     .title{
         margin: 10px;
-        width: 80%;
-        height: 40px;
-        border : 1px solid gray;
+        width: 60rem;
+        height: 80px;
+        font-size: 25px;
+        border:none;
+        font-weight: 500;
+        border-bottom: 2px solid rgb(151, 150, 150);
+        
     }
-    .contents{  
+    .contents {  
         margin : 10px;
         width: 80%;
         height:500px;
         border : 1px solid gray;
     }
-    .write-btn{
-        width: 100px;
-        height: 50px;
-        background-color: pink;
-        border : 1px solid pink;
+    .write-btn {
+        width: 120px;
+        height: 70px;
+        font-size: 25px;
+        font-weight: 500;
+        background-color: #ffc0cb;
+        border : 1px solid white;
+        // #ff9797
     }
     .write-btn:hover{
-        background-color: red;
-        border : 1px solid red;
+        color: #ff9797;
+        background-color: white;
+        border: 1px solid #ff9797;
     }
 
     /* ////////// */
@@ -415,6 +446,27 @@ export default {
         height: 400px; 
     } */
 
+    /* tiptap 수정 */
+    .editor {
+        max-width: 60rem;
+        min-height: 20rem;
+        margin: 2rem auto 10rem auto;
+    }
+    .editor__content{
+        padding-top: 20px;
+        font-size: 25px;
+        // border-top: 1px solid gray;
+        
+    }
+
+    .menubar{
+        font-size: 25px;
+        width: 60rem;
+    }
+
+
+    
+
     .please{
         width: 100%;
         height: 400px;
@@ -422,4 +474,8 @@ export default {
         
 
     }
+
+    // img{
+    //      display: inline; margin: 0; vertical-align: middle; max-width: 100%;
+    // }
 </style>

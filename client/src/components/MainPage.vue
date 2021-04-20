@@ -7,7 +7,10 @@
             <Preview />
            
         </div>
-        <a-button type="primary" class="createBtn" @click="gotoWrite()">글작성</a-button>  
+        
+        <a-button type="primary" class="createBtn" @click="gotoWrite()">
+            <a-icon type="edit" />
+        </a-button>  
     </div>
 </template>
 
@@ -59,7 +62,21 @@ export default {
     .createBtn{
         /* float: right; */
         margin: 30px;
-        width: 100px;
-        height: 50px;
+        width: 90px;
+        height: 60px;
+        font-size: 30px;
+        font-weight: 500;
+        background-color: #ffc0cb;
+        border: 1px solid white;
     }
+
+    .createBtn:hover{
+       color: #ffc0cb;
+       background-color: white;
+       border: 1px solid #ffc0cb;
+    }
+
+
+
+
 </style>
