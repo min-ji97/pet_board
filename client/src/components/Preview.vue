@@ -68,23 +68,23 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
     .previewContainer{
         display: flex;
        justify-content: center;
         /* flex-direction: row; */
         margin: 10px;
-        width: 330px;
-        height: 330px; 
+        width: 100%;
+        height: 100%; 
     }
     .previewBox{
         margin: 10px;
-        width: 330px;
-        height: 330px;
+        width: 400px;
+        height: 400px;
     }
     .previewImg{
         width: 100%;
-        height: 70%;
+        height: 90%;
         border: 1px solid rgb(216, 213, 213);
         object-fit: cover;
        
@@ -92,8 +92,10 @@ export default{
     }
     .previewText{
         width: 100%;
-        height: 30%;    
+        /* height: 30%;     */
+        
         border: 1px solid rgb(216, 213, 213);
+        border-top: none;
         text-align: center;
 
     }

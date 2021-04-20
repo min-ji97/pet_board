@@ -120,11 +120,14 @@
                             </button>                        
                         </a-upload>          -->
  <!-- enctype="multipart/form-data" -->
+
+ <!-- @click="$refs.contentFile.click(commands.image)" -->
+
                                         <!-- 3번째 시도 -->
-                        <input type="file" ref="contentFile" id="contentFile" style="display: none"  @click="onFileChange(commands.image)"   />
+                        <!-- <input type="file" ref="contentFile" id="contentFile" style="display: none"  @click="onFileChange(commands.image)"   /> -->
                         <button
                             class="menubar__button"
-                            @click="$refs.contentFile.click(commands.image)"
+                            @click="onFileChange(commands.image)"
                             > 
                                 <a-icon type="file-image" />  
                         </button> 
@@ -238,11 +241,11 @@ export default {
              
                 onUpdate: ({ getHTML }) => {
                     let content = getHTML();
-                    console.log(content);
+                    // console.log(content);
                    
                 },
                 onPaste: () =>{
-                    console.log('복붙함!!');
+                    console.log('복붙');
                 },
             }),
         }
@@ -250,115 +253,97 @@ export default {
     components: {
         EditorContent,
         EditorMenuBar,
-        // Icon,
     },
     beforeDestroy() {
         this.editor.destroy()
     },
 
     methods: {
-        async onFileChange(e) {
+//         async onFileChange(e) {
           
-            //document.querySelector("#contentFile").addEventListener("click",commands.image);
-            console.log('사진이 들어왔음.../!????');
-            console.log('refs : ',this.$refs.contentFile);        
-            //console.log('컨텐츠에 들어갈 사진',this.contentImage);
+//             //document.querySelector("#contentFile").addEventListener("click",commands.image);
+//             console.log('사진이 들어왔음.../!????');
+//             console.log('refs : ',this.$refs.contentFile);        
+//             //console.log('컨텐츠에 들어갈 사진',this.contentImage);
             
-            var files = e.target.files || e.dataTransfer.files;
-            console.log(files);
-            if (!files.length)
-                return;
-            // this.createImage(files[0]); // 미리보기 
+//             var files = e.target.files || e.dataTransfer.files;
+//             console.log(files);
+//             if (!files.length)
+//                 return;
+//             // this.createImage(files[0]); // 미리보기 
 
-            const tmpImage = this.$refs.contentFile.files[0];            
-            console.log('과연 사진이 잘 뜰까욯ㅎㅎㅎ^^ ',tmpImage);
+//             const tmpImage = this.$refs.contentFile.files[0];            
+//             console.log('과연 사진이 잘 뜰까욯ㅎㅎㅎ^^ ',tmpImage);
 
-            const formData = new FormData();
-            formData.append('src', tmpImage);
+//             const formData = new FormData();
+//             formData.append('src', tmpImage);
             
-            console.log('과연...^^ ',this.$refs.editorContent);
-            // this.$store.dispatch('post/uploadContentImgProcess',{
-            //     formData : formData
-            // })
-            const result = await api.uploadContentImg(formData)
-                .then(res=>res)
-                .catch(err=>err)
-            console.log('결과는?! : ',result);
-            console.log('이게 뜬다면 enctype써줘서 된것 : ',result.content_image);
-            console.log('이게 뜬다면 이유는 나도모름^^ : ',result.data.content_image);
+//             console.log('과연...^^ ',this.$refs.editorContent);
+//             // this.$store.dispatch('post/uploadContentImgProcess',{
+//             //     formData : formData
+//             // })
+//             const result = await api.uploadContentImg(formData)
+//                 .then(res=>res)
+//                 .catch(err=>err)
+//             console.log('결과는?! : ',result);
+//             console.log('이게 뜬다면 enctype써줘서 된것 : ',result.content_image);
+//             console.log('이게 뜬다면 이유는 나도모름^^ : ',result.data.content_image);
             
-            const src = result.content_image;
-            this.testSrc = src;
-            // this.test(commands.image);
+//             const src = result.content_image;
+//             this.testSrc = src;
+//             // this.test(commands.image);
             
-//             $("img").resize(function(){
-//                 console.log("saadsdsaadsasdsaijashjadshsakjhsakjasn");
-// }           );
+// //             $("img").resize(function(){
+// //                 console.log("saadsdsaadsasdsaijashjadshsakjhsakjasn");
+// // }           );
              
-            // command({src});
-        },
+//             // command({src});
+//         },
         onFileChange(command){
-          
-            const handleOnChange = async e => {
-                var files = e.target.files || e.dataTransfer.files;
-                console.log(files);
-                if (!files.length)
-                    return;
-            
-                const tmpImage = this.$refs.contentFile.files[0];            
 
+            const input = document.createElement('input');
+            input.setAttribute('type','file');
+            input.setAttribute('accept','image/*');
+            input.click();
+
+            input.onchange = async() => {
+                const file = input.files[0];
                 const formData = new FormData();
-                formData.append('src', tmpImage);
+                formData.append('src', file);
                 
                 const result = await api.uploadContentImg(formData)
                     .then(res=>res)
                     .catch(err=>err) 
                 const contentImage = result.data.content_image;
                 
-                // this.testSrc = src;
-                this.testSrc = contentImage;
-
                 const src = "http://localhost:3000/images/"+contentImage;
-               
                 if(src !== null){
                     command({ src });
                 }
-            }
+            } 
 
-            document.querySelector("#contentFile").addEventListener("change",handleOnChange);
-                
         },
-        
+
         onSubmit() {
             console.log('========글작성 버튼을 누름========');
-            // 
-            /*
-            user_id / 작성한 시간 / 콘텐츠 ( getHTML()로 불러올라고..!  ) / 썸네일 사진  /제목
-            */
-            // const test1 = html.match(/<img[^>]+src="http([^">]+)/g);
-            console.log("디스.에디터 뭐라 뜨는지 어디 보쟈^^",this.editor);
-            console.log("this.editor.view.dom => ",this.editor.view.dom);
-            
-
+          
 
             const editorHtml = this.editor.view.dom;    
+            //  console.log('콘텐츠 첫번째 방법 : ',this.editor.getHTML());
             const imgPath = editorHtml.getElementsByTagName("img")[0].src;
             console.log("자! src 경로를 잘 받아오는갸!! : ",imgPath);
             const img = imgPath.replace("http://localhost:3000/images/","");
 
-            console.log("자 파일 이름만 잘 추출했는가!?!? : ",img);
+            this.$store.dispatch('post/writeProcess',{
+
+            });
 
             console.log("user_id : ",this.userId);
             console.log("제목 :",this.titleValue);
-            console.log('콘텐츠 첫번째 방법 : ',this.editor.getHTML());
-            console.log('콘텐츠 두번째 방법 : ',this.editor.view.dom);
-            console.log("썸네일 : ");
+            console.log('콘텐츠 : ',this.editor.view.dom);
+            console.log("썸네일 : ",imgPath);
+            console.log('어떤 게시판인지 알려줘야지!! : ');
             console.log("게시 날짜 : 이건 디비에서 해줄 문제일듯ㅎㅎ^^"); // 이건 디비에서 하는것인갸...?!!??!?!
-            // console.log(test1);
-               
-
-            // const test = '<h1>되냐...?<h1>';
-              // this.editor.view.dispatch(test);
         }
 
     }//  https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif
@@ -366,7 +351,7 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
     // @import '@/styles/tiptap/variables.scss';   
     // @import '@/styles/tiptap/editor.scss';
     // @import '@/styles/tiptap/main.scss'; 
@@ -377,12 +362,9 @@ export default {
     .container{
         display : flex;
         justify-content: center;
-        align-items: center;      
-        
-        
-        /* margin: 20px;  */
-        /* padding: 20px; */
+        align-items: center;   
     }
+
     .write{
         padding: 20px;
         display: flex;
@@ -438,13 +420,6 @@ export default {
         border: 1px solid #ff9797;
     }
 
-    /* ////////// */
-    /* .editor__content{
-        /* border: 1px solid black;
-        margin: 20px;
-        width: 100%;
-        height: 400px; 
-    } */
 
     /* tiptap 수정 */
     .editor {
@@ -454,28 +429,11 @@ export default {
     }
     .editor__content{
         padding-top: 20px;
-        font-size: 25px;
-        // border-top: 1px solid gray;
-        
+        font-size: 25px;     
     }
-
     .menubar{
         font-size: 25px;
         width: 60rem;
     }
-
-
-    
-
-    .please{
-        width: 100%;
-        height: 400px;
-        outline : none;
-        
-
-    }
-
-    // img{
-    //      display: inline; margin: 0; vertical-align: middle; max-width: 100%;
-    // }
+ 
 </style>

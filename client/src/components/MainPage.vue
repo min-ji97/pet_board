@@ -4,13 +4,14 @@
             <a-input-search placeholder="input search text" style="width: 500px" @search="onSearch" />
         </div>
         <div class="preview-container">
-            <Preview />
-           
+            <Preview/> 
         </div>
-        
-        <a-button type="primary" class="createBtn" @click="gotoWrite()">
-            <a-icon type="edit" />
-        </a-button>  
+        <div class="create-box">
+            <a-button type="primary" class="createBtn" @click="gotoWrite()">
+                <a-icon type="edit" />
+            </a-button>
+        </div>
+          
     </div>
 </template>
 
@@ -38,7 +39,7 @@ export default {
 }
 
 </script>
-<style >
+<style scoped>
     .container{
         display: flex;
         flex-wrap: wrap;
@@ -56,12 +57,15 @@ export default {
         justify-content: center; 
         align-items: center;
         width: 98%;
-        margin:20px;
-        
+        margin: 20px;
     }
+    .create-box{
+        margin: 100px;
+    }
+
     .createBtn{
         /* float: right; */
-        margin: 30px;
+        /* margin: 30px; */
         width: 90px;
         height: 60px;
         font-size: 30px;
