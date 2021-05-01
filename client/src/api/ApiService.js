@@ -114,7 +114,9 @@ updatePw(userId, newPassword){
 getMainPostPreview(){
   return axios.get('/api/post/getMainPostPreview')
 },
-
+getAskPostPreview(){
+  return axios.get('/api/post/getAskPostPreview')
+},
 /*
 *  게시글 작성 컨텐츠 사진 업로드   ( 글 작성 완료 전에 사진부터 업로드 )
 *
@@ -122,6 +124,33 @@ getMainPostPreview(){
 uploadContentImg(formData){
   return axios.post('/api/userInfo/uploadContentImg',formData)
 },
+
+/*
+ *  메인 게시글 작성 
+ *  
+ */
+mainWrite(userId,title,contents,previewImg){
+  return axios.post('/api/post/mainWrite',{
+    userId,
+    title,
+    contents,
+    previewImg
+  }); 
+},
+
+/*
+ *  추천 및 질문 게시글 작성 
+ * 
+ */
+askWrite(userId,title,contents,boardNum){
+  return axios.post('/api/post/askWrite',{
+    userId,
+    title,
+    contents,
+    boardNum
+  })
+
+}
 
 // changeProfile(file,config){
 //     return axios.post('/api/userInfo/changeProfile', file, config);

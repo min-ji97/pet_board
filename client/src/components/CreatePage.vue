@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <div class="introduce">
+            자 몇번 방이냐!!!!!!!!!!!!!!! {{boardNum}}
+        </div>
 
         <div class="write">
             <input type="text" id="title-label" class="title" v-model="titleValue" placeholder="제목을 입력해주세요." />
@@ -192,24 +195,28 @@ import {
 
 export default {
     data() {
+        const boardNum = Number(this.$route.params.boardNum);
+
+        const userId = this.$store.state.user.user.userId;
         return {
-            
-            userId : this.$store.state.user.user.userId,
+            boardNum : boardNum,
+            userId : userId,
+
             titleValue : '',
             
             testSrc: '',
             tmpImage: '', // content에 들어갈 이미지 ( 미리보기 )
-            labelCol: { span: 4 },
-            wrapperCol: { span: 14 },
-            form: {
-                name: '',
-                region: undefined,
-                date1: undefined,
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: '',
-             },
+            // labelCol: { span: 4 },
+            // wrapperCol: { span: 14 },
+            // form: {
+            //     name: '',
+            //     region: undefined,
+            //     date1: undefined,
+            //     delivery: false,
+            //     type: [],
+            //     resource: '',
+            //     desc: '',
+            //  },
 
             editor: new Editor({
                 extensions: [
@@ -241,7 +248,7 @@ export default {
              
                 onUpdate: ({ getHTML }) => {
                     let content = getHTML();
-                    // console.log(content);
+                    console.log(content);
                    
                 },
                 onPaste: () =>{
@@ -254,6 +261,11 @@ export default {
         EditorContent,
         EditorMenuBar,
     },
+    // props: {
+    //     boardNum : {
+    //         type : Number,
+    //     }
+    // },
     beforeDestroy() {
         this.editor.destroy()
     },
@@ -325,25 +337,77 @@ export default {
         },
 
         onSubmit() {
-            console.log('========글작성 버튼을 누름========');
-          
-
+    
             const editorHtml = this.editor.view.dom;    
             //  console.log('콘텐츠 첫번째 방법 : ',this.editor.getHTML());
-            const imgPath = editorHtml.getElementsByTagName("img")[0].src;
-            console.log("자! src 경로를 잘 받아오는갸!! : ",imgPath);
-            const img = imgPath.replace("http://localhost:3000/images/","");
+            // this.editor.view.dom
+            // const editorEncode = Server.HtmlEncode(editorHtml);
+            const editorEncode = editorHtml ;
+            console.log('그냥 뷰 돔...^^ ',editorEncode);
 
-            this.$store.dispatch('post/writeProcess',{
 
-            });
+/*      자바스크립트로 이렇게 하는 방법에 대해서 좀더 알아봐야할듯..!!  */
+            // var isImg = false;
+            // if(editorHtml.getElementsByTagName("img")){
+            //     isImg = true;    
+            // }else {
+            //      isImg = false; 
+            // }
+//////////////////////////////////////
 
-            console.log("user_id : ",this.userId);
-            console.log("제목 :",this.titleValue);
-            console.log('콘텐츠 : ',this.editor.view.dom);
-            console.log("썸네일 : ",imgPath);
-            console.log('어떤 게시판인지 알려줘야지!! : ');
-            console.log("게시 날짜 : 이건 디비에서 해줄 문제일듯ㅎㅎ^^"); // 이건 디비에서 하는것인갸...?!!??!?!
+
+            const getHtml = this.editor.getHTML();
+
+            if( !this.titleValue ) {
+                 this.$message.info('제목을 적어주세요!');
+            } else {  
+
+                if( this.boardNum === 1 ){ // 사진이 꼭 필요
+                    console.log('1번방이요~~');
+                    console.log(editorHtml.getElementsByTagName("img").length);
+                    if( editorHtml.getElementsByTagName("img").length ) { // 썸네일 있음!! 
+                        const imgPath = editorHtml.getElementsByTagName("img")[0].src;
+                        const img = imgPath.replace("http://localhost:3000/images/",""); //썸네일 사진 이름
+                        
+                        this.$store.dispatch('post/mainWriteProcess',{
+                            userId : this.userId,
+                            title : this.titleValue,
+                            contents: getHtml,
+                            previewImg : img
+                        });
+                        this.$router.push({
+                            path: '/',
+                        });
+                    
+                    }else {
+                        this.$message.warring('최소 한장의 사진을 올려주세요! ');
+                    }
+                } else { // part = 2 or part = 3 썸네일이 필요 없음~
+                     console.log('2번 또는 3번 방이요~~');
+                    this.$store.dispatch('post/writeProcess',{
+                        userId : this.userId,
+                        title : this.titleValue,
+                        contents: getHtml,
+                        boardNum: this.boardNum
+                    });
+                     this.$router.push({
+                            path: '/',
+                        });
+                        // console.log("user_id : ",this.userId);
+                        // console.log("제목 :",this.titleValue);
+                        // console.log('콘텐츠 : ',editorEncode);
+                        // console.log('어떤 게시판인지 알려줘야지!! : 2또는 3',);
+
+                }
+            }
+
+          
+            // console.log("user_id : ",this.userId);
+            // console.log("제목 :",this.titleValue);
+            // console.log('콘텐츠 : ',this.editor.view.dom);
+            // console.log("썸네일 : ",img);
+            // console.log('어떤 게시판인지 알려줘야지!! : ');
+            // console.log("게시 날짜 : 이건 디비에서 해줄 문제일듯ㅎㅎ^^"); // 이건 디비에서 하는것인갸...?!!??!?!
         }
 
     }//  https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif
@@ -361,8 +425,13 @@ export default {
 
     .container{
         display : flex;
+        flex-flow: column;
         justify-content: center;
         align-items: center;   
+    }
+
+    .introduce{
+        float: left;
     }
 
     .write{
@@ -434,6 +503,9 @@ export default {
     .menubar{
         font-size: 25px;
         width: 60rem;
+    }
+    img {
+        width: 50%;
     }
  
 </style>

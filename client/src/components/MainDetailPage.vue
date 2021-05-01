@@ -17,7 +17,7 @@
                     <td>좋아요 {{likeNum}}</td>
                 </tr>
                 <tr>
-                    <td colspan="4">여기에 글 내용이 들어갈것입니댜 {{context}} </td>
+                    <td colspan="4" v-html="content"> </td>
                 </tr>
 
             </table>
@@ -42,13 +42,16 @@ export default {
             ///content_id , context , nickname , preview_image, title ,create_at , like_num , view_num
             contentdId : contentId,
             title : contentData.title,
-            context : contentData.context,
+            content : contentData.content,
             nickname : contentData.nickname,
             previewImage : contentData.preview_image,
             image : contentData.image,
             createAt : contentData.create_at,
             likeNum : contentData.like_num,
-            viewNum : contentData.view_num
+            viewNum : contentData.view_num,
+
+            htmlContent : contentData.content,
+            domContent: '',
         }
     },
     computed: {
@@ -113,4 +116,8 @@ export default {
     height: 200px;  /* 임시 */
     font-size: 20px;
 }
+img {
+    width: 50%;
+}
+ 
 </style>

@@ -30,7 +30,8 @@ export default {
     methods: {
         gotoWrite() {
             this.$router.push({
-                path: '/create'
+                name: 'CreatePage',
+                params: { boardNum : 1 },
             })
         }
 
@@ -51,11 +52,12 @@ export default {
         /* align-self: ; */
     }
  
-    .preview-container {
-        display: flex;
+    .preview-container { 
+        /* 이거 필요 X preview.vue에서 적용해줌 */
+        /* display: flex; */
         /* flex-wrap: wrap; */
-        justify-content: center; 
-        align-items: center;
+        /* justify-content: center;  */
+        /* align-items: center; */
         width: 98%;
         margin: 20px;
     }

@@ -27,10 +27,11 @@ export default new Router({
     {
       path: '/create',
       name: 'CreatePage',
-      component: CreatePage
+      component: CreatePage,
+      props: true
     },
     {
-      path: '/qna',
+      path: '/qna/:boardNum',
       name: 'BoardPage',
       component: BoardPage
     },

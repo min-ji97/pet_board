@@ -32,8 +32,11 @@
                 <div class="login" v-else @click="gotoLogin()">LOGIN</div>
             </div>
             <div class="navBar">
-                <router-link to="/qna" class="router">질문합니다</router-link>
-                <router-link to="/qna" class="router">추천합니다</router-link>
+                <!-- <div @click="gotoQNA1()" class="router">질문합니다</div> -->
+                <span class="router" @click="gotoQNA1()">질문합니다.</span>
+                <span class="router" @click="gotoQNA2()">추천합니다.</span>
+                <router-link :to= "{ name: 'BoardPage' , params: { boardNum : 2 } }" class="router">질문합니다</router-link>
+                <router-link :to= "{ name: 'BoardPage' , params: { boardNum : 3 } }" class="router">추천합니다</router-link>
             </div>
             
         </div>
@@ -63,11 +66,9 @@ export default{
         ]),
          
     },
-    created() {
+    async created() {
          console.log('==============라이프 사이클 : created   ================');
-         console.log(this.userAvatar);
-        //  console.log('user 정보는?! =? ',this.user);
-        // this.$store.dispatch("user/getMemberInfo");
+         await this.$store.dispatch('post/getAskPostProcess');
      },
     updated() {
         console.log('================ 라이프 사이클 : updated ================');
@@ -83,6 +84,26 @@ export default{
             console.log("로고를 클릭했음");
             console.log("유저정보를 잘 받아 왔니??", this.user);
             console.log("로그인 상태는 true인가 false인가ㅏ",this.loginStatus);
+        },
+        gotoQNA1(){
+            console.log("자 2번방이다");
+            this.$router.push({
+                name: 'BoardPage',
+                params: {
+                    boardNum : 2
+                }
+            });
+            
+        },
+        gotoQNA2(){
+            console.log("자 3번방이다");
+            this.$router.push({
+                name: 'BoardPage',
+                params: {
+                    boardNum : 3
+                }
+            });
+            
         },
         gotoLogin(){
             this.$router.push({

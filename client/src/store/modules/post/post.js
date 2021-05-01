@@ -4,28 +4,26 @@ import * as types from './mutation_types';
 // import * as types from './mutation_types';
 
 const state = {
-    mainContents : [],
+    
     mainContentsPreview : [],
-    // content_id , context , nickname , preview_image, title ,create_at , like_num , view_num
-    askContents : {
-        userId : '',
-        contentId: '',
-        title: '',
-        contentText: '',
-        contentImg: '',
-        view: '',
-        like : '',
-    },
-    askContentsPreview: [],
+    // content_id , content , nickname , preview_image, title ,create_at , like_num , view_num
+    askContents : [],
+    // askContentsPreview: [],
 };
 
 const getters = {
-    introContents: (state) => { 
-        return state.introContents; 
+    mainContentList : (state)=>{
+        return state.mainContentsPreview;
     },
     askContents : (state) =>{
         return state.askContents;
-    }
+    },
+
+
+    introContents: (state) => { 
+        return state.introContents; 
+    },
+    
 };
 
 const mutations = {
@@ -36,6 +34,9 @@ const mutations = {
     [types.GET_MAIN_CONTENT_PREVIEW]( state , contents) {
         state.mainContentsPreview = contents;
     },
+    [types.GET_ASK_CONTENT_PREVIEW]( state , contents) {
+        state.askContents = contents;
+    }
 };  
 
 const actions = {
@@ -44,10 +45,21 @@ const actions = {
         const result = await api.getMainPostPreview()
             .then(res=>res)
             .catch(err=>err)
-        
+
             console.log('메인 포스트 결과 잘 가져왔닝!! result => ', result.data);
-            commit('GET_MAIN_CONTENT_PREVIEW',result.data)
+            commit('GET_MAIN_CONTENT_PREVIEW',result.data);
     },
+
+    getAskPostProcess: async ({commit})=>{
+        const result = await api.getAskPostPreview()
+            .then(res=>res)
+            .catch(err=>err)
+
+            console.log('질문 게시판 미리보기! 결과 잘 가져왔느냥!',result.data);
+            commit('GET_ASK_CONTENT_PREVIEW',result.data);
+
+    },
+
     uploadContentImgProcess: async ({commit}, payload ) => {
         const { formData } = payload;
 
@@ -55,6 +67,27 @@ const actions = {
             .then(res=>res)
             .catch(err=>err)
         console.log(result.content_image);
+    },
+    mainWriteProcess: async ({commit},payload) => {
+        const { userId, title, contents, previewImg } = payload;
+        const result = await api.mainWrite( userId , title, contents, previewImg )
+            .then(res=>res)
+            .catch(err=>err);
+        console.log('자 mainWrite 결과를 확인해보쟈^^ : ');
+        console.log(result);
+    },
+    writeProcess : async ({commit},payload) =>{
+        //   userId : this.userId,
+        // title : this.titleValue,
+        // contents: editorEncode,
+        // boardNum: this.boardNum
+        const { userId , title , contents , boardNum } = payload;
+        const result = await api.askWrite( userId, title, contents, boardNum )
+            .then(res => res)
+            .catch(err => err);
+        
+        console.log(result);
+        // commit('GET_MAIN_CONTENT_PREVIEW',result.data)
     }
 };
 
