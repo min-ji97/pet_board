@@ -35,8 +35,8 @@
                 <!-- <div @click="gotoQNA1()" class="router">질문합니다</div> -->
                 <span class="router" @click="gotoQNA1()">질문합니다.</span>
                 <span class="router" @click="gotoQNA2()">추천합니다.</span>
-                <router-link :to= "{ name: 'BoardPage' , params: { boardNum : 2 } }" class="router">질문합니다</router-link>
-                <router-link :to= "{ name: 'BoardPage' , params: { boardNum : 3 } }" class="router">추천합니다</router-link>
+                <!-- <router-link :to= "{ name: 'BoardPage' , params: { boardNum : 2 } }" class="router">질문합니다</router-link>
+                <router-link :to= "{ name: 'BoardPage' , params: { boardNum : 3 } }" class="router">추천합니다</router-link> -->
             </div>
             
         </div>
