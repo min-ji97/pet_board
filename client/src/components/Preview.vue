@@ -88,8 +88,6 @@ export default{
         height: 90%;
         border: 1px solid rgb(216, 213, 213);
         object-fit: cover;
-       
-
     }
     .previewText{
         width: 100%;

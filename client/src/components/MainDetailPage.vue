@@ -57,10 +57,20 @@ import { Editor, EditorContent } from 'tiptap';
 export default {
     data() {
         const contentId = Number(this.$route.params.contentId);
-        const previewContents = this.$store.state.post.mainContentsPreview;
-        const contentData = previewContents.filter(item => item.content_id === contentId)[0];
+        const roomNum = Number(this.$route.params.roomNum);
+
+        if(roomNum === 1){
+            var previewContents = this.$store.state.post.mainContentsPreview;
+            var contentData = previewContents.filter(item => item.content_id === contentId)[0];
+        }else {
+            var previewAsk = this.$store.state.post.askContents;
+            var contentData = previewAsk.filter(item=> item.content_id === contentId)[0];
+        }
+        
+
+        
         return{
-             editor: null,
+            editor: null,
             ///content_id , context , nickname , preview_image, title ,create_at , like_num , view_num
             contentdId : contentId,
             title : contentData.title,
@@ -146,9 +156,9 @@ export default {
 .table-box{
     background-color: #fffdf4;
     font-size: 30px;
-    border: 2px solid black;
+    border: 1px solid black;
     width: 100%;
-    height: 500px;  /* 임시 */
+    /* height: 500px;  임시 */
     margin: 10px 80px 50px 80px;
 }
 .table-box tr td{
@@ -169,10 +179,12 @@ export default {
 }
 
 .content-box{
-    border: 2px solid black;
+    border: 1px solid black;
     /* text-align: center; */
     font-size: 20px;
-    padding: 20px;
+    vertical-align: top;
+    height: 500px;
+    /* padding: 20px; */
 }
 
 

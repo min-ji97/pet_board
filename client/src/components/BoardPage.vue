@@ -9,10 +9,10 @@
         <a-input-search placeholder="input search text" style="width: 500px" @search="onSearch" />
       </div>
 
-        <a-table :columns="columns" :data-source="contents"  class="board-table">
-          <a slot="name" slot-scope="text">{{ text }}</a>
+        <a-table :columns="columns" :customRow="Rowclick" :data-source="contentData"  class="board-table">
+          <a slot="name"  slot-scope="text">{{ text }}</a>
         </a-table>
-
+<!-- @click:row="goToDetailPage(contentData.content_id)"  :onRow="onRow"  -->
         <div>
           <a-button type="primary" class="write-btn" @click="gotoWrite(boardNum)">글작성</a-button>
         </div>
@@ -60,10 +60,12 @@ export default {
 
     const askContents = this.$store.state.post.askContents;
     const boardNum = Number(this.$route.params.boardNum);
-    const contents = askContents.filter(item => item.board_num === boardNum);
+    const contentData = askContents.filter(item => item.board_num === boardNum);
     return {
       boardNum : boardNum,
-      contents : contents,
+      contentData : contentData,
+      // contentId : contentData.content_id,
+
       columns,
       current: 2,
     };
@@ -84,6 +86,35 @@ export default {
           boardNum : boardNum
         }
       })
+    },
+    goToDetailPage(content_id){
+      console.log('고투디테일페이지');
+      console.log('컨텐츠 아이디가 뭐가 뜨느냐!!!!!!!!안뜨냐!?!?!?',content_id);
+      this.$router.push({
+        name: 'MainDetailPage',
+        params: {
+                    contentId : content_id,
+                    roomNum : this.boardNum,
+                }
+      })
+
+    },
+    Rowclick(record, index){
+      return{
+        on: {
+          click: () =>{
+            this.$router.push({
+              name: 'MainDetailPage',
+              params: {
+                          contentId : record.content_id,
+                          roomNum : record.board_num,
+                      }
+            })
+           
+          },
+
+        }
+      }
     }
   }
 };
