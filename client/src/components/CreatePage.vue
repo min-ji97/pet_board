@@ -380,7 +380,7 @@ export default {
                         });
                     
                     }else {
-                        this.$message.warring('최소 한장의 사진을 올려주세요! ');
+                        this.$message.warning('최소 한장의 사진을 올려주세요! ');
                     }
                 } else { // part = 2 or part = 3 썸네일이 필요 없음~
                      console.log('2번 또는 3번 방이요~~');
