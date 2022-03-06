@@ -55,6 +55,7 @@ export default{
         return {
             port : 3000,
             userAvatar: this.$store.state.user.user.userImg,
+            //userAvatar: this.user.userImg,
             visible: false,
         }
     },
@@ -100,13 +101,19 @@ export default{
         //     });
             
         // },
-        gotoQNA(){
-            console.log("자 2번방이다");
-            this.$router.push({
-                name: 'BoardPage'
+         gotoQNA() {
+            this.$router.replace({
+                name: 'BoardPage',
             });
-            
+        
         },
+        // gotoQNA(){
+        //     console.log("자 2번방이다");
+        //     this.$router.push({
+        //         name: 'BoardPage'
+        //     });
+            
+        // },
         gotoLogin(){
             this.$router.push({
                 path: '/login'

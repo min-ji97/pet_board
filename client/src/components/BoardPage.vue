@@ -1,6 +1,5 @@
 <template>
   <div class="untitle"> 
-    {{boardNum}} 이래도 안뜸?!?!
       <!-- <div>
         <a-button type="primary" class="write-btn">글작성</a-button>
       </div> -->
@@ -9,7 +8,7 @@
         <a-input-search placeholder="input search text" style="width: 500px" @search="onSearch" />
       </div>
 
-        <a-table :columns="columns" :customRow="Rowclick" :data-source="contentData"  class="board-table">
+        <a-table :columns="columns" :customRow="Rowclick" :data-source="askContents"  class="board-table">
           <a slot="name"  slot-scope="text">{{ text }}</a>
         </a-table>
 <!-- @click:row="goToDetailPage(contentData.content_id)"  :onRow="onRow"  -->
@@ -57,16 +56,18 @@ const columns = [
   },
 ];
 
+import { mapState, mapGetters} from 'vuex'
+
 export default {
   data() {
 
-    const askContents = this.$store.state.post.askContents;
+    // const askContent = this.$store.state.post.askContents;
     // const boardNum = Number(this.$route.params.boardNum); // 필요없을듯!!!!!!!!
     // const contentData = askContents.filter(item => item.board_num === boardNum);
-     const contentData = askContents;
+    //  const contentData = askContent;
     return {
       // boardNum : boardNum, // 필요없을듯!!!!!!!
-      contentData : contentData,
+      // contentData : contentData,
       // contentId : contentData.content_id,
 
       columns,
@@ -78,6 +79,20 @@ export default {
   //     type : Number
   //   }
   //},
+  computed: {
+    ...mapState('post',[
+      'askContents',
+    ]),
+
+    ...mapState('user',[
+      'user'
+    ]),
+
+    ...mapGetters('post',[
+
+    ])
+
+  },
   async created(){
     await this.$store.dispatch('post/getAskPostProcess');
   },
@@ -96,9 +111,9 @@ export default {
       this.$router.push({
         name: 'MainDetailPage',
         params: {
-                    contentId : content_id,
-                    roomNum : this.boardNum,
-                }
+          contentId : content_id,
+          roomNum : this.boardNum,
+        }
       })
 
     },
@@ -109,11 +124,10 @@ export default {
             this.$router.push({
               name: 'MainDetailPage',
               params: {
-                          contentId : record.content_id,
-                          roomNum : record.board_num,
-                      }
+                contentId : record.content_id,
+                roomNum : record.board_num,
+              }
             })
-           
           },
 
         }

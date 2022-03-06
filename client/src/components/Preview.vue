@@ -40,7 +40,7 @@ export default{
     },
     computed: {
         ...mapState('post',[
-            'introContents',
+            // 'introContents',
             'askContents',
             'mainContentsPreview',
         ]),
