@@ -93,9 +93,9 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 var option = {
     host: 'localhost', //localhost:7896
-    port: '3305',
+    port: '3306',
     user: 'root',
-    password:'1234',
+    password:'minji1372!',
     database: 'pet_board'
 };
 
