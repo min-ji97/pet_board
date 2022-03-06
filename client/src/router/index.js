@@ -31,7 +31,8 @@ export default new Router({
       props: true
     },
     {
-      path: '/qna/:boardNum',
+      // path: '/qna/:boardNum', qna를 하나로 줄였음..!
+      path: '/qna',
       name: 'BoardPage',
       component: BoardPage
     },

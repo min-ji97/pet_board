@@ -36,8 +36,10 @@
             </div>
             <div class="navBar">
                 <!-- <div @click="gotoQNA1()" class="router">질문합니다</div> -->
-                <span class="router" @click="gotoQNA1()">질문합니다.</span>
-                <span class="router" @click="gotoQNA2()">추천합니다.</span>
+
+                <span class="router" @click="gotoMainPage()">Home</span>
+                <span class="router" @click="gotoQNA()">QnA</span>
+
                 <!-- <router-link :to= "{ name: 'BoardPage' , params: { boardNum : 2 } }" class="router">질문합니다</router-link>
                 <router-link :to= "{ name: 'BoardPage' , params: { boardNum : 3 } }" class="router">추천합니다</router-link> -->
             </div>
@@ -88,23 +90,20 @@ export default{
             console.log("유저정보를 잘 받아 왔니??", this.user);
             console.log("로그인 상태는 true인가 false인가ㅏ",this.loginStatus);
         },
-        gotoQNA1(){
+        // gotoQNA1(){
+        //     console.log("자 1번방이다");
+        //     this.$router.push({
+        //         name: 'MainPage',
+        //         params: {
+        //             boardNum : 1
+        //         }
+        //     });
+            
+        // },
+        gotoQNA(){
             console.log("자 2번방이다");
             this.$router.push({
-                name: 'BoardPage',
-                params: {
-                    boardNum : 2
-                }
-            });
-            
-        },
-        gotoQNA2(){
-            console.log("자 3번방이다");
-            this.$router.push({
-                name: 'BoardPage',
-                params: {
-                    boardNum : 3
-                }
+                name: 'BoardPage'
             });
             
         },

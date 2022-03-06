@@ -1,5 +1,5 @@
 <template>
-  <div class="untitle" :v-model="boardNum"> 
+  <div class="untitle"> 
     {{boardNum}} 이래도 안뜸?!?!
       <!-- <div>
         <a-button type="primary" class="write-btn">글작성</a-button>
@@ -17,6 +17,8 @@
           <a-button type="primary" class="write-btn" @click="gotoWrite(boardNum)">글작성</a-button>
         </div>
     </div>
+
+    
 
   </div>
 </template>
@@ -59,10 +61,11 @@ export default {
   data() {
 
     const askContents = this.$store.state.post.askContents;
-    const boardNum = Number(this.$route.params.boardNum);
-    const contentData = askContents.filter(item => item.board_num === boardNum);
+    // const boardNum = Number(this.$route.params.boardNum); // 필요없을듯!!!!!!!!
+    // const contentData = askContents.filter(item => item.board_num === boardNum);
+     const contentData = askContents;
     return {
-      boardNum : boardNum,
+      // boardNum : boardNum, // 필요없을듯!!!!!!!
       contentData : contentData,
       // contentId : contentData.content_id,
 
@@ -79,11 +82,11 @@ export default {
     await this.$store.dispatch('post/getAskPostProcess');
   },
   methods: {
-    gotoWrite(boardNum){
+    gotoWrite(){
       this.$router.push({
         name: 'CreatePage',
         params: {
-          boardNum : boardNum
+          boardNum : 2
         }
       })
     },
