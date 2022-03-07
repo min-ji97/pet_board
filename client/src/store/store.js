@@ -7,6 +7,7 @@ import createPersistedState from 'vuex-persistedstate';
 import user from './modules/user/user';
 import post from './modules/post/post';
 import update from './modules/update/update';
+import like from './modules/like/like';
 
 Vue.use(Vuex);
 
@@ -15,7 +16,8 @@ export const store = new Vuex.Store({
   modules: {
    user,
    post,
-   update
+   update,
+   like
   }, 
   // createPersistedState({
   //   storage: {

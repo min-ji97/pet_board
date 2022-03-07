@@ -9,9 +9,9 @@
                         <div class="pre-title">{{content.title}}</div>
                         <!-- <div>{{content.context}}</div> -->
                         <div class="pre-nickname">{{content.nickname}}</div>
-                        <div >
+                        <div>
                             <span class="pre-view"><a-icon type="eye" />{{ content.view_num}}</span>
-                            <span class="pre-like"><a-icon type="heart"/>{{ content.like_num}}</span>
+                            <span class="pre-like"><a-icon type="heart" />{{ content.like_num}}</span>
                         </div>
                         <!-- <div ><a-icon type="heart" />{{content.like_num}}</div> -->
                         <div class="pre-date">{{content.create_at}}</div>
@@ -33,20 +33,26 @@ import { mapState ,mapGetters} from 'vuex'
 
 export default{
     data() {
+        // const likeCheckList = likeList.filter(item => item.content_id === mainContentsPreview.content_id 
+        // && item.board_num === 1 && item.user_id === user.user_id);
         return {   
             current: 1, 
             port : 3000,
+            // likeCheckList: likeCheckList,
+            // likeCheck : likeCheckList.like_check,
         }
     },
     computed: {
         ...mapState('post',[
-            // 'introContents',
             'askContents',
             'mainContentsPreview',
         ]),
         ...mapState('user',[
             'user'
         ]),
+        // ...mapState('like',[
+        //     'likeList'
+        // ]),
         ...mapGetters('post',[
 
         ])
@@ -64,6 +70,29 @@ export default{
                 }
             });
         },
+        // heartToggle(){
+        //     console.log('1. likeLis 확인..!',this.likeList);
+        //     console.log('2. likeLis 확인..!',this.likeList.likeCheck);
+        //     console.log('3. likeLis 확인..!',this.likeCheckList);
+        //     console.log('4. likeLis 확인..!',likeCheckList);
+        //     // likeCheck이 1일때 클릭 ->  like_num의 수를 -1 시키고 likeChek을 0으로 바꿔줌!!
+        //     // likeCheck이 0일때 클릭 -> like_num의 수를 +1 시키고 likeCheck를 1로 바꿔줌!! 
+        //     // likeId , userId , likeCheck , contentId , boardNum이 필요하지 않을까 함..!!
+            
+        //     if(this.likeCheck === 1){ // 좋아요인 상태 -> 취소로 만들것..!
+            
+        //         //(likeDownProcess)를 실행시키면 서버로 가서 
+        //         //mainContentsPreview.like_num를 1만큼 감소 / likeCheck를 0으로 바꿔줌 
+        //         await this.$store.dispatch('like/likeDownProcess');
+                
+
+
+        //     }else{// 빈하트 -> 좋아요 상태로 만들 것..!
+        //         //(likeUpProcess)를 실행시키면 서버로 가서 mainContentsPreview.like_num를 1만큼 증가 시킨다..!
+        //         await this.$store.dispatch('like/likeUpProcess');
+        //     }
+
+        // },
     }
 }
 </script>
