@@ -5,7 +5,7 @@
         </div>
 
         <div class="write">
-            <input type="text" id="title-label" class="title" v-model="titleValue" placeholder="제목을 입력해주세요." />
+            <input type="text" id="title-label" class="title" maxlength="30" v-model="titleValue" placeholder="제목을 입력해주세요." />
 
             <div class="editor">
                 <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
@@ -311,6 +311,9 @@ export default {
              
 //             // command({src});
 //         },
+
+
+        
         onFileChange(command){
 
             const input = document.createElement('input');
@@ -359,7 +362,7 @@ export default {
             const getHtml = this.editor.getHTML();
 
             if( !this.titleValue ) {
-                 this.$message.info('제목을 적어주세요!');
+                this.$message.info('제목을 적어주세요!');
             } else {  
 
                 if( this.boardNum === 1 ){ // 사진이 꼭 필요
