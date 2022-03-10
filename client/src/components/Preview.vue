@@ -62,6 +62,10 @@ export default{
     },
     methods: {
         goToDetailPage(content_id){
+            this.$store.dispatch('post/viewUpProcess',{
+                contentId : content_id,
+                boardNum : 1
+            }); // 조회수 1 올리기
             this.$router.push({
                 name: 'MainDetailPage',
                 params: {

@@ -88,6 +88,16 @@ const actions = {
         
         console.log(result);
         // commit('GET_MAIN_CONTENT_PREVIEW',result.data)
+    },
+    //contentId : content_id,
+    // boardNum : 2,
+    viewUpProcess : async ({commit},payload) => {
+        const {contentId , boardNum } = payload;
+        const result = await api.viewUp(contentId,boardNum)
+            .then(res=>res)
+            .catch(err=>err);
+        
+        console.log('조회수 결과..!',result);
     }
 };
 

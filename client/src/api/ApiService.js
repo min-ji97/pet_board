@@ -149,8 +149,21 @@ askWrite(userId,title,contents,boardNum){
     contents,
     boardNum
   })
+},
 
-}
+/*
+*  조회수 
+*
+*/
+viewUp(contentId,boardNum){
+  return axios.post('/api/post/viewUp',{
+    contentId,
+    boardNum
+  })
+},
+
+
+
 
 // changeProfile(file,config){
 //     return axios.post('/api/userInfo/changeProfile', file, config);

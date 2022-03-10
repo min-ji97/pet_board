@@ -105,9 +105,14 @@ export default {
         }
       })
     },
-    goToDetailPage(content_id){
+    async goToDetailPage(content_id){
       console.log('고투디테일페이지');
       console.log('컨텐츠 아이디가 뭐가 뜨느냐!!!!!!!!안뜨냐!?!?!?',content_id);
+      await this.$store.dispatch('post/viewUpProcess',{
+        contentId : content_id,
+        boardNum : 2,
+      }); // 조회수 1 올리기
+
       this.$router.push({
         name: 'MainDetailPage',
         params: {
@@ -115,12 +120,18 @@ export default {
           roomNum : this.boardNum,
         }
       })
-
     },
+
     Rowclick(record, index){
       return{
         on: {
           click: () =>{
+
+            this.$store.dispatch('post/viewUpProcess',{
+              contentId : record.content_id,
+              boardNum : 2,
+            }); // 조회수 1 올리기
+
             this.$router.push({
               name: 'MainDetailPage',
               params: {
