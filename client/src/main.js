@@ -9,6 +9,8 @@ import 'ant-design-vue/dist/antd.css';
 import { store }  from './store/store';
 
 import './styles/tiptap/main.scss';
+import VueMoment from 'vue-moment'
+
 
 Vue.config.productionTip = false;
 
@@ -17,7 +19,7 @@ Vue.config.productionTip = false
 Vue.prototype.$store = store;
 
 Vue.use(Antd);
-
+Vue.use(VueMoment);
 
 /* eslint-disable no-new */
 new Vue({

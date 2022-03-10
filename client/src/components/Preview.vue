@@ -10,13 +10,13 @@
                         <!-- <div>{{content.context}}</div> -->
                         <div class="pre-nickname">{{content.nickname}}</div>
                         <div>
-                            <span class="pre-view"><a-icon type="eye" />{{ content.view_num}}</span>
+                            <span class="pre-view"><a-icon type="eye"  />{{ content.view_num}}</span>
                             <span class="pre-like"><a-icon type="heart" />{{ content.like_num}}</span>
                         </div>
                         <!-- <div ><a-icon type="heart" />{{content.like_num}}</div> -->
-                        <div class="pre-date">{{content.create_at}}</div>
+                        <div class="pre-date">{{$moment(content.create_at).format('YYYY-MM-DD a h:mm:ss')}}</div>
                         <!-- 
-
+                            
                             content.userId === user.userId -> 
                          -->
                     </div>
@@ -44,7 +44,7 @@ export default{
     },
     computed: {
         ...mapState('post',[
-            'askContents',
+            // 'askContents',
             'mainContentsPreview',
         ]),
         ...mapState('user',[
@@ -60,6 +60,7 @@ export default{
     async created(){
         await this.$store.dispatch('post/getMainPostProcess');
     },
+
     methods: {
         goToDetailPage(content_id){
             this.$store.dispatch('post/viewUpProcess',{
@@ -139,9 +140,9 @@ export default{
         white-space: nowrap; /* 줄넘김 없음 */
     }
     .pre-view{
-        margin-right: 10px;
+        margin-right: 30px;
     }
-    .pre-view a-icon{
-         margin-right: 10px;
+    .pre-view i, .pre-like i{
+        margin-right: 5px;
     }
 </style>

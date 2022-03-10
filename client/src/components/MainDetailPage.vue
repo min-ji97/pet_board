@@ -19,7 +19,7 @@
                 </tr>
                 <tr class="info-box">
                     <td>{{nickname}}</td>
-                    <td>{{createAt}}</td>
+                    <td>{{$moment(createAt).format('YYYY-MM-DD a h:mm:ss')}}</td>
                     <td><a-icon type="eye" class="view-icon" /> {{viewNum}}</td>
                     <!-- <td v-if="likeStatus"><a-icon type="heart" class="like-icon">좋아요 {{likeNum}}</td>  -->
                    
@@ -107,11 +107,15 @@ export default {
     },
     computed: {
         ...mapState('post',[
-            'mainContentsPreview',
+            // 'mainContentsPreview',
         ]),
         // ...mapState('like',[
         //     'likeList'
         // ]),
+        // ...mapGetters('post',[
+        //     'mainViewLoad',
+        //     'askViewLoad'
+        // ])
     },
     props:{
         contentId : {
@@ -127,9 +131,6 @@ export default {
     mounted() {
     this.editor = new Editor({
       content: this.content,
-    //   extensions: [
-    //     StarterKit,
-    //   ],
     })
   },
 
