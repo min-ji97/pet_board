@@ -31,6 +31,7 @@ router.get('/getMainPostPreview',(req,res)=>{
 });
 
 router.get('/getAskPostPreview',(req,res)=>{
+    console.log('큐엔이이 게시판 안들어오냐??');
     let sql = `select co.content_id, co.title , co.content, co.view_num, co.like_num, co.create_at, co.board_num, us.nickname
     from ask_contents as co JOIN user as us
     on co.user_id = us.user_id
@@ -47,13 +48,6 @@ router.get('/getAskPostPreview',(req,res)=>{
         }
     });
 });
-
-
-
-
-
-
-
 
 router.post('/mainWrite',(req,res)=>{
 
@@ -99,6 +93,36 @@ router.post('/askWrite',(req, res)=>{
         }
     })
 
+});
+
+
+router.post('/viewUp',(req,res)=>{
+    let content_id = req.body.contentId;
+    let board_num = req.body.boardNum;
+
+    let params = [content_id];
+    if(board_num === 1){ //main_contents 테이블을 불러봐라..!
+        let sql = 'update main_contents set view_num = view_num + 1 where content_id = ? ';
+        console.log('server 뷰입니다',params);
+        connection.query(sql, params, (err,result)=>{
+            if(err){
+                console.log('db 에러');
+            }else {
+                res.json({ result : true});
+            }
+        })
+    }else if(board_num === 2){ //ask_contents 테이블
+        let sql = 'update ask_contents set view_num = view_num + 1 where content_id = ? ';
+        console.log('server 뷰입니다',params);
+        connection.query(sql, params, (err,result)=>{
+            if(err){
+                console.log('db 에러');
+            }else {
+                res.json({ result : true});
+            }
+        })
+    }
+    
 });
 
 
