@@ -29,7 +29,7 @@ export const store = new Vuex.Store({
 
   plugins: [
     createPersistedState({ 
-      paths: ["user"] 
+      paths: ["user","post"] 
     })
   ],
   state: {},

@@ -92,6 +92,10 @@ export default {
             likeNum : contentData.like_num,
             viewNum : contentData.view_num,
 
+            boardNum : contentData.board_num,
+            roomNum : roomNum,
+
+
             htmlContent : contentData.content,
             domContent: '',
 
@@ -107,7 +111,7 @@ export default {
     },
     computed: {
         ...mapState('post',[
-            // 'mainContentsPreview',
+            'mainContentsPreview',
         ]),
         // ...mapState('like',[
         //     'likeList'
@@ -125,13 +129,17 @@ export default {
             type: Number,
         }
     },
-    create(){
+    created(){
         console.log(' =>', this.nickname);
+        
     },
     mounted() {
     this.editor = new Editor({
       content: this.content,
-    })
+    });
+
+    console.log('contentId : ', this.contentId, 'roomNum : ', this.roomNum);
+    console.log('boardNum : ',this.boardNum);
   },
 
     methods: {
