@@ -105,31 +105,35 @@ export default {
         }
       })
     },
-    async goToDetailPage(content_id){
+    // async goToDetailPage(content_id){
      
-      await this.$store.dispatch('post/viewUpProcess',{
-        contentId : content_id,
-        boardNum : 2,
-      }); // 조회수 1 올리기
+    //   await this.$store.dispatch('post/viewUpProcess',{
+    //     contentId : content_id,
+    //     boardNum : 2,
+    //   }); // 조회수 1 올리기
 
-      this.$router.push({
-        name: 'MainDetailPage',
-        params: {
-          contentId : content_id,
-          roomNum : this.boardNum,
-        }
-      })
-    },
+    //   this.$router.push({
+    //     name: 'MainDetailPage',
+    //     params: {
+    //       contentId : content_id,
+    //       roomNum : this.boardNum,
+    //     }
+    //   })
+    // },
 
     Rowclick(record, index){
       return{
         on: {
           click: () =>{
 
+            // 조회수 1 올리기
             this.$store.dispatch('post/viewUpProcess',{
               contentId : record.content_id,
               boardNum : 2,
-            }); // 조회수 1 올리기
+            }); 
+
+            console.log('레코드 콘텐츠 아이디..!',record.content_id);
+            console.log('레코드 보드 넘..!',record.board_num);
 
             this.$router.push({
               name: 'MainDetailPage',

@@ -42,7 +42,7 @@ export default new Router({
       component: UpdatePage
     },
     {
-      path: '/main-detail/:contentId',
+      path: '/main-detail/:contentId/:roomNum',
       name: 'MainDetailPage',
       component: MainDetailPage,
       props: true

@@ -3,7 +3,7 @@
                 <!-- <div class="previewImg">image</div> -->
         <div class="previewContainer">
             <div v-for=" content of mainContentsPreview" v-bind:key="content.contentId">
-                <div class="previewBox" @click="goToDetailPage(content.content_id)">
+                <div class="previewBox" @click="goToDetailPage(content.content_id , content.board_num)">
                     <img class="previewImg"  alt="" :src="`http://localhost:${port}/images/${content.preview_image}`">
                     <div class="previewText">
                         <div class="pre-title">{{content.title}}</div>
@@ -62,16 +62,16 @@ export default{
     },
 
     methods: {
-        goToDetailPage(content_id){
-            this.$store.dispatch('post/viewUpProcess',{
+        goToDetailPage(content_id ,board_num){
+            this.$store.dispatch('post/viewUpProcess',{ // 조회수 1 올리기
                 contentId : content_id,
-                boardNum : 1
-            }); // 조회수 1 올리기
+                boardNum : board_num
+            }); 
             this.$router.push({
                 name: 'MainDetailPage',
                 params: {
                     contentId : content_id,
-                    roomNum : 1
+                    roomNum : board_num
                 }
             });
         },

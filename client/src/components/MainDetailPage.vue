@@ -2,8 +2,8 @@
     <div>
         <div class="board-container">
 
-            <div class="part-title" @click="goToMain()" v-if="roomNum === 1"> > 소개합니다 </div>
-            <div class="part-title" @click="goToAsk()" v-else-if="roomNum === 2"> > 질문합니다 </div>
+            <div class="part-title" @click="goToMain()" v-if="boardNum === 1"> > 소개합니다 </div>
+            <div class="part-title" @click="goToAsk()" v-else-if="boardNum === 2"> > 질문합니다 </div>
             <!-- <div class="part-title" @click="goToAsk()" v-else-if="roomNum === 3"> > 추천합니다 </div> -->
 
             <table class="table-box">
@@ -93,8 +93,6 @@ export default {
             viewNum : contentData.view_num,
 
             boardNum : contentData.board_num,
-            roomNum : roomNum,
-
 
             htmlContent : contentData.content,
             domContent: '',
@@ -138,8 +136,10 @@ export default {
       content: this.content,
     });
 
-    console.log('contentId : ', this.contentId, 'roomNum : ', this.roomNum);
-    console.log('boardNum : ',this.boardNum);
+    
+    console.log('넘어온 콘텐츠 아이디 : ',this.contentId);
+    console.log('넘어온 룸넘버 : ',this.roomNum);
+    
   },
 
     methods: {
