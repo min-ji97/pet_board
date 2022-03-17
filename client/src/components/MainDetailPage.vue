@@ -128,7 +128,12 @@ export default {
         }
     },
     created(){
-        console.log(' =>', this.nickname);
+        window.scrollTo(0,0);
+        window.onload = ()=>{
+            setTimeout(()=>{
+                scrollTo(0,0);
+            },100);
+        }
         
     },
     mounted() {

@@ -94,6 +94,12 @@ export default {
 
   },
   async created(){
+    // window.scrollTo(0,0);
+    window.onload(()=>{
+      setTimeout(()=>{
+        scrollTo(0,0);
+      },100);
+    });
     await this.$store.dispatch('post/getAskPostProcess');
   },
   methods: {

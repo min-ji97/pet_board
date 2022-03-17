@@ -27,6 +27,15 @@ export default {
             
         }
     },
+    created() {
+        window.scrollTo(0,0);
+        //새로고침
+        window.onload = ()=>{
+            setTimeout(()=>{
+                scrollTo(0,0);
+            },100);
+        }
+    },
     methods: {
         gotoWrite() {
             this.$router.push({

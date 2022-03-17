@@ -10,7 +10,7 @@
                         <!-- <div>{{content.context}}</div> -->
                         <div class="pre-nickname">{{content.nickname}}</div>
                         <div>
-                            <span class="pre-view"><a-icon type="eye"  />{{ content.view_num}}</span>
+                            <span class="pre-view"><a-icon type="eye"   />{{ content.view_num}}</span>
                             <span class="pre-like"><a-icon type="heart" />{{ content.like_num}}</span>
                         </div>
                         <!-- <div ><a-icon type="heart" />{{content.like_num}}</div> -->
@@ -39,7 +39,8 @@ export default{
             current: 1, 
             port : 3000,
             // likeCheckList: likeCheckList,
-            // likeCheck : likeCheckList.like_check,
+            //likeCheck : likeCheckList.like_check,
+            likeCheck : 1,
         }
     },
     computed: {
@@ -57,11 +58,20 @@ export default{
 
         ])
     },
+    mounted(){
+        // 좋아요...추후...할.. 예정...ㅠㅠㅠㅡㅠㅠ
+        if(this.likeCheck === 1){ // 빨간 하트 디자인
+            const likeClass = document.querySelector('.pre-like i');
+            likeClass.classList.add('.like-icon');
+        }
+    },
+
     async created(){
         await this.$store.dispatch('post/getMainPostProcess');
     },
 
     methods: {
+        
         goToDetailPage(content_id ,board_num){
             this.$store.dispatch('post/viewUpProcess',{ // 조회수 1 올리기
                 contentId : content_id,
@@ -145,4 +155,8 @@ export default{
     .pre-view i, .pre-like i{
         margin-right: 5px;
     }
+    .like-icon{
+    /* margin-right: 20px; */
+    color:brown;
+}
 </style>
