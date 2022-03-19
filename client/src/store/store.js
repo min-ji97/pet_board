@@ -8,6 +8,7 @@ import user from './modules/user/user';
 import post from './modules/post/post';
 import update from './modules/update/update';
 import like from './modules/like/like';
+import tap from './modules/tap/tap';
 
 Vue.use(Vuex);
 
@@ -17,7 +18,8 @@ export const store = new Vuex.Store({
    user,
    post,
    update,
-   like
+   like,
+   tap
   }, 
   // createPersistedState({
   //   storage: {
@@ -29,7 +31,7 @@ export const store = new Vuex.Store({
 
   plugins: [
     createPersistedState({ 
-      paths: ["user","post"] 
+      paths: ["user","post","tap"] 
     })
   ],
   state: {},

@@ -1,24 +1,23 @@
 <template>
     <div class="container">
         <div class="my-write-title">
-            <h1 v-if="roomNum === 1">내가 쓴 글을 확인 합니다..!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-            <h1 v-else-if="roomNum === 2">좋아요...!~!</h1> 
+            <h1 v-if="roomNum === 1">내가 쓴 글</h1>
+            <h1 v-else-if="roomNum === 2">좋아요</h1>
+            <h1> Home </h1>
         </div>
         <div class="preview-container">
-            <Preview/> 
-        </div>
-
-        
-          
+            <TapPreview v-bind="roomNum" /> 
+        </div>      
     </div>
 </template>
 
 <script>
-import Preview from '@/components/Preview'
+import TapPreview from '@/components/Tap/TapPreview'
+
 export default {
     name: 'App',
     components: {
-       Preview
+       TapPreview 
     },
     props: {
         roomNum : {
@@ -38,7 +37,6 @@ export default {
                 scrollTo(0,0);
             },100);
         }
-        console.log('내가 쓴 글그륵르르ㅡ르르르르르르ㅡ르ㅡ르르를 룸넘벌 :  ', roomNum);
     },
     methods: {
         
@@ -52,8 +50,6 @@ export default {
    .my-write-title{
        margin: 30px;
    }
-
-
 
 
 </style>

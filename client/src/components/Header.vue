@@ -25,8 +25,16 @@
                         :visible="visible"
                         @close="onClose"
                         >
-                        <p @click="gotoMypage()">내가 쓴 글</p>
-                        <p @click="gotoLikePage()">좋아요</p>
+                        <p @click="clickMypage()">내가 쓴 글</p>
+                        <div class="tab-box my-page-box">
+                            <p @click="gotoHomeTap(1)">home</p>
+                            <p @click="gotoLikeTap(1)">QnA</p>
+                        </div>  
+                        <p @click="clickLikePage()">좋아요</p>
+                        <div class="tab-box like-page-box">
+                            <p @click="gotoHomeTap(2)">home</p>
+                            <p @click="gotoLikeTap(2)">QnA</p>
+                        </div>
                         <p @click="gotoUpdatePage()">회원정보 변경</p>
                         <p @click="logout()">로그아웃</p>
                     </a-drawer>
@@ -57,6 +65,10 @@ export default{
             userAvatar: this.$store.state.user.user.userImg,
             //userAvatar: this.user.userImg,
             visible: false,
+
+            myVisible : 0,
+            likeVisible : 0
+
         }
     },
     
@@ -124,13 +136,40 @@ export default{
             
           
         },
-        gotoMypage() { // 내가 쓴 게시글 
-            this.visible = false;
+        clickMypage(){
+            if(this.myVisible === 0){
+                //tab 보여주기
+                document.querySelector('.my-page-box').style.display = "block";
+                this.myVisible = 1;
+            }else { // num이 1이므로 tab 닫아주기
+                document.querySelector('.my-page-box').style.display = "none";
+                this.myVisible = 0;
+            }
         },
-        gotoLikePage(){ // 좋아요 누른 게시글들
+        
+        clickLikePage(){
+            if(this.likeVisible === 0){
+                //tab 보여주기
+                document.querySelector('.like-page-box').style.display = "block";
+                this.likeVisible = 1;
+            }else { // num이 1이므로 tab 닫아주기
+                document.querySelector('.like-page-box').style.display = "none";
+                this.likeVisible = 0;
+            }
+
+        },
+        gotoHomeTap(num) { // Home 내가 쓴 게시글 + 좋아요 글
             this.visible = false;
             this.$router.push({
-                path: '/',  // 좋아요를 한 게시물들을 보여주는 페이지 ( 아직 안만듦 )
+                name:'TapHome',
+                params: { roomNum : num }  // 1 번이면 내가 쓴 게시글 2번이면 좋아요
+            })
+        },
+        gotoLikeTap(num){ // Ask 내가 쓴 게시글 + 좋아요 글
+            this.visible = false;
+            this.$router.push({
+                name:'TapAsk',
+                params: { roomNum : num }  // 1번이면 내가 쓴 게시글 2번이면 좋아요
             })
            
         },
@@ -223,6 +262,17 @@ export default{
     .router:hover{
         color: rgb(255, 122, 122);
       
+    }
+
+
+    .ddd{
+        display: none;
+    }
+
+    .tab-box{
+        display: none;
+        box-sizing: border-box;
+        margin : 10px 0px 10px 40px;
     }
     
 </style>
