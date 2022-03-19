@@ -61,8 +61,9 @@ const mutations = {
 const actions = {
 
     //내가 쓴 글 (Home)
-    getTapHomeWriteProcess: async ({commit}) => {
-        const result = await api.getHomeWritePreview()
+    tapHomeWriteProcess: async ({commit},payload) => {
+        const { userId } = payload;
+        const result = await api.homeWritePreview(userId)
             .then(res=>res)
             .catch(err=>err)
 
@@ -70,8 +71,8 @@ const actions = {
             commit('GET_HOME_WRITE_PREVIEW',result.data);
     },
     // 좋아요 (Home)
-    getTapHomeLikeProcess: async ({commit}) => {
-        const result = await api.getHomeLikePreview()
+    tapHomeLikeProcess: async ({commit}) => {
+        const result = await api.homeLikePreview()
             .then(res=>res)
             .catch(err=>err)
 
@@ -80,8 +81,8 @@ const actions = {
     },
 
     // 내가 쓴 글 (ask)
-    getTapAskWriteProcess: async ({commit}) => {
-        const result = await api.getAskWritePreview()
+    tapAskWriteProcess: async ({commit}) => {
+        const result = await api.askWritePreview()
             .then(res=>res)
             .catch(err=>err)
 
@@ -90,8 +91,8 @@ const actions = {
     },
 
     // 좋아요 (ask)
-    getTapAskLikeProcess: async ({commit}) => {
-        const result = await api.getAskLikePreview()
+    tapAskLikeProcess: async ({commit}) => {
+        const result = await api.askLikePreview()
             .then(res=>res)
             .catch(err=>err)
 

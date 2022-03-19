@@ -167,8 +167,10 @@ viewUp(contentId,boardNum){
 * 내가 쓴 글 보여주기 - Home
 *
 */
-getHomeWritePreview() {
-  return axios.get('/api/tap/getHomeWritePreview')
+homeWritePreview(userId) {
+  return axios.post('/api/tap/homeWritePreview',{
+    userId,
+  })
 },
 
 /*
@@ -176,8 +178,10 @@ getHomeWritePreview() {
 * 좋아요 - Home
 *
 */
-getHomeLikePreview() {
-  return axios.get('/api/tap/getHomeLikePreview')
+homeLikePreview() {
+  return axios.post('/api/tap/homeLikePreview',{
+
+  })
 },
 
 /*
@@ -185,8 +189,10 @@ getHomeLikePreview() {
 * 내가 쓴 글 보여주기 - Ask
 *
 */
-getAskWritePreview() {
-  return axios.get('/api/tap/getAskWritePreview')
+askWritePreview(userId) {
+  return axios.post('/api/tap/askWritePreview',{
+    userId
+  })
 },
 
 /*
@@ -194,8 +200,8 @@ getAskWritePreview() {
 * 좋아요 - Ask
 *
 */
-getAskLikePreview() {
-  return axios.get('/api/tap/getAskLikePreview')
+askLikePreview() {
+  return axios.post('/api/tap/askLikePreview')
 }
 
 

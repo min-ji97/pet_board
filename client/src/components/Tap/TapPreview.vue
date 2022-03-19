@@ -34,11 +34,10 @@ export default{
     data() {
         // const likeCheckList = likeList.filter(item => item.content_id === mainContentsPreview.content_id 
         // && item.board_num === 1 && item.user_id === user.user_id);
-        return {   
+        return {  
+            // userId : this.$store.state.user.user.userId,
             current: 1, 
             port : 3000,
-            // likeCheckList: likeCheckList,
-            //likeCheck : likeCheckList.like_check,
             likeCheck : 1,
         }
     },
@@ -67,16 +66,20 @@ export default{
             likeClass.classList.add('.like-icon');
         }
 
-        console.log('룸넘버가... 잘 찍히는지 볼까여...1',this.roomNum);
-        console.log('룸넘버가... 잘 찍히는지 볼까여...2',roomNum);
+        console.log('유저 아이디..! => ',this.user.userId);
+        // console.log('룸넘버가... 잘 찍히는지 볼까여...1',this.roomNum);
+        // console.log('룸넘버가... 잘 찍히는지 볼까여...2',roomNum);
     },
 
     async created(){
 
         //내가 쓴 글 : Home 
-        await this.$store.dispatch('tap/getTapHomeWriteProcess'); 
+        await this.$store.dispatch('tap/tapHomeWriteProcess',{
+            userId : this.user.userId
+        }); 
+        console.log('home-내가 쓴 글 잘 받아왔나여 => ',this.homeWriteContents);
         // 좋아요 : Home
-        await this.$store.dispatch('tap/getTapHomeLikeProcess'); // 좋아요가 아직 구현이 덜 됨.....ㅠ
+        //await this.$store.dispatch('tap/tapHomeLikeProcess'); // 좋아요가 아직 구현이 덜 됨.....ㅠ
     },
 
     methods: {
