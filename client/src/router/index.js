@@ -72,7 +72,7 @@ export default new Router({
       props: true
     },
     {
-      path: '/tap-preview', // roomNum이 1이면 내가 쓴 글 2면 내가 좋아요 
+      path: '/tap-preview', 
       name: 'TapPreview',
       component: TapPreview,
       props: true

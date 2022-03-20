@@ -200,8 +200,10 @@ askWritePreview(userId) {
 * 좋아요 - Ask
 *
 */
-askLikePreview() {
-  return axios.post('/api/tap/askLikePreview')
+askLikePreview(userId) {
+  return axios.post('/api/tap/askLikePreview',{
+    userId
+  })
 }
 
 

@@ -13,19 +13,7 @@ const state = {
     //ASK
 
     askWriteContents :[], 
-    askLikeContents : [
-        {
-            board_num : 1,
-            content: "룰루랄라",
-            content_id: 8,
-            create_at : "2022-03-10 ",
-            like_num: 1,
-            nickname: "joemin",
-            // preview_image : "1646935284991.gif",
-            title: "목데이터랍니다..!",
-            view_num : 33
-        }
-    ],
+    askLikeContents : [],
 
 };
 
@@ -92,8 +80,10 @@ const actions = {
     },
 
     // 내가 쓴 글 (ask)
-    tapAskWriteProcess: async ({commit}) => {
-        const result = await api.askWritePreview()
+    tapAskWriteProcess: async ({commit}, payload) => {
+        const { userId } = payload;
+
+        const result = await api.askWritePreview(userId)
             .then(res=>res)
             .catch(err=>err)
 
@@ -102,8 +92,10 @@ const actions = {
     },
 
     // 좋아요 (ask)
-    tapAskLikeProcess: async ({commit}) => {
-        const result = await api.askLikePreview()
+    tapAskLikeProcess: async ({commit},payload) => {
+        const { userId } = payload;
+
+        const result = await api.askLikePreview(userId)
             .then(res=>res)
             .catch(err=>err)
 
