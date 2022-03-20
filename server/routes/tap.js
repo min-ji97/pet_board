@@ -58,21 +58,20 @@ router.post('/homeLikePreview',(req, res)=>{
             res.json(resultinfo);
         }
     });
-
-
-
-
-
-
-
-
 });
+
+
+
 // 내가 쓴 글 (ask)
 router.post('/askWritePreview',(req, res)=>{
+
     let userId = req.body.userId;
 
-
-    let sql = `select * from ask_contents where user_id = ?`;
+    let sql = `select co.content_id, co.title , co.content, co.view_num, co.like_num, co.create_at, co.board_num, us.nickname
+    from ask_contents as co JOIN user as us
+    on co.user_id = us.user_id
+    where co.active = 'Y' and co.user_id = ?
+    order by co.content_id desc`;
 
     connection.query(sql,[userId],(err,result)=>{
         if(err){
@@ -89,6 +88,26 @@ router.post('/askWritePreview',(req, res)=>{
 
 // 좋아요 (ask)
 router.post('/askLikePreview',(req, res)=>{
+
+    let userId = req.body.userId;
+
+    let sql = `select co.content_id, co.title , co.content, co.view_num, co.like_num, co.create_at, co.board_num, us.nickname
+    from ask_contents as co JOIN user as us
+    on co.user_id = us.user_id
+    where co.active = 'Y' and co.user_id = 2
+    order by co.content_id desc`;
+
+    connection.query(sql,[userId],(err,result)=>{
+        if(err){
+
+        }else{
+            console.log('result => ',result);
+            
+            let json = JSON.stringify(result);
+            let resultinfo = JSON.parse(json);
+            res.json(resultinfo);
+        }
+    });
 
 });
 
