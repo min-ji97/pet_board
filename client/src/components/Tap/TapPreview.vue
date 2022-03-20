@@ -2,7 +2,7 @@
     <div>
                 <!-- <div class="previewImg">image</div> -->
         <div class="previewContainer">
-            <div v-for=" content of contentList" v-bind:key="content.contentId">
+            <div v-for=" content of list" v-bind:key="content.contentId">
                 <div class="previewBox" @click="goToDetailPage(content.content_id , content.board_num)">
                     <img class="previewImg"  alt="" :src="`http://localhost:${port}/images/${content.preview_image}`">
                     <div class="previewText">
@@ -30,12 +30,31 @@
 
 import { mapState ,mapGetters} from 'vuex'
 
+
+
 export default{
     data() {
-        // const likeCheckList = likeList.filter(item => item.content_id === mainContentsPreview.content_id 
-        // && item.board_num === 1 && item.user_id === user.user_id);
+        // const fff = this.childNum;
+        const homeWriteContents = this.$store.state.tap.homeWriteContents;
+        const homeLikeContents = this.$store.state.tap.homeLikeContents;
+
+        if(this.childNum === 1){ // : 내가 쓴 글
+            // this.list = homeWriteContents;
+            // var homeContents = homeWriteContents;
+            var write = homeWriteContents;
+            console.log('childNum이 1입니다. 내가 쓴 글을 보여줍니댜.');
+        } else { // this.childNum === 2 일 경우 : 좋아요
+            var like = homeLikeContents;
+            console.log('childNum이 2입니다. 좋아요 글을 보여줍니다.');
+        }
+        
         return {  
             // userId : this.$store.state.user.user.userId,
+            ddd : '',
+            writeList : write ,
+            likeList : like ,
+            // list: homeContents,
+            list: [] ,
             current: 1, 
             port : 3000,
             likeCheck : 1,
@@ -54,21 +73,34 @@ export default{
 
         ])
     },
+
     props: {
-        roomNum : {
+        childNum : {
             type : Number
         }
     },
+
     mounted(){
-        // 좋아요...추후...할.. 예정...ㅠㅠㅠㅡㅠㅠ
-        if(this.likeCheck === 1){ // 빨간 하트 디자인
-            const likeClass = document.querySelector('.pre-like i');
-            likeClass.classList.add('.like-icon');
+        console.log('유저 아이디..! => ',this.user.userId);
+        console.log('childNum을 잘 받아 올 것 인 가 여어어어억......ㅜㅡㅠㅜㅠㅡㅠㅡ', this.list);
+        // console.log('룸넘버가... 잘 찍히는지 볼까여...2',this.childNum);
+
+        if(this.childNum === 1){
+            this.list = this.writeList;
+            console.log('야 되냐???? => ',childNum);
+        }else{
+            this.list = this.likeList;
+            console.log('야 되냐???? => ',childNum);
         }
 
-        console.log('유저 아이디..! => ',this.user.userId);
-        // console.log('룸넘버가... 잘 찍히는지 볼까여...1',this.roomNum);
-        // console.log('룸넘버가... 잘 찍히는지 볼까여...2',roomNum);
+        // if(this.childNum === 1){ // : 내가 쓴 글
+        //     // this.list = homeWriteContents;
+        //     this.homeContents = this.writeContents;
+        //     console.log('childNum이 1입니다. 내가 쓴 글을 보여줍니댜.');
+        // } else { // this.childNum === 2 일 경우 : 좋아요
+        //     this.homeContents = homeLikeContents;
+        //     console.log('childNum이 2입니다. 좋아요 글을 보여줍니다.');
+        // }
     },
 
     async created(){
@@ -78,8 +110,11 @@ export default{
             userId : this.user.userId
         }); 
         console.log('home-내가 쓴 글 잘 받아왔나여 => ',this.homeWriteContents);
+
         // 좋아요 : Home
-        //await this.$store.dispatch('tap/tapHomeLikeProcess'); // 좋아요가 아직 구현이 덜 됨.....ㅠ
+        await this.$store.dispatch('tap/tapHomeLikeProcess',{
+            userId : this.user.userId
+        }); // 좋아요가 아직 구현이 덜 됨.....ㅠ
     },
 
     methods: {

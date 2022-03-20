@@ -13,7 +13,19 @@ const state = {
     //ASK
 
     askWriteContents :[], 
-    askLikeContents : [],
+    askLikeContents : [
+        {
+            board_num : 1,
+            content: "룰루랄라",
+            content_id: 8,
+            create_at : "2022-03-10 ",
+            like_num: 1,
+            nickname: "joemin",
+            // preview_image : "1646935284991.gif",
+            title: "목데이터랍니다..!",
+            view_num : 33
+        }
+    ],
 
 };
 
@@ -31,9 +43,7 @@ const getters = {
     },
     askLikeContentList : (state) => {
         return state.askLikeContents;
-    },
-
-  
+    },  
     
 };
 
@@ -71,8 +81,9 @@ const actions = {
             commit('GET_HOME_WRITE_PREVIEW',result.data);
     },
     // 좋아요 (Home)
-    tapHomeLikeProcess: async ({commit}) => {
-        const result = await api.homeLikePreview()
+    tapHomeLikeProcess: async ({commit} , payload) => {
+        const { userId } = payload;
+        const result = await api.homeLikePreview(userId)
             .then(res=>res)
             .catch(err=>err)
 

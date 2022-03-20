@@ -3,10 +3,9 @@
         <div class="my-write-title">
             <h1 v-if="roomNum === 1">내가 쓴 글</h1>
             <h1 v-else-if="roomNum === 2">좋아요</h1>
-            <h1> Home </h1>
         </div>
         <div class="preview-container">
-            <TapPreview v-bind="roomNum" /> 
+            <TapPreview v-bind:childNum="roomNum" /> 
         </div>      
     </div>
 </template>
@@ -49,6 +48,7 @@ export default {
 <style scoped>
    .my-write-title{
        margin: 30px;
+       text-align: center;
    }
 
 

@@ -8,9 +8,6 @@
         <div class="preview-container">
             <Preview/> 
         </div>
-
-        
-          
     </div>
 </template>
 

@@ -178,9 +178,9 @@ homeWritePreview(userId) {
 * 좋아요 - Home
 *
 */
-homeLikePreview() {
+homeLikePreview(userId) {
   return axios.post('/api/tap/homeLikePreview',{
-
+    userId
   })
 },
 

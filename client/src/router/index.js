@@ -13,7 +13,7 @@ import MyPage from '@/components/MyPage'
 
 import TapHome from '@/components/Tap/TapHome'
 import TapAsk from '@/components/Tap/TapAsk'
-// import TapPreview from '@/components/Tap/TapPreview'
+import TapPreview from '@/components/Tap/TapPreview'
 
 Vue.use(Router)
 
@@ -71,12 +71,12 @@ export default new Router({
       component: TapAsk,
       props: true
     },
-    // {
-    //   path: '/tap-preview', // roomNum이 1이면 내가 쓴 글 2면 내가 좋아요 
-    //   name: 'TapAsk',
-    //   component: TapAsk,
-    //   props: true
-    // },
+    {
+      path: '/tap-preview', // roomNum이 1이면 내가 쓴 글 2면 내가 좋아요 
+      name: 'TapPreview',
+      component: TapPreview,
+      props: true
+    },
 
 
 
