@@ -1,11 +1,12 @@
 <template>
   <div class="untitle">
-        <div class="my-write-title">
+        
+   
+    <div class="container">
+      <div class="my-write-title">
             <h1 v-if="roomNum === 1">내가 쓴 글</h1>
             <h1 v-else-if="roomNum === 2">좋아요</h1>
         </div>
-   
-    <div class="container">
       
         <a-table :columns="columns" :customRow="Rowclick" :data-source="askContents"  class="board-table">
           <a slot="name"  slot-scope="text">{{ text }}</a>
@@ -165,26 +166,27 @@ export default {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+      flex-direction: column;
       width: 100%;
   
   }
   
-     .write-btn{
+     /* .write-btn{
         align-self: flex-end;
         width: 100px;
         height: 40px;
         border : 1px solid pink;
         background-color: pink;
-    }
+    } */
     
     .board-table{
-        margin: 30px;
-        margin-top: 20px;
+        margin: 20px 30px 70px 30px;
+        /* margin-top: 20px; */
         text-align:center;
     }
     
     .my-write-title h1{
-       margin: 50px;
+       margin: 20px 20px 20px 50px;
        text-align: center;
        color: rgb(253, 113, 136);
     }

@@ -87,10 +87,9 @@ export default{
 
         if(this.childNum === 1){
             this.list = this.writeList;
-            console.log('야 되냐???? => ',childNum);
+
         }else{
             this.list = this.likeList;
-            console.log('야 되냐???? => ',childNum);
         }
 
         // if(this.childNum === 1){ // : 내가 쓴 글
@@ -143,7 +142,7 @@ export default{
         flex-wrap: wrap;
         justify-content: center;
         /* flex-direction: row; */
-        margin: 10px;
+        margin: 10px 10px 160px 10px;
         width: 100%;
         height: 100%; 
     }

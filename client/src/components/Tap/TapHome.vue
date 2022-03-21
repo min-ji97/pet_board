@@ -6,7 +6,7 @@
             <h1 v-else-if="roomNum === 2">좋아요</h1>
         </div>
         
-        
+    
         <div class="preview-container">
             <TapPreview v-bind:childNum="roomNum" /> 
         </div>      
@@ -17,7 +17,7 @@
 import TapPreview from '@/components/Tap/TapPreview'
 
 export default {
-    name: 'App',
+    name: '',
     components: {
        TapPreview 
     },
@@ -52,35 +52,31 @@ export default {
     /* .title-box{
         position: relative;
     } */
-
-
-
-    .my-write-title h1{
-       margin: 50px;
-       text-align: center;
-       color: rgb(253, 113, 136);
-    }
     
-   /* .my-write-title{
-       display: inline-block;
+    /* * {
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    } */
 
- 
-   }
 
    .my-write-title h1{
-       
-       margin: 50px;
+       margin: 20px 20px 20px 50px;
        text-align: center;
        color: rgb(253, 113, 136);;
    }
 
    .container{
-       box-sizing: border-box;
+       /* box-sizing: border-box; */
        margin: 0px;
+       margin-bottom: 30px;
        display: flex;
+       width: 100%;
+       flex-wrap: wrap;
        flex-direction: column;
        justify-content: center;
-   } */
+   }
 
 
 </style>
