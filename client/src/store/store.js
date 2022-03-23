@@ -9,6 +9,7 @@ import post from './modules/post/post';
 import update from './modules/update/update';
 import like from './modules/like/like';
 import tap from './modules/tap/tap';
+import register  from './modules/register/register';
 
 Vue.use(Vuex);
 
@@ -19,7 +20,8 @@ export const store = new Vuex.Store({
    post,
    update,
    like,
-   tap
+   tap,
+   register
   }, 
   // createPersistedState({
   //   storage: {

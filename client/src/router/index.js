@@ -10,6 +10,7 @@ import BoardPage from '@/components/BoardPage'
 import UpdatePage from '@/components/UpdatePage'
 import MainDetailPage from '@/components/MainDetailPage'
 import MyPage from '@/components/MyPage'
+import RegisterPage from '@/components/RegisterPage'
 
 import TapHome from '@/components/Tap/TapHome'
 import TapAsk from '@/components/Tap/TapAsk'
@@ -23,6 +24,11 @@ export default new Router({
       path: '/',
       name: 'MainPage',
       component: MainPage
+    },
+    {
+      path: '/register',
+      name: 'RegisterPage',
+      component : RegisterPage
     },
     {
       path: '/login',

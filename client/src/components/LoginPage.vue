@@ -31,7 +31,7 @@
                     </a-input>
                 </a-form-item>
                 <a-form-item>
-                    <a-checkbox
+                    <!-- <a-checkbox
                         v-decorator="[
                         'remember',
                         {
@@ -41,7 +41,7 @@
                         ]"
                     >
                         Remember me
-                    </a-checkbox>
+                    </a-checkbox> -->
                     <a class="login-form-forgot" href="#">
                         Forgot password
                     </a>
@@ -49,9 +49,10 @@
                         Log in
                     </a-button>
                     Or
-                    <a href="#">
+                    <!-- <a href="#" @click="goToRegister()">
                         register now!
-                    </a>
+                    </a> -->
+                    <span @click="goToRegister()" > register now! </span>
                 </a-form-item>
             </a-form>
         </div>
@@ -75,22 +76,26 @@ export default {
         handleSubmit(e) {
             e.preventDefault();
             this.form.validateFields(async(err, values) => {
-            if (!err) {
-                // this.$store.state.user.loginLoading = true;
-                await this.$store.dispatch('user/loginProcess',{
-                    id : values.id,
-                    password : values.password,
-                    ddd : values.remember,
-                });
-                if (this.$store.state.user.loginStatus) {
-                    
-                    this.$message.success('로그인에 성공하셨습니다!');
-                    this.$router.push({ name : 'MainPage' });
-                } else {
-                    this.$message.warning('아이디 또는 비밀번호가 일치하지 않습니다.');
+                if (!err) {
+                    // this.$store.state.user.loginLoading = true;
+                    await this.$store.dispatch('user/loginProcess',{
+                        id : values.id,
+                        password : values.password,
+                        ddd : values.remember,
+                    });
+                    if (this.$store.state.user.loginStatus) {
+                        
+                        this.$message.success('로그인에 성공하셨습니다!');
+                        this.$router.push({ name : 'MainPage' });
+                    } else {
+                        this.$message.warning('아이디 또는 비밀번호가 일치하지 않습니다.');
+                    }
                 }
-            }
             });
+        },
+        goToRegister(){
+            this.$router.push({ name: 'RegisterPage'});
+
         },
     },
 }
