@@ -11,7 +11,7 @@
             <div class="input-box">
               <!-- 이름 -->
               
-              <a-form-item v-bind="formItemLayout" >
+              <a-form-item >
                 <span>이름</span>
                   <a-input
                       v-decorator="[
@@ -23,72 +23,83 @@
                   />
               </a-form-item>
               <!-- 닉네임 -->
-              <a-form-item v-bind="formItemLayout"  label="닉네임" has-feedback>
+              <a-form-item label="닉네임" has-feedback>
                   <a-input 
-                      v-decorator="[
+                    v-decorator="[
                       'nickname',
                       {
-                          rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                        rules: [
+                          { required: true, message: 'Please input your nickname!' },
+                          {  message: '중복 검사를 실시해주세요...제발뜨면 좋겠따...눈물ㅇ..'}
+                        
+                        ],
                       },
                       {
-                        validator: checkNickname,
+                        validator:  checkNickNameFunc
                       },
-                      
-                      ]"
-                      type="name"
-                      
+                    ]"
+                    v-model="changeNick"
+                    
+                    type="name"
+                    
                   />
-                  <a-button @click="duplicateCheckNickname()">중복검사</a-button>
+                  <a-button v-if="checkNickName">OK</a-button>
+                  <a-button v-else-if="!checkNickName" @click="duplicateCheckNickname()">중복검사</a-button>
                   
               </a-form-item>
 
               <!-- 아이디  -->
-              <a-form-item v-bind="formItemLayout"  label="아이디">
+              <a-form-item label="아이디">
                   <a-input 
                       v-decorator="[
                       'id',
                       {
-                          rules: [{ required: true, message: 'Please input your id!', whitespace: true }],
+                        rules: [
+                          { required: true, message: 'Please input your id!', whitespace: true }
+                          
+                        ],
                       },
                       ]"
+                       v-model="changeId"
                   />
-                  <a-button @click="duplicateCheckId()">중복검사</a-button>
+                  <a-button v-if="checkId">OK</a-button>
+                  <a-button v-else-if="!checkId" @click="duplicateCheckId()">중복검사</a-button>
               </a-form-item>
 
               <!-- 비밀번호 -->
-              <a-form-item v-bind="formItemLayout" label="비밀번호" has-feedback>
+              <a-form-item  label="비밀번호" has-feedback>
                   <a-input
                       v-decorator="[
-                      'password',
-                      {
+                        'password',
+                        {
                           rules: [
-                          {
+                            {
                               required: true,
                               message: 'Please input your password!',
-                          },
-                          {
-                              validator: validateToNextPassword,
-                          },
+                            },
+                            {
+                              validator: checkNickNameFunc,
+                            },
                           ],
-                      },
+                        },
                       ]"
                       type="password"
                   />
               </a-form-item>
 
               <!-- 비밀번호 확인 -->
-              <a-form-item v-bind="formItemLayout" label="비밀번호 확인" has-feedback>
+              <a-form-item  label="비밀번호 확인" has-feedback>
                   <a-input
                       v-decorator="[
                       'confirm',
                       {
                           rules: [
                           {
-                              required: true,
-                              message: 'Please confirm your password!',
+                            required: true,
+                            message: 'Please confirm your password!',
                           },
                           {
-                              validator: compareToFirstPassword,
+                            validator: compareToFirstPassword,
                           },
                           ],
                       },
@@ -100,11 +111,11 @@
               </div>
 
               <div class="btn-box">
-                <a-form-item v-bind="tailFormItemLayout">
-                  <a-button type="primary" html-type="submit">
-                      Register
+                <a-form-item class="btn-box">
+                  <a-button class="submit-btn"  type="primary" html-type="submit">
+                    Register
                   </a-button>
-                  <span>login btn..!!</span>
+                  <div class="btn-login" @click="goToLogin()">login</div>
                 </a-form-item>
               </div>
           </a-form>
@@ -120,43 +131,57 @@ import { mapState } from 'vuex';
 export default {
   data() {
     return {
-      nickName: '어랏 왜 안찍히지',
-      dhkdlfksh: 1,
+      changeNick:'',  // 입력한 닉네임 (v-model)
+      nickName: '동동이',  // 디비에서 중복된 값이 있는지 가져올 녀석..!
+      // newNickName : '',
+      
+      // 중복 검사에 쓰이는 boolean값..!
+      checkNickName: '',
+      checkId: '',
+
 
       confirmDirty: false,
-      residences,
-      autoCompleteResult: [],
-      formItemLayout: {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 8 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
-      },
-      tailFormItemLayout: {
-        wrapperCol: {
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 8,
-          },
-        },
-      },
+      // residences,
+      // autoCompleteResult: [],
+      // formItemLayout: {
+      //   labelCol: {
+      //     xs: { span: 24 },
+      //     sm: { span: 8 },
+      //   },
+      //   wrapperCol: {
+      //     xs: { span: 24 },
+      //     sm: { span: 16 },
+      //   },
+      // },
+      // tailFormItemLayout: {
+      //   wrapperCol: {
+      //     xs: {
+      //       span: 24,
+      //       offset: 0,
+      //     },
+      //     sm: {
+      //       span: 16,
+      //       offset: 8,
+      //     },
+      //   },
+      // },
     }
   },
-  
+
+  watch : {
+    changeNick() {
+      this.checkNickName = false;
+    },
+    changeId(){
+      this.checkId = false;
+    }
+  },
+
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'register' });
   },
   methods: {
     handleSubmit(e) {
-       console.log('흑흐긓ㄱ', this.nickName);
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
@@ -172,18 +197,27 @@ export default {
       const form = this.form;
       if (value && value !== form.getFieldValue('password')) {
         
-        callback('Two passwords that you enter is inconsistent!');
+        callback('Two passwords that you enter is inconsistent!ggg');
       } else {
         callback();
       }
     },
     validateToNextPassword(rule, value, callback) {
-      console.log(value);
+      
       const form = this.form;
       if (value && this.confirmDirty) {
         form.validateFields(['confirm'], { force: true });
       }
       callback();
+    },
+    
+    checkNickNameFunc(rule, value, callback){
+      const form = this.form;
+      
+      console.log(form.getFieldValue('nickname'));
+      console.log('제발 좀 떠줬으면 너무너무 조케따..씨바..')
+
+     
     },
 
 
@@ -207,8 +241,20 @@ export default {
 
     duplicateCheckNickname() {
       console.log('씨팔!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-      console.log('닉네임..!', this.nickName);
-      console.log('닉네임..!', this.dhkdlfksh);
+      if(this.changeNick === ''){
+        console.log('닉네임을 입력해라!');
+      }else if(this.nickName === this.changeNick){
+        console.log('이미 존재하는 닉네임 입니다..!!~!');
+        this.checkNickName = false;
+
+      }else{
+        console.log('사용가능한 닉네임입니다..!');
+        this.checkNickName = true;
+
+      }
+
+     
+      
 
       // if(!this.changeNickname){
       //           this.$message.info('닉네임을 입력해주세요.');
@@ -234,6 +280,12 @@ export default {
     async duplicateCheckId(){
        console.log('닉네임..!', this.nickName);
 
+    },
+
+    goToLogin(){
+      this.$router.push({
+        path: '/login'
+      })
     }
   
   },
@@ -277,6 +329,27 @@ export default {
     margin: 30px;
   }
 
+  .btn-box{
+    display: flex;
+    justify-content: center;
+    /* flex-direction: column; */
+    /* flex-wrap: wrap; */
+  }
+
+  .submit-btn{
+    background-color:pink;
+    border-color: pink;
+  }
+  .submit-btn:hover{
+    background-color:white;
+    /* border-color: white; */
+    color: pink;
+  }
+
+  .btn-login{
+    text-align: center;
+    font-size: 18px;
+  }
  
  
 </style>
