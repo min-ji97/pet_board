@@ -92,6 +92,18 @@ NicknameCheck(changeNickname){
 },
 
 /*
+*
+* 아이디 중복검사
+*   
+*/
+idCheck(changeId){
+  console.log('아이디 중복 체크 api', changeId);
+  return axios.post('/api/update/idCheck',{
+    changeId,
+  })
+},
+
+/*
 * 닉네임 변경 
 */
 updateNickname(userId,changeNickname){

@@ -42,6 +42,7 @@ export default {
                 name: 'CreatePage',
                 params: { boardNum : 1 },
             })
+            console.log('글작성을 누르면 유저정보가 있는지 확인..! 없으면 글 작성 못함!',this.$store.state.user.user.id);
         }
 
     } 
