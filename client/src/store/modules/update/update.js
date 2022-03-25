@@ -22,7 +22,7 @@ const mutations = {
     setNicknameCheck ( state , checkResult ){
         state.nicknameCheck = checkResult;
     },
-    serIdCheck ( state , checkResult ){
+    setIdCheck ( state , checkResult ){
         state.idCheck = checkResult;
 
     }

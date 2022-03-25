@@ -23,8 +23,10 @@
                   />
               </a-form-item>
               <!-- 닉네임 -->
-              <a-form-item label="닉네임">
-                  <a-input class="input-nickname" ref="inputNickname"
+              <a-form-item >
+                <span>닉네임</span>
+                  <a-input class="input-nickname"  
+                    :class="{ 'input-border-red' : !checkNickName } "
                     v-decorator="[
                       'nickname',
                       {
@@ -44,31 +46,14 @@
                     type="name"
                   
                   />
-                  <a-button v-if="checkNickName">OK</a-button>
-                  <a-button v-else-if="!checkNickName" @click="duplicateCheckNickname()">중복검사</a-button> 
+                  <a-button v-if="checkNickName" class="ok-btn btn">OK</a-button>
+                  <a-button v-else-if="!checkNickName" class="dupli-btn btn"  @click="duplicateCheckNickname()">중복검사</a-button> 
              </a-form-item>
-
-              <!-- 중복 버튼을 폼 아이템으로 따로 빼보도록 합시다..... -->
-              <!-- <a-form-item>
-                <a-button v-if="checkNickName">OK</a-button>
-                <a-button v-else-if="!checkNickName"  has-feedback
-                  v-decorator="[
-                    'btn-nick', 
-                    {
-                      rules:[
-                        {
-                          validator: checkNickNameBtn
-                        }
-                      ]
-                    }
-                  ]"
-                
-                @click="duplicateCheckNickname()">중복검사</a-button>  
-              </a-form-item> -->
-              
+           
               <!-- 아이디  -->
-              <a-form-item label="아이디">
-                  <a-input class="input-id" ref="inputId"
+              <a-form-item>
+                <span>아이디</span>
+                  <a-input class="input-id" :class="{ 'input-border-red' : !checkId } "
                       v-decorator="[
                       'id',
                       {
@@ -80,12 +65,13 @@
                       ]"
                        v-model="changeId"
                   />
-                  <a-button v-if="checkId">OK</a-button>
-                  <a-button v-else-if="!checkId" @click="duplicateCheckId()">중복검사</a-button>
+                  <a-button v-if="checkId" class="ok-btn btn">OK</a-button>
+                  <a-button v-else-if="!checkId" class="dupli-btn btn" @click="duplicateCheckId()">중복검사</a-button>
               </a-form-item>
 
               <!-- 비밀번호 -->
-              <a-form-item  label="비밀번호" has-feedback>
+              <a-form-item has-feedback>
+                <span>비밀번호</span>
                   <a-input
                       v-decorator="[
                         'password',
@@ -106,7 +92,8 @@
               </a-form-item>
 
               <!-- 비밀번호 확인 -->
-              <a-form-item  label="비밀번호 확인" has-feedback>
+              <a-form-item has-feedback>
+                <span>비밀번호 확인</span>
                   <a-input
                       v-decorator="[
                       'confirm',
@@ -162,8 +149,7 @@ export default {
       changeId: '', // 입력한 아이디 (v-model)
       
       
-      nickName: '동동이',  // 디비에서 중복된 값이 있는지 가져올 녀석..!
-      
+  
       // newNickName : '',
       
       // 중복 검사에 쓰이는 boolean값..! (dom에서 사용함)
@@ -206,24 +192,21 @@ export default {
   watch : {
     
     changeNick() {
-      const inputNickClass = this.$ref.inputNickname;
-      const inputIdClass = this.$ref.inputId;
-      
-      console.log(inputNickClass);
+    
       this.checkNickName = false;
       console.log('닉네임 중복체크 하길 바람~');
       // const inputNickClass = document.querySelector('.input-nickname');
       // inputNickClass.classList.add('input-border-red');
-      if(!this.checkNickName){
-        inputNickClass.style.borderColor = red ;
-      }
+      // if(!this.checkNickName){
+      //   inputNickClass.style.borderColor = red ;
+      // }
       
     },
     changeId(){
       this.checkId = false;
       console.log('아이디 중복체크 하길 바람~');
       // const inputIdClass = document.querySelector('input-id');
-      inputIdClass.classList.add('.input-border-red');
+  
     },
    
   },
@@ -234,25 +217,38 @@ export default {
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFieldsAndScroll((err, values) => {
-        // const inputNickClass = document.querySelector('.input-nickname');
-        // const inputIdClass = document.querySelector('input-id');
+      // validateFieldsAndScroll
+      this.form.validateFields(async(err, values) => {
         if (!err) {
           if(!this.checkNickName){
-            console.log('닉네임 중복 검사를 실시해주세요!');
-            inputNickClass.classList.add('input-border-red');
+            this.$message.info('닉네임 중복 검사를 실시해주세요!');
+            
           }else if(!this.checkId){
-            console.log('아이디 중복 검사를 실시해주세요!');
-            inputIdClass.classList.add('input-border-red');
-          }else {// 다 제대로 잘 작성 된 것일듯..??
-            console.log('이름 => ',values.realname);
-            console.log('닉네임 => ',values.nickname);
-            console.log('아이디 => ',values.id);
-            console.log('비밀번호 => ', values.password);
-            console.log('이제 서버로 보낸 다음에 로그인 창으로 향하게 만들어주기..! 곧 끝이 보인다..!!이예!');
-            console.log('이제 로그인안하면 글 작성 못하게 만들어 줄 것 ~');
+            this.$message.info('아이디 중복 검사를 실시해주세요!');
+            
+          }else {
+            console.log('회원가입 버튼 누름..!',values);
+            await this.$store.dispatch('register/registerProcess',{
+              name : values.realname,
+              nickName : values.nickname,
+              id : values.id,
+              password : values.password, 
+            });
 
-            console.log('Received values of form: ', values);
+            this.$message.success('회원가입 성공!!');
+
+            this.$router.push({
+              path: '/login',
+            });
+
+            // console.log('이름 => ',values.realname);
+            // console.log('닉네임 => ',values.nickname);
+            // console.log('아이디 => ',values.id);
+            // console.log('비밀번호 => ', values.password);
+            // console.log('이제 서버로 보낸 다음에 로그인 창으로 향하게 만들어주기..! 곧 끝이 보인다..!!이예!');
+            // console.log('이제 로그인안하면 글 작성 못하게 만들어 줄 것 ~');
+
+            // console.log('Received values of form: ', values);
           }
         }
       });
@@ -282,40 +278,6 @@ export default {
       callback();
     },
     
-    // 잠시 주석처리.................................................!!!
-    // checkNickName(rule, value, callback){
-    
-    //   if(this.checkNickName){
-    //     callback();
-    //   }else{
-    //     callback('중복체크를 해주세요..!');
-    //   }
-    // },
-
-
-
-    // checkNickNameBtn(rule, value, callback){
-    //   callback();
-    // },
-
-
-    // checkNickname(rule, value, callback){ // 닉네임 중복 검사
-    //   console.log(value);
-    //   console.log('닉네임 중복 검사 창입니다.!');
-    //   console.log();
-      
-    //   const form = this.form;
-      
-    //   callback('띠발..!');
-    //   console.log('왜 안돼..?! => ',value);
-      
-
-      
-    //   console.log(value.nickname);
-    
-
-
-    // },
 
     async duplicateCheckNickname() {
      
@@ -330,12 +292,11 @@ export default {
         this.storeNicknameCheck = this.$store.state.update.nicknameCheck;
 
         if(this.storeNicknameCheck){ // this.storeNicknameCheck == true 중복이 아니니 닉네임 변경 가능! 
-          this.$message.success('닉네임 변경이 가능합니다!');
+          this.$message.success('사용가능한 닉네임 입니다.');
           this.checkNickName = true;
         } else {
           this.$message.info('이미 존재하는 닉네임 입니다.');
           this.checkNickName = false;
-          inputNickClass.classList.remove('input-border-red');
         }
       }
     },
@@ -358,7 +319,6 @@ export default {
         } else {
           this.$message.info('이미 존재하는 아이디 입니다.');
           this.checkId = false;
-          inputIdClass.classList.remove('input-border-red');
         }
       }
     },
@@ -420,6 +380,7 @@ export default {
   .submit-btn{
     background-color:pink;
     border-color: pink;
+    
   }
   .submit-btn:hover{
     background-color:white;
@@ -429,12 +390,27 @@ export default {
 
   .btn-login{
     text-align: center;
-    font-size: 18px;
+    font-size: 17px;
   }
  
 
   .input-border-red{
     border-color: red;
   }
- 
+  
+  .ok-btn,.dupli-btn{
+    float: right;
+  }  
+
+  .ok-btn{
+    color: white;
+    background-color:rgb(250, 170, 184);
+    border-color: white;
+  }
+
+  .dupli-btn:hover{
+    color: palevioletred;
+    background-color:white;
+    border-color: palevioletred;
+  }
 </style>

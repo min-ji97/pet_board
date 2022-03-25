@@ -17,14 +17,20 @@ export default {
   },
 
   /**
-   * 회원가입c
+   * 회원가입
+   * @param name
+   * @param nickName
    * @param id
    * @param password
    * @returns {AxiosPromise<any>}
    */
-  register() {
-    return axios.post({
-
+  register(name, nickName, id, password) {
+    console.log('api 회원가입입니다.',name,nickName,id,password);
+    return axios.post('/api/post/register',{
+      name,
+      nickName,
+      id,
+      password,
     });   
   },
   /**
