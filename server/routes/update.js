@@ -30,7 +30,25 @@ router.post('/nickNameCheck',(req,res)=>{
             
         }
     });
+})
 
+router.post('/idCheck', (req, res)=>{
+    console.log('회원가입 - 아이디 중복체크 ');
+
+    let id = req.body.changeId;
+    let sql= `select id from user where id = ? `;
+
+    connection.query(sql,[id],(err, result) => {
+        if(err) {
+
+        }else{
+            if(result[0]){  // 중복임 false 전송
+                res.json(false);
+            }else{   // 없음 true 전송 
+                res.json(true);
+            }
+        }
+    })
 })
 
 router.post('/updateNickname',(req,res)=>{

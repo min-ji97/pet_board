@@ -6,6 +6,30 @@ var connection = mysql_dbc.init();
 mysql_dbc.test_open(connection);
 
 
+// 회원가입
+router.post('/register',(req, res) =>{
+    console.log('서버로 드디어 넘어옴..!!!!!이예!!!');
+    
+    let name = req.body.name;
+    let nickName = req.body.nickName;
+    let id = req.body.id;
+    let password = req.body.password;
+
+    console.log(name, nickName, id, password);
+
+    let params = [name, nickName, id, password ];
+    let sql = `insert into user(name, nickname , id, password)
+    values(?,?,?,?)`;
+
+    connection.query(sql, params,(err,result)=>{
+        if(err){
+            
+        }else{
+            res.json({ result : true });
+        }
+    })
+});
+
 router.get('/getMainPostPreview',(req,res)=>{
     
     // mainContent 테이블?! introContent 테이블?!?!?!
