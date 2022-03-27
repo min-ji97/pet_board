@@ -38,11 +38,17 @@ export default {
     },
     methods: {
         gotoWrite() {
-            this.$router.push({
-                name: 'CreatePage',
-                params: { boardNum : 1 },
-            })
-            console.log('글작성을 누르면 유저정보가 있는지 확인..! 없으면 글 작성 못함!',this.$store.state.user.user.id);
+            if(!this.$store.state.user.user.id){
+                this.$message.info('로그인이 필요합니다!');
+                this.$router.push({
+                    path: '/login'
+                })
+            }else{
+                this.$router.push({
+                    name: 'CreatePage',
+                    params: { boardNum : 1 },
+                });
+            }
         }
 
     } 

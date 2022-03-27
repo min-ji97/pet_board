@@ -104,12 +104,19 @@ export default {
   },
   methods: {
     gotoWrite(){
-      this.$router.push({
-        name: 'CreatePage',
-        params: {
-          boardNum : 2
-        }
-      })
+      if(!this.$store.state.user.user.id){
+        this.$message.info('로그인이 필요합니다!');
+        this.$router.push({
+          path: '/login'
+        });
+      }else{
+        this.$router.push({
+          name: 'CreatePage',
+          params: {
+            boardNum : 2
+          }
+        })
+      }
     },
     // async goToDetailPage(content_id){
      

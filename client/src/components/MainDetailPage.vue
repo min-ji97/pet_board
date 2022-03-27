@@ -8,22 +8,28 @@
 
             <table class="table-box">
                 <colgroup>
-                    <col style="width:30%">
-                    <col style="width:30%">
+                    <col style="width:10%">
                     <col style="width:20%">
-                    <col style="width:20%">
+                    <col style="width:40%">
+                    <col style="width:10%">
+                    <col style="width:10%">
+                    <col style="width:10%">
+                    
                 </colgroup>
                 
                 <tr class="title-box">
-                    <td colspan="4">{{title}}</td>
+                    <td class="padding-10px" colspan="6">{{title}}</td>
                 </tr>
-                <tr class="info-box">
-                    <td>{{nickname}}</td>
-                    <td>{{$moment(createAt).format('YYYY-MM-DD a h:mm:ss')}}</td>
-                    <td><a-icon type="eye" class="view-icon" /> {{viewNum}}</td>
+                <tr class="info-box " >
+                    <td class="padding-10px" ></td>
+                    <td class="padding-10px">{{nickname}}</td>
+                    <td class="padding-10px">{{$moment(createAt).format('YYYY-MM-DD a h:mm:ss')}}</td>
+                    <td class="padding-10px"><a-icon type="eye" class="view-icon" /> {{viewNum}}</td>
                     <!-- <td v-if="likeStatus"><a-icon type="heart" class="like-icon">좋아요 {{likeNum}}</td>  -->
                    
-                    <td><a-icon class="no-like-icon" type="heart" @click="heartToggle()"  /> {{likeNum}}</td>
+                    <td class="padding-10px"><a-icon class="no-like-icon" type="heart" @click="heartToggle()"  /> {{likeNum}}</td>
+
+                    <td class="padding-10px"></td>
                    
                    <!-- 좋아요를 누르면 클래스를 추가해줘서 색 변하게 합시다...!! 그게 이쁘고 빠를뜻!! -->
 
@@ -34,21 +40,47 @@
                     </td> -->
                 </tr>
                 <tr class="content-box">
-                    <td colspan="4" class="padding-30px"  v-html="content"> </td>
+                    <td colspan="6" class="padding-30px"  v-html="content"> </td>
                 </tr>
                 <!-- <tr class="content-box">
                     <td colspan="4">
                         <editor-content :editor="editor" />
                     </td>
-                </tr> -->
-
-                
-
+                </tr> -->   
             </table>
-            <div class="commet-container">
-                여기는 댓글이 올 부분입니다. 
-               
+
+            <div class="comment-container">
+                <div class="comment-title">댓글</div>
+                <div class="comment-review">
+                    댓글이 올 부분인데...왜 100%가 안될까유...눈물 주루룩...
+                </div>
+                <table class="comment-table">
+                    
+                    <tbody>
+                        <tr>
+                            <td>   
+                                <textarea name="" id="" cols="100" rows="4"></textarea>  
+                            </td>
+                            <td>
+                                <button class="comment-btn">댓글</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
+            
+<!--  임시!! 지우지 말것 위에 테이블이 성공하면 지울 것~~
+            <div class="commet-container">
+                <div class="comment-review">
+
+                </div>
+
+                <div class="comment-input">
+                    <textarea name="" id="" cols="100" rows="4"></textarea>
+                    <button class="comment-btn">댓글</button>
+                </div>
+            </div> -->
 
         </div>
         
@@ -214,9 +246,12 @@ export default {
 </script>
 
 <style scoped>
+
 .board-container{
-    
-    width: 100%;
+
+    margin: auto;
+    margin-bottom: 100px;
+    width: 90%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -232,32 +267,49 @@ export default {
 }
 
 .table-box{
-    background-color: #fffdf4;
+    /* background-color: rgb(233, 221, 221); */
     font-size: 30px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    
     width: 100%;
     /* height: 500px;  임시 */
     margin: 10px 80px 50px 80px;
 }
-.table-box tr td{
-    padding: 10px;
+
+.table-box tr {
+    border:1px solid ;
+    border-color: rgb(173, 155, 155) white;
 }
+
+.table-box tr td {
+    margin: 10px;
+}
+
 .title-box{
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    /* border-color : black ; */
+    /* background-color: rgb(253, 204, 212); */
+    background-color: rgb(243, 232, 232);
     text-align: center;
     font-size: 20px;
     padding: 10px;
 }
 
 .info-box{
-    border: 1px solid black;
+    /* border: 1px solid black ; */
+    /* border-color : black; */
     text-align: center;
     font-size: 20px;
     padding: 10px;
 }
 
+.info-box td{
+    margin : 10px;
+}
+
 .content-box{
-    border: 1px solid black;
+    /* border: 1px solid black ; */
+    
     /* text-align: center; */
     font-size: 20px;
     vertical-align: top;
@@ -273,18 +325,82 @@ export default {
 
 }
 
-
+/* 
+    댓글!!!!!!!!!
+*/
+.comment-title{
+    float: left;
+    margin: 10px;
+    
+}
 .commet-container{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+
+    /* margin: auto; */
+    margin-bottom: 200px;
+    /* box-sizing: border-box; */
     border: 1px solid rgb(243, 216, 216);
-    width: 100%;
+    width: 90%;
+    height: 100%;
+    /* height: 500px; */
     /* margin: 30px; */
-    height: 200px;  /* 임시 */
+     /* 임시 */
     font-size: 20px;
 }
 
+.comment-table{
+    width: 100%;
+    margin: 50px;
+
+}
+
+.comment-table tbody td:nth-child(1){
+    width: 500px;
+}
+
+.comment-table tbody td:nth-child(2){
+    width: 300px;
+}
+
+.comment-review{  
+    /* box-sizing: border-box;   */
+    width: 90%;
+    height: 200px;
+    background-color: red;
+    /* margin: auto; */
+    margin : 0px 50px ;
+
+
+}
+
+.comment-input{
+    /* position: absolute; */
+    /* margin: auto; */
+    margin : 20px;
+    /* width: 80%; */
+    height: 50px;
+    bottom: 0;
+}
+
+.comment-input textarea{
+    height: 100px;
+    max-height: 200px;
+}
+
+.comment-btn{
+    width: 80px;
+    height: 80px;
+    float: left;
+}
+
+/*  댓글 요기까지임...!
+
+*/
+
 .view-icon{
     margin-right: 20px;
-
 }
 
 .like-icon{
@@ -301,7 +417,10 @@ export default {
     width: 50%;
 } */
  
- .padding-30px{
-    padding:30px;
- }
+.padding-10px {
+    padding: 10px;
+}  
+.padding-30px {
+    padding : 30px;
+}
 </style>
