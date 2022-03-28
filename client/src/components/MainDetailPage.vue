@@ -52,6 +52,7 @@
             <div class="comment-container">
                 <div class="comment-title">댓글</div>
                 <div class="comment-review">
+                    <Comment v-bind:childNum="roomNum"/>
                     댓글이 올 부분인데...왜 100%가 안될까유...눈물 주루룩...
                 </div>
                 <table class="comment-table">
@@ -91,6 +92,7 @@
 
 import { mapState } from 'vuex';
 import { Editor, EditorContent } from 'tiptap';
+import Comment from '@/components/Comment'
 // import StarterKit from 'tiptap/starter-kit'
 
 export default {
@@ -138,6 +140,7 @@ export default {
     },
     components: {
         EditorContent,
+        Comment,
     },
     computed: {
         ...mapState('post',[
@@ -335,7 +338,7 @@ export default {
 }
 .commet-container{
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     flex-direction: column;
 
     /* margin: auto; */
