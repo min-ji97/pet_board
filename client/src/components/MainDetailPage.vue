@@ -50,12 +50,22 @@
             </table>
 
             <div class="comment-container">
-                <div class="comment-title">댓글</div>
-                <div class="comment-review">
-                    <Comment v-bind:childNum="roomNum"/>
-                    댓글이 올 부분인데...왜 100%가 안될까유...눈물 주루룩...
+                <div class="flex-center">
+                    <div class="comment-title">댓글(10)</div>
+                    <div class="border-deco"></div>
                 </div>
-                <table class="comment-table">
+                
+                <div class="comment-review">
+                    <Comment v-bind:roomNum="roomNum" v-bind:contentId="contentId"/>
+                </div>
+
+                <div class="comment-input">
+                    <textarea name="" id="" cols="100" rows="4"></textarea>
+                    <a-button class="comment-btn">댓글</a-button>
+                </div>
+
+
+                <!-- <table class="comment-table">
                     
                     <tbody>
                         <tr>
@@ -67,7 +77,9 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
+
+
 
             </div>
             
@@ -331,31 +343,57 @@ export default {
 /* 
     댓글!!!!!!!!!
 */
-.comment-title{
-    float: left;
-    margin: 10px;
-    
-}
-.commet-container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
 
+
+
+.comment-container{
+    display: flex;
+    /* justify-content: center; */
+    flex-flow: column wrap;
+    justify-content: flex-start;
     /* margin: auto; */
     margin-bottom: 200px;
     /* box-sizing: border-box; */
-    border: 1px solid rgb(243, 216, 216);
-    width: 90%;
+    /* border: 1px solid rgb(216, 0, 0); */
+    width: 70%;
     height: 100%;
+    background-color:#f3e8e8;
     /* height: 500px; */
     /* margin: 30px; */
      /* 임시 */
     font-size: 20px;
 }
 
+.flex-center{
+    display: flex;
+    /* justify-content: center; */
+    /* align-self: flex-start; */
+    flex-direction: column;
+
+    /* #f3e8e8 */
+}
+
+.comment-title{
+    
+    align-self: center;
+    margin: 20px 0px 20px 0px;
+  
+}
+.border-deco{
+    align-self: center;
+    width: 70px;
+    height: 0px;
+    float : left;
+    margin: 0px 0px 20px 0px ;
+    border: 1px solid rgb(85, 85, 85);
+}
+
+
 .comment-table{
     width: 100%;
     margin: 50px;
+    display: flex;
+    justify-content: center;
 
 }
 
@@ -367,35 +405,54 @@ export default {
     width: 300px;
 }
 
-.comment-review{  
+.comment-review{
+    align-self: center;  
     /* box-sizing: border-box;   */
-    width: 90%;
-    height: 200px;
-    background-color: red;
+    width: 100%;
+    /* height: 200px; */
+    /* background-color: rgb(247, 162, 162); */
     /* margin: auto; */
-    margin : 0px 50px ;
+    margin-bottom: 50px ;
 
 
 }
 
 .comment-input{
     /* position: absolute; */
-    /* margin: auto; */
-    margin : 20px;
-    /* width: 80%; */
-    height: 50px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 90%;
+    /* padding: 20px; */
+    /* box-sizing: border-box; */
+    /* height: 50px; */
     bottom: 0;
+    
 }
 
 .comment-input textarea{
+    
     height: 100px;
     max-height: 200px;
+    width: 80%;
+    margin-right:10px;
+    align-items: center;
 }
 
 .comment-btn{
     width: 80px;
     height: 80px;
     float: left;
+    background-color: white;
+    color: rgb(233, 160, 160);
+    border: 1px solid rgb(118, 118, 118);
+}
+.comment-btn:hover {
+    border: 1px solid rgb(243, 147, 147);
+    background-color: rgb(243, 147, 147) ;
+    color: white;
 }
 
 /*  댓글 요기까지임...!

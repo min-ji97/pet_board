@@ -12,6 +12,7 @@ import MainDetailPage from '@/components/MainDetailPage'
 import MyPage from '@/components/MyPage'
 import RegisterPage from '@/components/RegisterPage'
 
+
 import TapHome from '@/components/Tap/TapHome'
 import TapAsk from '@/components/Tap/TapAsk'
 import TapPreview from '@/components/Tap/TapPreview'
@@ -83,6 +84,7 @@ export default new Router({
       component: TapPreview,
       props: true
     },
+
 
   ]
 })
