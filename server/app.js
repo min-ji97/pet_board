@@ -24,6 +24,7 @@ var userInfoRouter = require('./routes/userInfo');
 var updateRouter = require('./routes/update');
 var postRouter = require('./routes/post');
 var tapRouter = require('./routes/tap');
+var commentRouter = require('./routes/comment');
 
 var app = express();
 
@@ -137,6 +138,7 @@ app.use('/api/userInfo', userInfoRouter);
 app.use('/api/update', updateRouter);
 app.use('/api/post', postRouter);
 app.use('/api/tap', tapRouter);
+app.use('/api/comment',commentRouter);
 
 // app.post('/api/userInfo/changeProfile',(req,res)=>{
 
