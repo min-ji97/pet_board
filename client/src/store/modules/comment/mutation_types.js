@@ -1,0 +1,4 @@
+export const GET_MAIN_COMMENT = ' GET_MAIN_COMMENT';
+export const GET_ASK_COMMENT = 'GET_ASK_COMMENT';
+
+

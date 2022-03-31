@@ -121,7 +121,7 @@ export default {
         }
         
         // const like = this.$store.state.like.likeList;
-        // const likeCheckList = like.filter(item => item.content_id === contentId 
+        // c    onst likeCheckList = like.filter(item => item.content_id === contentId 
         // && item.board_num === roomNum && item.user_id === user.user_id)[0];
 
         

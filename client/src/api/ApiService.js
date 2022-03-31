@@ -222,7 +222,28 @@ askLikePreview(userId) {
   return axios.post('/api/tap/askLikePreview',{
     userId
   })
-}
+},
+
+/**
+ * 
+ * 댓글 - main comment
+ * 
+ */
+
+getMainComment(){
+  return axios.get('/api/comment/getMainComment')
+},
+
+/**
+ * 
+ * 댓글 - ask comment
+ * 
+ */
+
+ getAskComment(){
+  return axios.get('/api/comment/getAskComment')
+},
+
 
 
 // changeProfile(file,config){

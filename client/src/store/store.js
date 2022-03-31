@@ -10,6 +10,7 @@ import update from './modules/update/update';
 import like from './modules/like/like';
 import tap from './modules/tap/tap';
 import register  from './modules/register/register';
+import comment from './modules/comment/comment'
 
 Vue.use(Vuex);
 
@@ -21,7 +22,8 @@ export const store = new Vuex.Store({
    update,
    like,
    tap,
-   register
+   register,
+   comment
   }, 
   // createPersistedState({
   //   storage: {
