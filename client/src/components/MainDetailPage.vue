@@ -56,11 +56,11 @@
                 </div>
                 
                 <div class="comment-review">
-                    <Comment v-bind:roomNum="roomNum" v-bind:contentId="contentId"/>
+                    <Comment :roomNum="roomNum" :contentId="contentId"/>
                 </div>
 
                 <div class="comment-input">
-                    <textarea name="" id="" cols="100" rows="4"></textarea>
+                    <textarea name="" id="" cols="100" rows="4" maxlength="500"></textarea>
                     <a-button class="comment-btn">댓글</a-button>
                 </div>
 

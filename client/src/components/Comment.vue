@@ -48,11 +48,24 @@
 
 export default {
     data() {
-
+        const contentId = Number(this.$route.params.contentId);
+        const roomNum = Number(this.$route.params.roomNum);
+        return {
+            contentId : contentId,
+            roomNum : roomNum,
+        }
     },
     props:{
         contentId : Number,
         roomNum : Number,
+    },
+    async created(){
+       
+
+        
+    },
+    methods: {
+
     }
 }
 </script>
