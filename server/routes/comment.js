@@ -10,19 +10,13 @@ mysql_dbc.test_open(connection);
 router.get('/getMainComment',(req, res) =>{
     
     
-    let content_id = req.body.content_id;
-    
-
-    console.log(content_id);
-
-    let params = [content_id];
-    let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at
+    let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at , com.content_id
     from main_comment as com Join user as us
     on com.user_id = us.user_id 
-    where com.active = 'Y' and com.content_id = ?
+    where com.active = 'Y'
     order by com.comment_id desc `;
 
-    connection.query(sql, params ,(err,result)=>{
+    connection.query(sql, (err,result)=>{
         if(err){
             
         }else{
@@ -36,20 +30,13 @@ router.get('/getMainComment',(req, res) =>{
 // 질문 컨텐츠의 댓글 불러오기
 router.get('/getAskComment',(req, res) =>{
     
-    
-    let content_id = req.body.content_id;
-    
-
-    console.log(content_id);
-
-    let params = [content_id];
     let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at
     from ask_comment as com Join user as us
     on com.user_id = us.user_id 
-    where com.active = 'Y' and com.content_id = ?
+    where com.active = 'Y'
     order by com.comment_id desc `;
 
-    connection.query(sql, params ,(err,result)=>{
+    connection.query(sql, (err,result)=>{
         if(err){
             
         }else{
@@ -59,6 +46,58 @@ router.get('/getAskComment',(req, res) =>{
         }
     })
 });
+// router.get('/getMainComment',(req, res) =>{
+    
+    
+//     let content_id = req.body.content_id;
+    
+
+//     console.log(content_id);
+
+//     let params = [content_id];
+//     let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at
+//     from main_comment as com Join user as us
+//     on com.user_id = us.user_id 
+//     where com.active = 'Y' and com.content_id = ?
+//     order by com.comment_id desc `;
+
+//     connection.query(sql, params ,(err,result)=>{
+//         if(err){
+            
+//         }else{
+//             let json = JSON.stringify(result);
+//             let resultinfo = JSON.parse(json);
+//             res.json(resultinfo);
+//         }
+//     })
+// });
+
+// // 질문 컨텐츠의 댓글 불러오기
+// router.get('/getAskComment',(req, res) =>{
+    
+    
+//     let content_id = req.body.content_id;
+    
+
+//     console.log(content_id);
+
+//     let params = [content_id];
+//     let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at
+//     from ask_comment as com Join user as us
+//     on com.user_id = us.user_id 
+//     where com.active = 'Y' and com.content_id = ?
+//     order by com.comment_id desc `;
+
+//     connection.query(sql, params ,(err,result)=>{
+//         if(err){
+            
+//         }else{
+//             let json = JSON.stringify(result);
+//             let resultinfo = JSON.parse(json);
+//             res.json(resultinfo);
+//         }
+//     })
+// });
 
 // main 댓글 작성하기
 

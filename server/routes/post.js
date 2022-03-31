@@ -30,6 +30,7 @@ router.post('/register',(req, res) =>{
     })
 });
 
+// 메인 게시글 미리보기 
 router.get('/getMainPostPreview',(req,res)=>{
     
     // mainContent 테이블?! introContent 테이블?!?!?!
@@ -54,6 +55,7 @@ router.get('/getMainPostPreview',(req,res)=>{
     });
 });
 
+// 질문 게시글 미리보기
 router.get('/getAskPostPreview',(req,res)=>{
     console.log('큐엔이이 게시판 안들어오냐??');
     let sql = `select co.content_id, co.title , co.content, co.view_num, co.like_num, co.create_at, co.board_num, us.nickname
@@ -73,6 +75,7 @@ router.get('/getAskPostPreview',(req,res)=>{
     });
 });
 
+// 메인 게시글 작성
 router.post('/mainWrite',(req,res)=>{
 
     let user_id = req.body.userId;
@@ -98,6 +101,7 @@ router.post('/mainWrite',(req,res)=>{
     
 });
 
+// 질문 게시글 작성 
 router.post('/askWrite',(req, res)=>{
 
     let user_id = req.body.userId;
@@ -119,7 +123,7 @@ router.post('/askWrite',(req, res)=>{
 
 });
 
-
+// 조회수 증가 
 router.post('/viewUp',(req,res)=>{
     let content_id = req.body.contentId;
     let board_num = req.body.boardNum;
