@@ -184,15 +184,14 @@ export default {
         
     },
     mounted() {
-    this.editor = new Editor({
-      content: this.content,
-    });
+        this.editor = new Editor({
+            content: this.content,
+        });
 
+        console.log('넘어온 콘텐츠 아이디 : ',this.contentId);
+        console.log('넘어온 룸넘버 : ',this.roomNum);
     
-    console.log('넘어온 콘텐츠 아이디 : ',this.contentId);
-    console.log('넘어온 룸넘버 : ',this.roomNum);
-    
-  },
+    },
 
     methods: {
         goToMain() {

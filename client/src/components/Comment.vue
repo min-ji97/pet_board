@@ -21,6 +21,7 @@
 
 <script>
 
+import { mapState } from 'vuex'
 
 export default {
     data() {
@@ -30,9 +31,12 @@ export default {
         if(roomNum === 1) { // 메인 댓글을 불러오기..!
             var list = this.$store.state.comment.mainComment;
             var commentList = list.filter(item => item.content_id === contentId);
-        } else {
+            console.log('룸넘버가 1입니다. => ',list,' => ',commentList);
+            console.log('댓글이 몇개인지 어떻게 구할까여 => ', commentList.length);
+        }else {
             var list = this.$store.state.comment.askComment;
             var commentList = list.filter(item => item.content_id === contentId);
+            console.log('룸넘버가 2입니다. => ',list,' => ',commentList);
         }
         
 
@@ -47,6 +51,12 @@ export default {
             // askCommentList : askCommentList,
         }
     },
+    computed: {
+        ...mapState('comment',[
+            'mainComment',
+            'askComment'
+        ])
+    },
     props:{
         contentId : Number,
         roomNum : Number,
@@ -57,6 +67,7 @@ export default {
 
         
     },
+    
     methods: {
 
     }
