@@ -27,7 +27,7 @@ export default {
             
         }
     },
-    created() {
+    async created() {
         window.scrollTo(0,0);
         //새로고침
         window.onload = ()=>{
@@ -35,6 +35,9 @@ export default {
                 scrollTo(0,0);
             },100);
         }
+        // await this.$store.dispatch('');
+        await this.$store.dispatch('comment/getMainCommentProcess');
+        await this.$store.dispatch('comment/getAskCommentProcess');
     },
     methods: {
         gotoWrite() {

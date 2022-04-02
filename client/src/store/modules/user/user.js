@@ -58,9 +58,13 @@ const mutations = {
     [types.FETCH_USER_PASSWORD] (state , password){
         state.user.password = password;
     },
-    setUserImage( state , userImage) {
+    [types.SET_USER_IMAGE] (state , userImage){
         state.user.userImg = userImage;
     },
+
+    // setUserImage( state , userImage) {
+    //     state.user.userImg = userImage;
+    // },
 
     fetchLoginStatus( state, loginStatus){
         state.loginStatus = loginStatus;
@@ -87,7 +91,7 @@ const actions = {
             commit('fetchLoginStatus', loginResult.loginStatus);
             if(loginResult.user.user_image){
                 console.log('유저이미지가 있을때 뜨는 로그입니당');
-                commit('setUserImage',loginResult.user.user_image);
+                commit('SET_USER_IMAGE',loginResult.user.user_image);
             }
         }
     },
@@ -111,7 +115,7 @@ const actions = {
             .catch(err=>err);
         
         let image = imgUpdateResult.user_image;
-        commit('setUserImage',image);
+        commit('SET_USER_IMAGE',image);
     },
 
 

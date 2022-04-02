@@ -1,14 +1,10 @@
 import api from '@/api/ApiService';
 import * as types from './mutation_types';
 
-// import * as types from './mutation_types';
-
 const state = {
     
     mainComment : [],
-    // content_id , content , nickname , preview_image, title , create_at , like_num , view_num
     askComment : [],
-    // askContentsPreview: [],
 };
 
 const getters = {
@@ -26,7 +22,7 @@ const mutations = {
     },
     [types.GET_ASK_COMMENT]( state , contents) {
         state.askComment = contents;
-    }
+    },
 };  
 
 const actions = {
@@ -48,6 +44,19 @@ const actions = {
             console.log('질문 댓글 결과! result => ',result.data);
             commit('GET_ASK_COMMENT',result.data);
 
+    },
+    writeMainComment: async({commit},payload)=>{
+        const { contentId , userId, context } = payload;
+        const result = await api.writeMainComment(contentId, userId, context)
+            .then(res=>res)
+            .catch(err=>err)   
+    },
+
+    writeAskComment: async({commit},payload)=>{
+        const { contentId , userId, context } = payload;
+        const result = await api.writeAskComment(contentId, userId, context)
+            .then(res=>res)
+            .catch(err=>err)
     },
 
 };

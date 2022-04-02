@@ -51,17 +51,18 @@
 
             <div class="comment-container">
                 <div class="flex-center">
-                    <div class="comment-title">댓글(10)</div>
+                    <div class="comment-title">댓글 ( {{this.commentList.length}} )</div>
                     <div class="border-deco"></div>
                 </div>
                 
                 <div class="comment-review">
-                    <Comment :roomNum="roomNum" :contentId="contentId"/>
+                    <Comment :commentList="commentList"/>
+                    <!-- <Comment :roomNum="roomNum" :contentId="contentId"/> -->
                 </div>
 
                 <div class="comment-input">
-                    <textarea name="" id="" cols="100" rows="4" maxlength="500"></textarea>
-                    <a-button class="comment-btn">댓글</a-button>
+                    <textarea v-model="inputComment" name="" id="" cols="100" rows="4" maxlength="500"></textarea>
+                    <a-button @click="commentBtn" class="comment-btn">댓글</a-button>
                 </div>
 
 
@@ -112,12 +113,21 @@ export default {
         const contentId = Number(this.$route.params.contentId);
         const roomNum = Number(this.$route.params.roomNum);
 
+        const userId = this.$store.state.user.user.userId;
+
         if(roomNum === 1){
             var previewContents = this.$store.state.post.mainContentsPreview;
             var contentData = previewContents.filter(item => item.content_id === contentId)[0];
+
+            var list = this.$store.state.comment.mainComment;
+            var commentList = list.filter(item => item.content_id === contentId);
+
         }else {
             var previewAsk = this.$store.state.post.askContents;
             var contentData = previewAsk.filter(item=> item.content_id === contentId)[0];
+
+            var list = this.$store.state.comment.askComment;
+            var commentList = list.filter(item => item.content_id === contentId);
         }
         
         // const like = this.$store.state.like.likeList;
@@ -128,6 +138,7 @@ export default {
         return{
             editor: null,
             ///content_id , context , nickname , preview_image, title ,create_at , like_num , view_num
+            roomNum : roomNum,
             contentdId : contentId,
             title : contentData.title,
             content : contentData.content,
@@ -144,6 +155,11 @@ export default {
             domContent: '',
 
             likeStatus: false,
+
+            commentList : commentList,
+            inputComment: '',
+
+            userId : userId,
 
 
             // likeCheckList: likeCheckList,
@@ -174,13 +190,16 @@ export default {
             type: Number,
         }
     },
-    created(){
+    async created(){
         window.scrollTo(0,0);
         window.onload = ()=>{
             setTimeout(()=>{
                 scrollTo(0,0);
             },100);
         }
+
+        await this.$store.dispatch('comment/getMainCommentProcess');
+        await this.$store.dispatch('comment/getAskCommentProcess');
         
     },
     mounted() {
@@ -199,6 +218,38 @@ export default {
         },
         goToAsk() {
             console.log('아직 구현이 안됨');
+        },
+
+        async commentBtn(){
+            console.log('댓글 작성 버튼을 눌렀음..!!',this.inputComment);
+            console.log('몇번방인지 잘 나옵니까?!?!',this.roomNum);
+            console.log(this.contentId,this.userId ,this.inputComment);
+            if(this.inputComment===""){
+                this.$message.info('댓글을 입력해주세요.');
+            }else if(Number(this.roomNum) === 1){ // main Comment에서 작성  
+                await this.$store.dispatch('comment/writeMainComment',{
+                    contentId : this.contentId,
+                    userId : this.userId,
+                    context : this.inputComment, 
+                });
+
+                this.$message.success('댓글을 입력했습니다.');
+
+                this.$router.go(this.$router.push({name: 'MainDetailPage' }));
+           
+
+            }else if(Number(this.roomNum) === 2){ // ask Comment에서 작성 
+                await this.$store.dispatch('comment/writeAskComment',{
+                    contentId : this.contentId,
+                    userId : this.userId,
+                    context : this.inputComment, 
+                });
+                this.$message.success('댓글을 입력했습니다.');
+                this.$router.go(this.$router.push({name: 'MainDetailPage'}));
+
+            }else{
+                this.$message.warning('이게 뜨면 망합니다!!!!!');
+            }
         },
 
 

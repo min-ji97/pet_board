@@ -226,7 +226,7 @@ askLikePreview(userId) {
 
 /**
  * 
- * 댓글 - main comment
+ * 댓글 불러오기 - main comment
  * 
  */
 
@@ -236,13 +236,41 @@ getMainComment(){
 
 /**
  * 
- * 댓글 - ask comment
+ * 댓글 불러오기 - ask comment
  * 
  */
 
  getAskComment(){
   return axios.get('/api/comment/getAskComment')
 },
+
+/**
+ * 
+ * 댓글 작성 - main 
+ * 
+*/
+writeMainComment( contentId , userId, context){
+  return axios.post('/api/comment/writeMainComment',{
+    contentId,
+    userId,
+    context
+  })
+},
+
+/**
+ * 
+ * 댓글 작성 - ask
+ * 
+*/
+writeAskComment( contentId , userId, context){
+  return axios.post('/api/comment/writeAskComment',{
+    contentId,
+    userId,
+    context
+  })
+},
+
+
 
 
 

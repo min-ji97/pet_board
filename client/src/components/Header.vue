@@ -82,7 +82,17 @@ export default{
             'user',
             'loginStatus',
         ]),
+
+        userList: ()=>{
+            return this.$store.getters["user/user"];
+        }
          
+    },
+    watch:{
+        userList(value){
+            console.log('변화가 감지 되었나요....? => ,',value);
+
+        }
     },
     async created() {
          console.log('==============라이프 사이클 : created   ================');
