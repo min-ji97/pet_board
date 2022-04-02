@@ -30,7 +30,7 @@ router.get('/getMainComment',(req, res) =>{
 // 질문 컨텐츠의 댓글 불러오기
 router.get('/getAskComment',(req, res) =>{
     
-    let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at
+    let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at , com.content_id
     from ask_comment as com Join user as us
     on com.user_id = us.user_id 
     where com.active = 'Y'
@@ -101,7 +101,7 @@ router.get('/getAskComment',(req, res) =>{
 
 // main 댓글 작성하기
 
-router.post('/postWriteMainComment',(req,res)=>{
+router.post('/writeMainComment',(req,res)=>{
 
     let content_id = req.body.contentId;
     let user_id = req.body.userId;
@@ -124,7 +124,7 @@ router.post('/postWriteMainComment',(req,res)=>{
 
 // ask 댓글 작성하기
 
-router.post('/postWriteMainComment',(req,res)=>{
+router.post('/writeAskComment',(req,res)=>{
 
     let content_id = req.body.contentId;
     let user_id = req.body.userId;
