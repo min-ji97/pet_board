@@ -46,7 +46,12 @@
                     <td colspan="4">
                         <editor-content :editor="editor" />
                     </td>
-                </tr> -->   
+                </tr> --> 
+                <tr>
+                    <td colspan="6" class="padding-30px"> <delete-outlined />  끄어어어어어 왜 안뜰까여..!!</td>
+                    
+                </tr>
+                
             </table>
 
             <div class="comment-container">
@@ -95,7 +100,9 @@
                     <button class="comment-btn">댓글</button>
                 </div>
             </div> -->
-
+        
+        
+        
         </div>
         
     </div>
