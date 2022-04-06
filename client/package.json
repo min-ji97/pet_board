@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@ant-design/icons": "^2.1.1",
     "ant-design-vue": "^1.7.2",
     "axios": "^0.21.0",
     "style-loader": "^2.0.0",

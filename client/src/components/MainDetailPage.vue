@@ -48,7 +48,14 @@
                     </td>
                 </tr> --> 
                 <tr>
-                    <td colspan="6" class="padding-30px"> <delete-outlined />  끄어어어어어 왜 안뜰까여..!!</td>
+                    <td colspan="6" class="padding-30px"> 
+                    <a-button class="delete-btn-1">
+                        
+                        <delete-outlined />
+                        <a-icon type="delete" />
+                    </a-button>
+                    
+                    끄어어어어어 왜 안뜰까여..!!</td>
                     
                 </tr>
                 
@@ -539,5 +546,17 @@ export default {
 }  
 .padding-30px {
     padding : 30px;
+}
+
+.delete-btn{
+    font-size: 30px;
+    background-color: cadetblue;
+    color: black;
+}
+
+.delete-btn-1{
+    margin:20px;
+    font-size: 30px;
+    background-color: aquamarine;
 }
 </style>
