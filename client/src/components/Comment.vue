@@ -8,12 +8,20 @@
             <div class="text-box">
                 <div class="info-box">
                     <div class="nick-name">{{list.nickName}}</div>
-                    <div class="date">{{$moment(list.create_at).format('YYYY-MM-DD h:mm:ss')}}</div>
-                    <div v-if="list.user_id===userId ? true : false " class="delete-btn" >
-                        <a-icon type="delete" @click="postDelete()" />       
+                    <div class="date">
+                        {{$moment(list.create_at).format('YYYY-MM-DD h:mm:ss')}}
+
+                        
+
                     </div>
+
+                    
+
                 </div>
                 <div class="context-box">{{list.context}}</div>
+                <div v-if=" (list.user_id === userId) ? true : false " class="delete-btn" >
+                    <a-icon type="delete" @click="postDelete()" />       
+                </div>
             </div>
         </div>
     
@@ -29,28 +37,11 @@ import { mapState } from 'vuex'
 export default {
     data() {
 
-        // const contentId = Number(this.$route.params.contentId);
-        // const roomNum = Number(this.$route.params.roomNum);
-
-        // if(roomNum === 1) { // 메인 댓글을 불러오기..!
-        //     var list = this.$store.state.comment.mainComment;
-        //     var commentList = list.filter(item => item.content_id === contentId);
-        //     console.log('룸넘버가 1입니다. => ',list,' => ',commentList);
-        //     console.log('댓글이 몇개인지 어떻게 구할까여 => ', commentList.length);
-        // }else {
-        //     var list = this.$store.state.comment.askComment;
-        //     var commentList = list.filter(item => item.content_id === contentId);
-        //     console.log('룸넘버가 2입니다. => ',list,' => ',commentList);
-        // }
-        
-         const userId = this.$store.state.user.user.userId;
-
-
 
         return {
             myWriteBoolean : '',
 
-            usesrId : userId,
+            userId : this.$store.state.user.user.userId,
 
             // contentId : contentId,
             // roomNum : roomNum,
@@ -62,25 +53,32 @@ export default {
         }
     },
     computed: {
-        ...mapState('comment',[
+        ...mapState('comment',[ 
             'mainComment',
             'askComment'
         ])
     },
     props:{
-        // contentId : Number,
-        // roomNum : Number,
         commentList : Array
     },
     async created(){
-        // await this.$store.dispatch('comment/getMainCommentProcess');
-        // await this.$store.dispatch('comment/getAskCommentProcess');
-
+ 
         
     },
+    mounted() {
     
+    },
     methods: {
+        postDelete(){
+            const deletBtn = confirm("해당 댓글을 삭제하시겠습니까?");
 
+            if(deletBtn){ // true 게시글을 삭제하겠따..!
+                this.$message.success('게시글을 삭제하였습니다!');
+                // 게시글 삭제를 하려면 roomNum,contentId, 이 두개를 보내주면 될 듯 합니다..! 
+            }else{
+                this.$message.info('게시글을 삭제하지않았슴~');
+            }
+        },
     }
 }
 </script>
@@ -121,7 +119,7 @@ export default {
     .info-box{
         margin-left: 20px;
         display: flex;
-        /* justify-content: space-between; */
+        justify-content: space-between;
 
         /* border: 1px solid orange; */
         /* font-size:10px; */
@@ -151,5 +149,21 @@ export default {
 
     .primary-user-img{
         background-color: pink;
+    }
+
+
+    .delete-btn{
+        color: black;
+        font-size: 20px;
+        display: inline-block;
+    }
+
+    .delete-btn i {
+        float: right;
+    }
+    
+    .delete-btn i:hover{
+        color: #ff375a;
+        transition: all 0.5s ease;
     }
 </style>

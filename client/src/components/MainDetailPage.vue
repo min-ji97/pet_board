@@ -47,7 +47,7 @@
                         <editor-content :editor="editor" />
                     </td>
                 </tr> --> 
-                <tr v-if="myWriteBoolean">
+                <tr v-if="writeUserId === userId ? true : false" >
                     <td colspan="6" class="padding-30px">
                         <div class="mywrite-btn-box">
                             <div class="delete-btn" >
@@ -154,7 +154,10 @@ export default {
         // const like = this.$store.state.like.likeList;
         // c    onst likeCheckList = like.filter(item => item.content_id === contentId 
         // && item.board_num === roomNum && item.user_id === user.user_id)[0];
+        // myWriteBoolean : ( this.userId === this.writeUserId ) ? true : false ,
 
+        
+        var cc = userId === commentList.user_id ? true : false; 
         
         return{
 
@@ -185,7 +188,7 @@ export default {
             writeUserId : contentData.user_id, //게시글을 작성한 유저아이디
             userNickname : this.$store.state.user.user.nickName,
 
-            myWriteBoolean : ( this.userId === this.writeUserId ) ? true : false ,
+            myWriteBoolean : cc ,
 
             // myWriteBoolean : ( ( String(this.nickname) === String(this.userNickname) )  ? true : false ) ,
             // 원래는 userId로 비교하고싶었는데 게시글을 가져올 때 유저아이디를 안가져와버림ㅎㅎ 나중에 수정해줘도 좋을 듯..!
