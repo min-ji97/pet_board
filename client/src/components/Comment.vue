@@ -9,6 +9,9 @@
                 <div class="info-box">
                     <div class="nick-name">{{list.nickName}}</div>
                     <div class="date">{{$moment(list.create_at).format('YYYY-MM-DD h:mm:ss')}}</div>
+                    <div v-if="list.user_id===userId ? true : false " class="delete-btn" >
+                        <a-icon type="delete" @click="postDelete()" />       
+                    </div>
                 </div>
                 <div class="context-box">{{list.context}}</div>
             </div>
@@ -40,9 +43,15 @@ export default {
         //     console.log('룸넘버가 2입니다. => ',list,' => ',commentList);
         // }
         
+         const userId = this.$store.state.user.user.userId;
+
 
 
         return {
+            myWriteBoolean : '',
+
+            usesrId : userId,
+
             // contentId : contentId,
             // roomNum : roomNum,
 

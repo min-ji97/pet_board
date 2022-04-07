@@ -47,16 +47,18 @@
                         <editor-content :editor="editor" />
                     </td>
                 </tr> --> 
-                <tr>
-                    <td colspan="6" class="padding-30px"> 
-                    <a-button class="delete-btn-1">
-                        
-                        <delete-outlined />
-                        <a-icon type="delete" />
-                    </a-button>
-                    
-                    끄어어어어어 왜 안뜰까여..!!</td>
-                    
+                <tr v-if="myWriteBoolean">
+                    <td colspan="6" class="padding-30px">
+                        <div class="mywrite-btn-box">
+                            <div class="delete-btn" >
+                                <a-icon type="delete" @click="postDelete()" />
+                                
+                            </div>
+                            <div class="modify-btn">
+                                <a-icon type="edit" />
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 
             </table>
@@ -129,6 +131,9 @@ export default {
 
         const userId = this.$store.state.user.user.userId;
 
+        // const userNickname = this.$store.state.user.user.nickName;
+
+        
         if(roomNum === 1){
             var previewContents = this.$store.state.post.mainContentsPreview;
             var contentData = previewContents.filter(item => item.content_id === contentId)[0];
@@ -144,12 +149,15 @@ export default {
             var commentList = list.filter(item => item.content_id === contentId);
         }
         
+
+
         // const like = this.$store.state.like.likeList;
         // c    onst likeCheckList = like.filter(item => item.content_id === contentId 
         // && item.board_num === roomNum && item.user_id === user.user_id)[0];
 
         
         return{
+
             editor: null,
             ///content_id , context , nickname , preview_image, title ,create_at , like_num , view_num
             roomNum : roomNum,
@@ -173,8 +181,14 @@ export default {
             commentList : commentList,
             inputComment: '',
 
-            userId : userId,
+            userId : userId, // 로그인한 유저아이디
+            writeUserId : contentData.user_id, //게시글을 작성한 유저아이디
+            userNickname : this.$store.state.user.user.nickName,
 
+            myWriteBoolean : ( this.userId === this.writeUserId ) ? true : false ,
+
+            // myWriteBoolean : ( ( String(this.nickname) === String(this.userNickname) )  ? true : false ) ,
+            // 원래는 userId로 비교하고싶었는데 게시글을 가져올 때 유저아이디를 안가져와버림ㅎㅎ 나중에 수정해줘도 좋을 듯..!
 
             // likeCheckList: likeCheckList,
             // likeCheck : likeCheckList.like_check,
@@ -221,9 +235,11 @@ export default {
             content: this.content,
         });
 
-        console.log('넘어온 콘텐츠 아이디 : ',this.contentId);
-        console.log('넘어온 룸넘버 : ',this.roomNum);
-    
+        console.log('myWriteBoolean 인데 true가 뜨면 안됨...',this.myWriteBoolean);
+        console.log('this.userNickname => ',this.userNickname);
+        console.log('this.nickname => ',this.nickname);
+        console.log('myWriteBoolean을 고대로 복붙한것...',  String(this.nickname) === String(this.userNickname)   ? true : false );
+        console.log('유저아이디와 게시글작성자의아이디..! => ',this.userId , this.writeUserId);
     },
 
     methods: {
@@ -266,9 +282,19 @@ export default {
             }
         },
 
+        postDelete(){
+            const deletBtn = confirm("해당 게시글을 삭제하시겠습니까?");
+            if(deletBtn){ // true 게시글을 삭제하겠따..!
+                this.$message.success('게시글을 삭제하였습니다!');
+                // 게시글 삭제를 하려면 roomNum,contentId, 이 두개를 보내주면 될 듯 합니다..! 
+            }else{
+                this.$message.info('게시글을 삭제하지않았슴~');
+            }
+        },
 
 
-// const like = this.$store.state.like.likeList;
+
+        // const like = this.$store.state.like.likeList;
         // const likeCheckList = like.filter(item => item.content_id === contentId 
         // && item.board_num === roomNum && item.user_id === user.user_id)[0];
 
@@ -548,15 +574,31 @@ export default {
     padding : 30px;
 }
 
-.delete-btn{
-    font-size: 30px;
-    background-color: cadetblue;
-    color: black;
+.mywrite-btn-box{
+    display: flex;
+    justify-content: center;
 }
 
-.delete-btn-1{
-    margin:20px;
+.delete-btn{
+    display: inline-block;
     font-size: 30px;
-    background-color: aquamarine;
+    margin: 20px;
+    color: black;
+
 }
+
+.modify-btn{
+    display: inline-block;
+    font-size: 30px;
+    margin: 20px;
+    color: black;
+    
+}
+
+.delete-btn i:hover, .modify-btn i:hover{
+    color: #ff375a;
+    transition: all 0.5s ease;
+    
+}
+
 </style>
