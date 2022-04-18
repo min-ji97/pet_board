@@ -18,17 +18,6 @@ const getters = {
     askContents : (state) =>{
         return state.askContents;
     },
-
-    // mainViewLoad : (state) => {
-    //     return state.mainContentsPreview.view_num;
-    // },
-    // askViewLoad : (state) => {
-    //     return state.mainContentsPreview.view_num;
-    // }
-
-    // introContents: (state) => { 
-    //     return state.introContents; 
-    // },
     
 };
 
@@ -101,7 +90,15 @@ const actions = {
         const result = await api.viewUp(contentId,boardNum)
             .then(res=>res)
             .catch(err=>err);
-    }
+    },
+
+    deletePostProcess : async ({ commit }, payload) => {
+        const { contentId , boardNum} = payload;
+        const result = await api.deletePost(contentId, boardNum)
+            .then(res=>res)
+            .catch(err=>err);
+
+    },
 };
 
 

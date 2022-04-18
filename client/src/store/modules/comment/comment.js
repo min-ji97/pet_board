@@ -59,6 +59,14 @@ const actions = {
             .catch(err=>err)
     },
 
+    deleteCommentProcess : async ({commit},payload) =>{
+        const { contentId , boardNum} = payload;
+        const result = await api.deleteComment(contentId, boardNum)
+            .then(res=>res)
+            .catch(err=>err);
+            
+    },
+
 };
 
 

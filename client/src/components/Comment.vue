@@ -74,7 +74,7 @@ export default {
 
             if(deletBtn){ // true 게시글을 삭제하겠따..!
                 this.$message.success('게시글을 삭제하였습니다!');
-                // 게시글 삭제를 하려면 roomNum,contentId, 이 두개를 보내주면 될 듯 합니다..! 
+                // 댓글을 삭제를 하려면 roomNum / comment_id / content_id 
             }else{
                 this.$message.info('게시글을 삭제하지않았슴~');
             }
@@ -161,7 +161,7 @@ export default {
     .delete-btn i {
         float: right;
     }
-    
+
     .delete-btn i:hover{
         color: #ff375a;
         transition: all 0.5s ease;

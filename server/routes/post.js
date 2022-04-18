@@ -36,7 +36,7 @@ router.get('/getMainPostPreview',(req,res)=>{
     // mainContent 테이블?! introContent 테이블?!?!?!
     //  여기에 + 유저 닉네임 가져가야한다!!!!!!!!!
 
-    let sql = `select co.content_id , co.title, co.content , co.preview_image, co.view_num, co.like_num,co.create_at, co.board_num, us.nickname
+    let sql = `select co.content_id , co.title, co.content , co.preview_image, co.view_num, co.like_num,co.create_at, co.board_num, us.nickname , us.user_id
     from main_contents as co JOIN user as us
     on co.user_id = us.user_id
     where co.active = 'Y'
@@ -58,7 +58,7 @@ router.get('/getMainPostPreview',(req,res)=>{
 // 질문 게시글 미리보기
 router.get('/getAskPostPreview',(req,res)=>{
     console.log('큐엔이이 게시판 안들어오냐??');
-    let sql = `select co.content_id, co.title , co.content, co.view_num, co.like_num, co.create_at, co.board_num, us.nickname
+    let sql = `select co.content_id, co.title , co.content, co.view_num, co.like_num, co.create_at, co.board_num, us.nickname ,us.user_id
     from ask_contents as co JOIN user as us
     on co.user_id = us.user_id
     where co.active = 'Y'
@@ -131,7 +131,7 @@ router.post('/viewUp',(req,res)=>{
     let params = [content_id];
     if(board_num === 1){ //main_contents 테이블을 불러봐라..!
         let sql = 'update main_contents set view_num = view_num + 1 where content_id = ? ';
-        console.log('server 뷰입니다',params);
+        
         connection.query(sql, params, (err,result)=>{
             if(err){
                 console.log('db 에러');
@@ -141,7 +141,7 @@ router.post('/viewUp',(req,res)=>{
         })
     }else if(board_num === 2){ //ask_contents 테이블
         let sql = 'update ask_contents set view_num = view_num + 1 where content_id = ? ';
-        console.log('server 뷰입니다',params);
+        
         connection.query(sql, params, (err,result)=>{
             if(err){
                 console.log('db 에러');
@@ -152,6 +152,34 @@ router.post('/viewUp',(req,res)=>{
     }
     
 });
+
+router.post('/deletePost',(req,res)=>{
+    let content_id = req.body.contentId;
+    let board_num = req.body.boardNum;
+
+    let param = [content_id];
+
+    if(board_num === 1) {// main_contents의 게시글을 삭제
+        let sql = `update main_contents set active = 'n' where content_id = ? `;
+        connection.query(sql, param, (err,result)=>{
+            if(err){
+                console.log('db 에러');
+            }else {
+                res.json({ result : true});
+            }
+        })
+    }else { // ask_contents의 게시글을 삭제
+        let sql = `update ask_contents set active = 'n' where content_id = ? `;
+        connection.query(sql, param, (err,result)=>{
+            if(err){
+                console.log('db 에러');
+            }else {
+                res.json({ result : true});
+            }
+        })
+
+    }
+})
 
 
 module.exports = router;

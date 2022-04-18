@@ -157,7 +157,7 @@ export default {
         // myWriteBoolean : ( this.userId === this.writeUserId ) ? true : false ,
 
         
-        var cc = userId === commentList.user_id ? true : false; 
+
         
         return{
 
@@ -186,12 +186,8 @@ export default {
 
             userId : userId, // 로그인한 유저아이디
             writeUserId : contentData.user_id, //게시글을 작성한 유저아이디
-            userNickname : this.$store.state.user.user.nickName,
+           
 
-            myWriteBoolean : cc ,
-
-            // myWriteBoolean : ( ( String(this.nickname) === String(this.userNickname) )  ? true : false ) ,
-            // 원래는 userId로 비교하고싶었는데 게시글을 가져올 때 유저아이디를 안가져와버림ㅎㅎ 나중에 수정해줘도 좋을 듯..!
 
             // likeCheckList: likeCheckList,
             // likeCheck : likeCheckList.like_check,
@@ -238,11 +234,6 @@ export default {
             content: this.content,
         });
 
-        console.log('myWriteBoolean 인데 true가 뜨면 안됨...',this.myWriteBoolean);
-        console.log('this.userNickname => ',this.userNickname);
-        console.log('this.nickname => ',this.nickname);
-        console.log('myWriteBoolean을 고대로 복붙한것...',  String(this.nickname) === String(this.userNickname)   ? true : false );
-        console.log('유저아이디와 게시글작성자의아이디..! => ',this.userId , this.writeUserId);
     },
 
     methods: {
@@ -289,6 +280,10 @@ export default {
             const deletBtn = confirm("해당 게시글을 삭제하시겠습니까?");
             if(deletBtn){ // true 게시글을 삭제하겠따..!
                 this.$message.success('게시글을 삭제하였습니다!');
+                this.$store.dispatch('post/deletePostProcess',{
+                    contentId : this.contentId,
+                    boardNum : this.roomNum
+                });
                 // 게시글 삭제를 하려면 roomNum,contentId, 이 두개를 보내주면 될 듯 합니다..! 
             }else{
                 this.$message.info('게시글을 삭제하지않았슴~');

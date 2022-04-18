@@ -10,7 +10,7 @@ mysql_dbc.test_open(connection);
 router.get('/getMainComment',(req, res) =>{
     
     
-    let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at , com.content_id
+    let sql = `select com.comment_id , us.nickName , us.user_id , us.user_image , com.context, com.create_at , com.content_id
     from main_comment as com Join user as us
     on com.user_id = us.user_id 
     where com.active = 'Y'
@@ -30,7 +30,7 @@ router.get('/getMainComment',(req, res) =>{
 // 질문 컨텐츠의 댓글 불러오기
 router.get('/getAskComment',(req, res) =>{
     
-    let sql = `select com.comment_id , us.nickName , us.user_image , com.context, com.create_at , com.content_id
+    let sql = `select com.comment_id , us.nickName , us.user_id , us.user_image , com.context, com.create_at , com.content_id
     from ask_comment as com Join user as us
     on com.user_id = us.user_id 
     where com.active = 'Y'

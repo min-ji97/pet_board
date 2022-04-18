@@ -270,6 +270,32 @@ writeAskComment( contentId , userId, context){
   })
 },
 
+/**
+ * 
+ * 게시글 삭제
+ * 
+ */
+
+deletePost( contentId, boardNum){
+  return axios.post('/api/post/deletePost', {
+    contentId,
+    boardNum
+  })
+},
+
+/**
+ * 
+ * 댓글 삭제
+ * 
+ */
+
+ deleteComment( contentId, boardNum, commentId){
+  return axios.post('/api/comment/deleteComment', {
+    contentId,
+    boardNum,
+    commentId
+  })
+},
 
 
 
