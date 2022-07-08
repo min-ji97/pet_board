@@ -157,7 +157,7 @@
                         </button>
                     </div>
                 </editor-menu-bar>
-                <editor-content  class="editor__content" ref="editorContent" :editor="editor" />
+                <editor-content class="editor__content" ref="editorContent" :editor="editor" />
                 <!-- class="editor__content" -->
             </div>
 
@@ -195,14 +195,32 @@ import {
 
 export default {
     data() {
+        const contentData = this.$route.params.contentData;
         const boardNum = Number(this.$route.params.boardNum);
+        const updateBool = Boolean(this.$route.params.updateBool);
 
         const userId = this.$store.state.user.user.userId;
+
+        if(updateBool){ // 게시글 수정
+            console.log('게시글 수정입니다~~~ ');
+            console.log('콘텐츠 데이터가 잘 넘어 왔을 까요~~',contentData);
+            var titleValue = contentData.title;
+            var contentValue = contentData.content;
+ 
+        }else{ // 새로운 게시글 작성 
+            var titleValue = '';
+            var contentValue = "<h3>내용을 입력해주세요.</h3>";
+            // updateBool = false; // 게시글 수정 아님 
+        }
+
         return {
+            contentData : contentData,
             boardNum : boardNum,
+            updateBool: updateBool, // true면 수정
             userId : userId,
 
-            titleValue : '',
+            titleValue : titleValue,
+            contentValue: contentValue,
             
             testSrc: '',
             tmpImage: '', // content에 들어갈 이미지 ( 미리보기 )
@@ -239,12 +257,13 @@ export default {
                     new History(),
                     new Image(),
                 ],
-                content: `
-                    <h3>
-                    내용을 입력해주세요.
-                    </h3>
-                    `
-                ,
+                content: contentValue,
+                //  content: `
+                //     <h3>
+                //     내용을 입력해주세요.
+                //     </h3>
+                //     `
+                // ,
              
                 onUpdate: ({ getHTML }) => {
                     let content = getHTML();
@@ -266,6 +285,14 @@ export default {
     //         type : Number,
     //     }
     // },
+    created(){
+        // if(this.boardNum === 3){
+        //     // const temp1 = this.$store.state.user.user.userId;
+        //     console.log('수정을 클릭했나봄..!!');
+        //     console.log('콘텐츠 데이터가 잘 넘어 왔을 까요~~',this.contentData);
+        //     this.editor.commands.setContent(`<p>이게 되면 너무 기분이가 좋을 듯 합니다...</p>`);
+        // }
+    },
     beforeDestroy() {
         this.editor.destroy()
     },
@@ -367,17 +394,29 @@ export default {
 
                 if( this.boardNum === 1 ){ // 사진이 꼭 필요
                     console.log('1번방이요~~');
+                    
                     console.log(editorHtml.getElementsByTagName("img").length);
                     if( editorHtml.getElementsByTagName("img").length ) { // 썸네일 있음!! 
                         const imgPath = editorHtml.getElementsByTagName("img")[0].src;
                         const img = imgPath.replace("http://localhost:3000/images/",""); //썸네일 사진 이름
                         
-                        this.$store.dispatch('post/mainWriteProcess',{
+                        if(this.updateBool){ // 수정기능
+                        
+                            this.$store.dispatch('post/updateMainProcess',{
+                                userId : this.userId,
+                                title : this.titleValue,
+                                contents: getHtml,
+                                previewImg : img
+                            });
+                        }
+                        else{
+                            this.$store.dispatch('post/mainWriteProcess',{
                             userId : this.userId,
                             title : this.titleValue,
                             contents: getHtml,
                             previewImg : img
                         });
+                        }
                         this.$router.push({
                             path: '/',
                         });
@@ -385,23 +424,54 @@ export default {
                     }else {
                         this.$message.warning('최소 한장의 사진을 올려주세요! ');
                     }
-                } else { // part = 2 or part = 3 썸네일이 필요 없음~
-                     console.log('2번 또는 3번 방이요~~');
-                    this.$store.dispatch('post/writeProcess',{
-                        userId : this.userId,
-                        title : this.titleValue,
-                        contents: getHtml,
-                        boardNum: this.boardNum
-                    });
-                     this.$router.push({
-                            path: '/',
+                } else if( this.boardNum === 2) { // part = 2 썸네일이 필요 없음~  질문 게시판이니까..!
+                    console.log('2번방이요~~');
+                    if(this.updateBool){
+                        this.$store.dispatch('post/updateAskProcess',{
+                            userId : this.userId,
+                            title : this.titleValue,
+                            contents: getHtml,
+                            boardNum: this.boardNum
                         });
+                    }else{
+                        this.$store.dispatch('post/writeProcess',{
+                            userId : this.userId,
+                            title : this.titleValue,
+                            contents: getHtml,
+                            boardNum: this.boardNum
+                        });
+                    }
+                    this.$router.push({
+                        path: '/',
+                    });
                         // console.log("user_id : ",this.userId);
                         // console.log("제목 :",this.titleValue);
                         // console.log('콘텐츠 : ',editorEncode);
                         // console.log('어떤 게시판인지 알려줘야지!! : 2또는 3',);
 
-                }
+                } 
+                // else {  // board_num === 3  수정 기능!
+                //  console.log('3번방이요~~');
+                //     if(this.contentData.boardNum === 1){
+                //         console.log('ㅋㅋㅋ진짜 이렇게 까지 한다구.... 여기 방번호는 1번임..');
+                //     }else{
+
+                //         console.log('요기는 2번임.... ');
+                //         console.log('유저아이디:',this.userId,' 제목 :',this.titleValue,' 내용 :',getHtml,'방 번호 :', this.contentData.boardNum);
+                    
+                //         this.$store.dispatch('post/updateProcess',{
+                //             userId : this.userId,
+                //             title : this.titleValue,
+                //             contents: getHtml,
+                //             boardNum: this.contentData.boardNum,
+                //         });
+
+                //         this.$router.push({
+                //             path: '/',
+                //         });
+
+                //     }   
+                // }
             }
 
           

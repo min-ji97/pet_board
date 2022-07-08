@@ -71,7 +71,7 @@ const actions = {
         console.log('자 mainWrite 결과를 확인해보쟈^^ : ');
         console.log(result);
     },
-    writeProcess : async ({commit},payload) =>{
+    writeProcess : async ({commit},payload) => {
         //   userId : this.userId,
         // title : this.titleValue,
         // contents: editorEncode,
@@ -83,6 +83,23 @@ const actions = {
         
         console.log(result);
         // commit('GET_MAIN_CONTENT_PREVIEW',result.data)
+    },
+
+    updateMainProcess : async ({ commit },payload) => {
+        const { userId, title, contents, previewImg } = payload;
+        const result = await api.updateMain( userId , title, contents, previewImg )
+            .then(res=>res)
+            .catch(err=>err);
+        console.log('main update 결과는?!?!? : ');
+        console.log(result);
+    },
+    updateAskProcess : async ({ commit },payload) => {
+        const { userId , title , contents , boardNum } = payload;
+        const result = await api.updateAsk( userId, title, contents, boardNum )
+            .then(res => res)
+            .catch(err => err);
+        console.log('ask update 결과는?!?!? : ');
+        console.log(result);
     },
 
     viewUpProcess : async ({commit},payload) => {

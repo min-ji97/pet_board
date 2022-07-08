@@ -55,7 +55,7 @@
                                 
                             </div>
                             <div class="modify-btn">
-                                <a-icon type="edit" />
+                                <a-icon type="edit" @click="postUpdate()"/>
                             </div>
                         </div>
                     </td>
@@ -162,6 +162,7 @@ export default {
         return{
 
             editor: null,
+            contentData : contentData, // 수정 게시글에 불러올려고 만든 놈..! 일단 이렇게 해서 보내줄 생각 
             ///content_id , context , nickname , preview_image, title ,create_at , like_num , view_num
             roomNum : roomNum,
             contentdId : contentId,
@@ -289,6 +290,20 @@ export default {
                 this.$message.info('게시글을 삭제하지않았슴~');
             }
         },
+        postUpdate(){ // 게시글 업데이트 
+
+            // boardNum === 3 이면 업데이트임..! 
+             this.$router.push({
+                    name: 'CreatePage',
+                    params: { 
+                        updateBool : true , // 업데이트 페이지란걸 알려줄려구..!
+                        boardNum : this.roomNum,
+                        contentData : {...this.contentData},
+                    },
+                });
+
+
+        }
 
 
 

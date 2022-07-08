@@ -93,7 +93,7 @@ export default {
         display: flex;
         flex-direction: row;
         align-self: center;
-        width : 80%;
+        width : 90%;
         min-height : 120px;
         height: auto;
         background-color : white;
