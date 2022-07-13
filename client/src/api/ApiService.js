@@ -174,10 +174,11 @@ askWrite(userId,title,contents,boardNum){
  *  게시글 수정 - main
  * 
  */
- updateMain(userId,title,contents,previewImg){
-  console.log('axios main : ' ,userId,title,contents,previewImg);
-  return axios.post('/api/post/updateMain',{
+ updateMain(userId,contentId,title,contents,previewImg){
+  console.log('axios main : ' ,userId,contentId,title,contents,previewImg);
+  return axios.post('/api/update/updateMain',{
     userId,
+    contentId,
     title,
     contents,
     previewImg
@@ -188,13 +189,13 @@ askWrite(userId,title,contents,boardNum){
  *  게시글 수정 - ask
  * 
  */
-updateAsk(userId,title,contents,boardNum){
-  console.log('axios ask : ', userId,title,contents,boardNum);
-  return axios.post('/api/post/updateAsk',{
+updateAsk(userId,contentId,title,contents){
+  console.log('axios ask : ', userId,contentId,title,contents);
+  return axios.post('/api/update/updateAsk',{
     userId,
+    contentId,
     title,
     contents,
-    boardNum
   })
 },
 

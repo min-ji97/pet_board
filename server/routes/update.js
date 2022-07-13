@@ -7,7 +7,53 @@ var connection = mysql_dbc.init();
 mysql_dbc.test_open(connection);
 
 
+// 메인 게시글 수정
+router.post('/updateMain',(req,res)=>{
+    console.log('서버 : 메인 수정으로 잘 들어옴');
+    let user_id = req.body.userId;
+    let content_id = req.body.contentId;
+    let title = req.body.title;
+    let content = req.body.contents;
+    let preview_image = req.body.previewImg;
 
+    let params = [title, content, preview_image, user_id, content_id, ]; 
+    let sql = `update main_contents set title = ? , content = ? , preview_image =? where user_id = ? and content_id =?`;
+    console.log(params);
+    connection.query(sql, params ,(err,result)=>{
+        if(err){
+            console.log('db 에러');
+        }else{
+            res.json({ result : true });
+        }
+    })
+    // sql 인설트 하는거 만들고! -> 서버에 정보를 저장!! 저장이 완료되면 클라이언트로 true를 보내쟈!
+
+    // 이제 저장이 되면 잘 불러왔는지 확인....!!!
+    // 메인페이지도 잘 되는지 보기~~~~ 
+});
+// 질문 게시글 수정
+router.post('/updateAsk',(req, res)=>{
+    console.log('서버 : 질문 수정으로 잘 들어옴');
+    let user_id = req.body.userId;
+    let content_id = req.body.contentId;
+    let title = req.body.title;
+    let content = req.body.contents;
+    // let board_num = req.body.boardNum;
+
+    let params = [title, content , user_id,  content_id];
+    let sql = `update ask_contents set title = ? , content = ? where user_id = ? and content_id =?`;
+
+    
+    console.log(params);
+    connection.query(sql, params , (err,result)=>{
+        if(err){
+            console.log('db 에러');
+        } else {
+            res.json({ result : true });
+        }
+    })
+
+});
 
 router.post('/nickNameCheck',(req,res)=>{
     console.log('닉네임 중복 체크로 들어옴ㅎㅎ');

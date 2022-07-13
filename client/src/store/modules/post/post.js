@@ -86,16 +86,16 @@ const actions = {
     },
 
     updateMainProcess : async ({ commit },payload) => {
-        const { userId, title, contents, previewImg } = payload;
-        const result = await api.updateMain( userId , title, contents, previewImg )
+        const { userId, contentId, title, contents, previewImg } = payload;
+        const result = await api.updateMain( userId ,contentId, title, contents, previewImg )
             .then(res=>res)
             .catch(err=>err);
         console.log('main update 결과는?!?!? : ');
         console.log(result);
     },
     updateAskProcess : async ({ commit },payload) => {
-        const { userId , title , contents , boardNum } = payload;
-        const result = await api.updateAsk( userId, title, contents, boardNum )
+        const { userId , contentId, title , contents } = payload;
+        const result = await api.updateAsk( userId, contentId, title, contents )
             .then(res => res)
             .catch(err => err);
         console.log('ask update 결과는?!?!? : ');

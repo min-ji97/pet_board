@@ -292,7 +292,7 @@ export default {
         },
         postUpdate(){ // 게시글 업데이트 
 
-            // boardNum === 3 이면 업데이트임..! 
+            // updateBool = true 이면 업데이트임..! 
              this.$router.push({
                     name: 'CreatePage',
                     params: { 

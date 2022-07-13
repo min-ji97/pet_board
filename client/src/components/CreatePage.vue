@@ -206,11 +206,15 @@ export default {
             console.log('콘텐츠 데이터가 잘 넘어 왔을 까요~~',contentData);
             var titleValue = contentData.title;
             var contentValue = contentData.content;
+            var contentIdValue = contentData.content_id;
+
  
         }else{ // 새로운 게시글 작성 
             var titleValue = '';
             var contentValue = "<h3>내용을 입력해주세요.</h3>";
             // updateBool = false; // 게시글 수정 아님 
+
+            var contentIdValue =  '';
         }
 
         return {
@@ -221,6 +225,7 @@ export default {
 
             titleValue : titleValue,
             contentValue: contentValue,
+            contentIdValue: contentIdValue,
             
             testSrc: '',
             tmpImage: '', // content에 들어갈 이미지 ( 미리보기 )
@@ -400,16 +405,17 @@ export default {
                         const imgPath = editorHtml.getElementsByTagName("img")[0].src;
                         const img = imgPath.replace("http://localhost:3000/images/",""); //썸네일 사진 이름
                         
-                        if(this.updateBool){ // 수정기능
+                        if(this.updateBool){ //main 수정
                         
                             this.$store.dispatch('post/updateMainProcess',{
                                 userId : this.userId,
+                                contentId : this.contentIdValue,
                                 title : this.titleValue,
                                 contents: getHtml,
                                 previewImg : img
                             });
                         }
-                        else{
+                        else{ //main 작성
                             this.$store.dispatch('post/mainWriteProcess',{
                             userId : this.userId,
                             title : this.titleValue,
@@ -426,14 +432,15 @@ export default {
                     }
                 } else if( this.boardNum === 2) { // part = 2 썸네일이 필요 없음~  질문 게시판이니까..!
                     console.log('2번방이요~~');
-                    if(this.updateBool){
+                    if(this.updateBool){ // ask 수정
+                    console.log('안되냐?!!!!!!!!!!!!!!!!!!',this.contentData.contentId);
                         this.$store.dispatch('post/updateAskProcess',{
                             userId : this.userId,
+                            contentId : this.contentIdValue,
                             title : this.titleValue,
-                            contents: getHtml,
-                            boardNum: this.boardNum
+                            contents: getHtml
                         });
-                    }else{
+                    }else{ //ask 작성
                         this.$store.dispatch('post/writeProcess',{
                             userId : this.userId,
                             title : this.titleValue,
