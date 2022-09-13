@@ -131,6 +131,8 @@ export default {
             });
             location.reload(); 
 
+
+
             // location.href = location.href;
             // history.go(0);  
             // axios.post('/api/userInfo/changeProfile', formData)
@@ -183,8 +185,15 @@ export default {
 
         },
         basicProfileChange(){ // 프로필 사진 기본 이미지로 변경 
-            this.$store.dispatch('user/basicProfileProcess');
+            if(window.confirm("프로필 사진을 기본 이미지로 변경하시겠습니까?")){   
+                this.$store.dispatch('user/basicProfileProcess', {
+                    userId : this.userId
+                });
+                this.$message.success('기본 이미지로 변경하였습니다.');
+                this.$router.push({ path: '/' });
+                location.reload(); 
 
+            }
         },
 
         async duplicateCheck(){ // 중복 검사

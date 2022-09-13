@@ -52,16 +52,16 @@ const mutations = {
         state.user.id = user.id;
         state.user.password = user.password;  
     },
-    [types.FETCH_USER_NICKNAME] ( state , nickName) {
+    [types.FETCH_USER_NICKNAME] ( state , nickName){
         state.user.nickName = nickName;
     },
     [types.FETCH_USER_PASSWORD] (state , password){
         state.user.password = password;
     },
-    [types.SET_USER_IMAGE] (state , userImage){
-        state.user.userImg = userImage;
+    [types.SET_USER_IMAGE] (state , userImg){
+        state.user.userImg = userImg;
     },
-
+    
     // setUserImage( state , userImage) {
     //     state.user.userImg = userImage;
     // },
@@ -115,19 +115,24 @@ const actions = {
             .catch(err=>err);
         
         let image = imgUpdateResult.user_image;
+        console.log('업데이트임 이미지 뭐라뜨나 보쟈 띠뱜뱌^^ : ',image);
         commit('SET_USER_IMAGE',image);
     },
 
 
     
-    basicProfileProcess: async ({ commit }) =>{
-        // const basic
+    basicProfileProcess: async ({ commit }, payload) =>{
+        const { userId } = payload;
+        console.log('뷰엑스 : 프로필 변경 유저아이디 : ',userId);
+        const basicProfileResult = await api.deleteProfile(userId)
+            .then(results=>results.data)
+            .catch(err=>err);
 
+        let image = null;   // 기본 이미지 변경을 하면 서버에서 null값을 줘서 이렇게 함..!
+        console.log('뭐라 뜨나 보기나 하쟈 : ',image);
+        // console.log('헐 시발 이건가바!!!!!! : ,', req);
+        commit('SET_USER_IMAGE', image);
     },
-    
-    
-
-
 };
 
 

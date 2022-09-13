@@ -291,7 +291,6 @@ export default {
             }
         },
         postUpdate(){ // 게시글 업데이트 
-
             // updateBool = true 이면 업데이트임..! 
              this.$router.push({
                     name: 'CreatePage',
@@ -388,7 +387,8 @@ export default {
     /* background-color: rgb(233, 221, 221); */
     font-size: 30px;
     /* border: 1px solid black; */
-    
+    /* box-sizing: border-box; */
+    table-layout: fixed;
     width: 100%;
     /* height: 500px;  임시 */
     margin: 10px 80px 50px 80px;
@@ -440,7 +440,10 @@ export default {
 .content-box td h3 img{
     max-width: 50%;
     max-height: 50%;
+}
 
+.content-box td p img{
+    max-width: 100%;    
 }
 
 /* 

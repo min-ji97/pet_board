@@ -102,6 +102,7 @@ export default{
         console.log('================ 라이프 사이클 : updated ================');
         console.log('user 정보는?! =? ',this.user);
         console.log('user 정보는?! =? ',this.loginStatus);
+        console.log('이렇게 하면 될까요,,,흑흑흑., : ',this.$store.getters["user/userImg"]);
     },
    
     methods: {

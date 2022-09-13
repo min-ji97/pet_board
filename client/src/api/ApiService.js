@@ -77,18 +77,29 @@ export default {
 // },
 ///////////////////////////////////
 
+/**
+ *  프로필 기본으로 변경 (기존 프로필 삭제 )
+ * 
+ */
+deleteProfile(userId){
+  return axios.post('/api/userInfo/deleteProfile',{
+    userId
+  });
+
+},
 /*
 *  프로필 사진 변경 
 *  
 *
 */ 
 updateProfile(formData){
-  // console.log('유저아이디는?! 여기는 api',userId);
   return axios.post('/api/userInfo/updateProfile', formData);
 },
 
 /*
-     닉네임 중복검사
+*
+* 닉네임 중복검사
+*
 */
 NicknameCheck(changeNickname){
   console.log('여기는 닉네임 중복 체크 api', changeNickname);
