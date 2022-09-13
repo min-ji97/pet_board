@@ -9,7 +9,6 @@ mysql_dbc.test_open(connection);
 
 // 메인 게시글 수정
 router.post('/updateMain',(req,res)=>{
-    console.log('서버 : 메인 수정으로 잘 들어옴');
     let user_id = req.body.userId;
     let content_id = req.body.contentId;
     let title = req.body.title;
@@ -33,7 +32,6 @@ router.post('/updateMain',(req,res)=>{
 });
 // 질문 게시글 수정
 router.post('/updateAsk',(req, res)=>{
-    console.log('서버 : 질문 수정으로 잘 들어옴');
     let user_id = req.body.userId;
     let content_id = req.body.contentId;
     let title = req.body.title;
@@ -56,7 +54,6 @@ router.post('/updateAsk',(req, res)=>{
 });
 
 router.post('/nickNameCheck',(req,res)=>{
-    console.log('닉네임 중복 체크로 들어옴ㅎㅎ');
     console.log('req.body => ',req.body);
 
     let nickName = req.body.changeNickname;
@@ -98,8 +95,7 @@ router.post('/idCheck', (req, res)=>{
 })
 
 router.post('/updateNickname',(req,res)=>{
-    console.log('닉네임 변경 바디 확인 => ',req.body);
-    
+
     let userId = req.body.userId;
     let updateNickname = req.body.changeNickname;
     let sql = `update user set nickname = ?  where user_id = ? `;
