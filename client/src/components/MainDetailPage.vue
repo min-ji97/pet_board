@@ -407,7 +407,7 @@ export default {
     /* border: 1px solid black; */
     /* border-color : black ; */
     /* background-color: rgb(253, 204, 212); */
-    background-color: rgb(243, 232, 232);
+    background-color: #f1eeff;
     text-align: center;
     font-size: 20px;
     padding: 10px;
@@ -463,7 +463,7 @@ export default {
     /* border: 1px solid rgb(216, 0, 0); */
     width: 70%;
     height: 100%;
-    background-color:#f3e8e8;
+    background-color:#f6f5ff;
     /* height: 500px; */
     /* margin: 30px; */
      /* 임시 */
@@ -552,12 +552,12 @@ export default {
     height: 80px;
     float: left;
     background-color: white;
-    color: rgb(233, 160, 160);
-    border: 1px solid rgb(118, 118, 118);
+    color: #807097;
+    border: 1px solid #807097;
 }
 .comment-btn:hover {
-    border: 1px solid rgb(243, 147, 147);
-    background-color: rgb(243, 147, 147) ;
+    border: 1px solid #807097;
+    background-color: #807097 ;
     color: white;
 }
 

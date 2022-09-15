@@ -148,7 +148,7 @@ export default {
     }
 
     .primary-user-img{
-        background-color: pink;
+        background-color: #e7e3ff;
     }
 
 

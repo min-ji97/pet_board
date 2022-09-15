@@ -1,11 +1,15 @@
 <template>
     <div>
          <div class="footer">
+            
+            <div class="footer_git">
+                <a href="https://github.com/min-ji97/pet_board" target="_blank">
+                    <a-icon type="github" />
+                    <!-- <GithubOutlined /> -->
+                </a>
+            </div>
             <p class="email_txt">whalswl576@gmail.com</p>
-            <a href="https://github.com/min-ji97" target="_blank">
-                <i class="fab fa-github-alt"></i>
-            </a>
-            <p class="copyright_txt">Copyright 2021.joeMinJi All rights reserved.</p>
+            <p class="copyright_txt">Copyright 2022.joeMinJi All rights reserved.</p>
          </div>
     </div>
 </template>
@@ -23,28 +27,36 @@
 
 <style scoped>
     .footer{
-        background-color:pink;
+        background-color:#807097 ;
         width: 100%;
-        height: 80px;
+        height: 161px;
         position: absolute;
         /* position:fixed; */
         bottom: 0;
         text-align: center;
         color: white;
-        padding: 20px;
+        padding: 7px;
     }
 
-    .email_txt{
-        font-size: 30px;
+    .email_txt, .copyright_txt{
+        font-size: 15px;
+        margin: 10px;
     }
-    .copyright_txt{
-        font-size: 30px;
+  
+    .footer_git{
+        display: flex;
+        justify-content:center;
+        margin-bottom: 19px;
+    }
 
-    }
-    .footer i{
+    .footer_git a {
         font-size: 50px;
-        padding: 40px;
-        color: #c0f9ba;
+        color: white;
+        width:100px;
+        height: 60px;
+    }
+    .footer_git a:hover{
+        color: black ;
     }
 
     /* 

@@ -91,14 +91,14 @@ export default {
         height: 60px;
         font-size: 30px;
         font-weight: 500;
-        background-color: #ffc0cb;
+        background-color: #a797ff ;
         border: 1px solid white;
     }
 
     .createBtn:hover{
-       color: #ffc0cb;
+       color: #807097;
        background-color: white;
-       border: 1px solid #ffc0cb;
+       border: 1px solid #807097;
     }
 
 

@@ -20,6 +20,10 @@ import TapPreview from '@/components/Tap/TapPreview'
 Vue.use(Router)
 
 export default new Router({
+  mode: "history",
+  scrollBehavior() { 
+    return { x: 0, y: 0 } 
+  },
   routes: [
     {
       path: '/',

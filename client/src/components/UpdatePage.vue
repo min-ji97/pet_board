@@ -316,6 +316,7 @@ export default {
     align-items: center;
     flex-direction: column ;
     text-align: center;
+    padding-bottom: 100px;
    
 }
 .preview-img-box{
@@ -365,23 +366,23 @@ export default {
     margin: 30px;
     width: 800px;
     height: 350px;
-    border: 1px solid rgb(247, 216, 216);
-    background:rgb(238, 227, 233);
+    border: 1px solid #807097  ;
+    background:#f7f5ff;
 
 }
 .nicknameBox{
     margin: 30px;
     width: 800px;
     height: 200px;
-    border: 1px solid rgb(247, 216, 216);
-    background:rgb(238, 227, 233);
+    border: 1px solid #807097  ;
+    background: #f7f5ff;
 }
 .pwBox{
     margin: 30px;
     width: 800px;
     height: 300px;
-    border: 1px solid rgb(247, 216, 216);
-    background:rgb(238, 227, 233);
+    border: 1px solid #807097  ;
+    background:#f7f5ff;
 }
 
 .pwInputBox{

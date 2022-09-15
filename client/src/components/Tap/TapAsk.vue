@@ -188,7 +188,7 @@ export default {
     .my-write-title h1{
        margin: 20px 20px 20px 50px;
        text-align: center;
-       color: rgb(253, 113, 136);
+       color: #807097;
     }
    
 </style>

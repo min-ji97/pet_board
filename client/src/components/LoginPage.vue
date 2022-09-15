@@ -130,7 +130,7 @@ export default {
     }
     .login-box{
         padding:30px;
-        border: 2px solid pink;
+        border: 2px solid #807097;
         width: 400px;
         height: 300px;
         margin-left: 30px;
@@ -146,8 +146,7 @@ export default {
     }
     #button-color{
         /* border-width: solid; */
-        border: 2px solid pink;
-        background: pink;
+        border: 2px solid #a797ff ;
+        background: #a797ff ;
     }
-
 </style>    

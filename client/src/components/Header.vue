@@ -2,7 +2,7 @@
     <div>
         <div class="header-box">
             <div class="logo-login-box">
-                <div class="logo"  @click="gotoMainPage()">LEGO</div>
+                <div class="logo"  @click="gotoMainPage()">petTalk!</div>
 
                 <div class="user" v-if="loginStatus" @click="clickProfile() ">
                     <img class="user-img" v-if="user.userImg" :src="`http://localhost:${port}/images/${userAvatar}`" onerror="this.src=``" />
@@ -220,11 +220,11 @@ export default{
     .logo {
         font-size: 60px;
         font-weight : bold;
-        color: pink;
+        color: black;
         text-align: center;
         width: 90%;
         margin-left: 13%;
-        text-shadow: 3px 1px rgb(255, 122, 122);
+        text-shadow: 3px 1px #a797ff ;
     }
     .login{
         width: 10%;
@@ -233,11 +233,11 @@ export default{
         font-size: 30px;
         font-weight: bold;
         margin-top:20px;
-        color: pink;
+        color: #807097;
     }
     .login:hover {
-        background-color: pink;
-        color: white;
+        background-color: #cbc2ff;
+        color: rgb(255, 255, 255);
     }
     .user{
         width: 10%;
@@ -253,7 +253,7 @@ export default{
    
     }
     .primary-user-img{
-        background-color: pink;
+        background-color: #e7e3ff;
     }
     .navBar{
         margin-left:30px;
@@ -267,11 +267,11 @@ export default{
         margin:10px;
         padding: 10px;
         /* font-weight: bold; */
-        color:pink;
+        color:#a797ff;
         text-decoration: none;
     }
     .router:hover{
-        color: rgb(255, 122, 122);
+        color: #807097;
       
     }
 

@@ -165,13 +165,18 @@ export default {
 </script>
 
 <style scoped>
-
+  .untitle{
+    /* position: relative;
+    min-height: 100%; */
+    padding-bottom:100px
+  }
   .container{
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       /* align-items: center; */
-      width: 100%;
+      /* width: 100%;
+      min-height: 100%;  이렇게 하면 푸터 안겹친다고했는데,,또로록,..*/
       /* margin : 20px; */
   }
     /* .container:nth-child(2){
@@ -191,10 +196,14 @@ export default {
         align-self: flex-end;
         width: 100px;
         height: 40px;
-        border : 1px solid pink;
-        background-color: pink;
+        border : 1px solid #a797ff;
+        background-color: #a797ff;
     }
-    
+    .write-btn:hover{
+      color: #807097;
+      border : 1px solid #807097;
+      background-color: white;
+    }
     .board-table{
         margin: 30px;
         margin-top: 20px;

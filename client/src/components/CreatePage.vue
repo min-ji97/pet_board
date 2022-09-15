@@ -1,7 +1,13 @@
 <template>
     <div class="container">
         <div class="introduce">
-            자 몇번 방이냐!!!!!!!!!!!!!!! {{boardNum}}
+            <div v-if="boardNum===1">
+                <p id="introduce_title">Home</p>
+                <p>사진은 반드시 한장 이상 첨부해야 합니다.</p>
+            </div>
+            <div v-else-if="boardNum===2">
+                <p id="introduce_title">Q&A</p> 
+            </div>
         </div>
 
         <div class="write">
@@ -508,12 +514,22 @@ export default {
         flex-flow: column;
         justify-content: center;
         align-items: center;   
+        padding-bottom: 100px;
     }
 
     .introduce{
         float: left;
     }
-
+    .introduce p{
+        font-size: 23px;
+        text-align: center;
+        color: #807097 ;
+    }
+    #introduce_title{
+        font-size: 50px;
+        font-weight:bold;
+        
+    }
     .write{
         padding: 20px;
         display: flex;
@@ -559,14 +575,14 @@ export default {
         height: 70px;
         font-size: 25px;
         font-weight: 500;
-        background-color: #ffc0cb;
+        background-color: #a797ff ;
         border : 1px solid white;
         // #ff9797
     }
     .write-btn:hover{
-        color: #ff9797;
+        color: #807097 ;
         background-color: white;
-        border: 1px solid #ff9797;
+        border: 1px solid #807097 ;
     }
 
 

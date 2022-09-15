@@ -340,11 +340,13 @@ export default {
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
+
+    padding-bottom: 100px;
   }
 
   .form-title h1{
     text-align: center;
-    color: rgb(250, 116, 138);
+    color: #807097 ;
     margin-bottom: 20px;
   }
   .container{
@@ -356,10 +358,10 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin: 30px;
-    width: 600px;
-    padding: 50px;
-    border: 2px solid pink;
+    margin: 13px;
+    width: 523px;
+    padding: 33px;
+    border: 2px solid #807097 ;
   }
 
   .input-box{
@@ -378,14 +380,14 @@ export default {
   }
 
   .submit-btn{
-    background-color:pink;
-    border-color: pink;
+    background-color:#807097 ;
+    border-color: #807097 ;
     
   }
   .submit-btn:hover{
     background-color:white;
-    /* border-color: white; */
-    color: pink;
+    border-color: #807097;
+    color: #807097 ;
   }
 
   .btn-login{
@@ -404,13 +406,13 @@ export default {
 
   .ok-btn{
     color: white;
-    background-color:rgb(250, 170, 184);
+    background-color:#807097 ;
     border-color: white;
   }
 
   .dupli-btn:hover{
-    color: palevioletred;
+    color: #807097 !important ;
     background-color:white;
-    border-color: palevioletred;
+    border-color: #807097 !important;
   }
 </style>
