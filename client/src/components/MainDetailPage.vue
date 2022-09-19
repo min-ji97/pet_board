@@ -70,7 +70,7 @@
                 </div>
                 
                 <div class="comment-review">
-                    <Comment :commentList="commentList"/>
+                    <Comment :commentList="commentList" :roomNum="roomNum"/>
                     <!-- <Comment :roomNum="roomNum" :contentId="contentId"/> -->
                 </div>
 
@@ -287,7 +287,7 @@ export default {
                 });
                 // 게시글 삭제를 하려면 roomNum,contentId, 이 두개를 보내주면 될 듯 합니다..! 
             }else{
-                this.$message.info('게시글을 삭제하지않았슴~');
+                this.$message.info('게시글 삭제를 취소하였습니다.');
             }
         },
         postUpdate(){ // 게시글 업데이트 

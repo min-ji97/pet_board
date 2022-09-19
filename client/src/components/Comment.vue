@@ -10,18 +10,21 @@
                     <div class="nick-name">{{list.nickName}}</div>
                     <div class="date">
                         {{$moment(list.create_at).format('YYYY-MM-DD h:mm:ss')}}
-
-                        
-
                     </div>
 
                     
 
                 </div>
                 <div class="context-box">{{list.context}}</div>
-                <div v-if=" (list.user_id === userId) ? true : false " class="delete-btn" >
-                    <a-icon type="delete" @click="postDelete()" />       
+                <div v-if=" (list.user_id === userId) ? true : false "  >
+                    <div class="delete-btn">
+                        <a-icon type="delete" @click="postDelete(list.comment_id, list.content_id)" /> 
+                    </div>
+                    <!-- <div class="modify-btn">
+                        <a-icon type="edit" @click="postUpdate()"/>
+                    </div>      -->
                 </div>
+
             </div>
         </div>
     
@@ -59,7 +62,8 @@ export default {
         ])
     },
     props:{
-        commentList : Array
+        commentList : Array,
+        roomNum : Number
     },
     async created(){
  
@@ -69,16 +73,24 @@ export default {
     
     },
     methods: {
-        postDelete(){
+        postDelete(commentId,contentId){
             const deletBtn = confirm("해당 댓글을 삭제하시겠습니까?");
 
             if(deletBtn){ // true 게시글을 삭제하겠따..!
-                this.$message.success('게시글을 삭제하였습니다!');
-                // 댓글을 삭제를 하려면 roomNum / comment_id / content_id 
+                
+                this.$store.dispatch('post/deleteCommentProcess',{
+                    roomNum : this.roomNum,
+                    contentId : contentId,
+                    commentId : commentId
+                });
+                // this.$message.success('댓글을 삭제하였습니다.');
             }else{
-                this.$message.info('게시글을 삭제하지않았슴~');
+                this.$message.info('댓글 삭제를 취소하였습니다.');
             }
         },
+        // postUpdate(){
+        //     modifyBtn
+        // }
     }
 }
 </script>

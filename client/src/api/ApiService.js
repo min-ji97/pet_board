@@ -330,10 +330,10 @@ deletePost( contentId, boardNum){
  * 
  */
 
- deleteComment( contentId, boardNum, commentId){
+ deleteComment( roomNum, contentId, commentId){
   return axios.post('/api/comment/deleteComment', {
+    roomNum,
     contentId,
-    boardNum,
     commentId
   })
 },

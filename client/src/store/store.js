@@ -34,8 +34,12 @@ export const store = new Vuex.Store({
   // })
 
   plugins: [
+    // 전체 저장
+    // createPersistedState()
+
+    //일부만 저장!
     createPersistedState({ 
-      paths: ["user","post","tap","comment"] 
+      paths: ["user","post","tap","comment","update","tap"] 
     })
   ],
   state: {},

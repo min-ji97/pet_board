@@ -116,6 +116,13 @@ const actions = {
             .catch(err=>err);
 
     },
+
+    deleteCommentProcess : async ({ commit }, payload) =>{
+        const { roomNum, contentId, commentId } = payload;
+        const result = await api.deleteComment(roomNum , contentId, commentId)
+            .then(res=>res)
+            .catch(err=>err);
+    },
 };
 
 
