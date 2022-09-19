@@ -145,8 +145,37 @@ router.post('/writeAskComment',(req,res)=>{
 
 });
 
+// 댓글 삭제
+router.post('/deleteComment',(req,res)=>{
+    
+    let room_num = req.body.roomNum;
+    let content_id = req.body.contentId;
+    let comment_id = req.body.commentId;
+
+    let param = [content_id,comment_id];
 
 
+    if(room_num === 1) {// main_contents의 댓글 삭제
+        let sql = `update main_comment set active = 'n' where content_id = ? AND comment_id = ? `;
+        connection.query(sql, param, (err,result)=>{
+            if(err){
+                console.log('db 에러');
+            }else {
+                res.json({ result : true});
+            }
+        })
+    }else { // ask_contents의 댓글삭제
+        let sql = `update ask_comment set active = 'n' where content_id = ? AND comment_id = ? `;
+        connection.query(sql, param, (err,result)=>{
+            if(err){
+                console.log('db 에러');
+            }else {
+                res.json({ result : true});
+            }
+        })
+
+    }
+})
 
 
 
