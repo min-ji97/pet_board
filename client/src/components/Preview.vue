@@ -10,11 +10,11 @@
                         <!-- <div>{{content.context}}</div> -->
                         <div class="pre-nickname">{{content.nickname}}</div>
                         <div>
-                            <span class="pre-view"><a-icon type="eye"   />{{ content.view_num }}</span>
-                            <span class="pre-like"><a-icon type="heart" />{{ content.like_num }}</span>
+                            <span class="pre-view"><a-icon type="eye"/>{{ content.view_num }}</span>
+                            <span class="pre-like"><a-icon type="heart"/>{{ content.like_num }}</span>
                         </div>
                         <!-- <div ><a-icon type="heart" />{{content.like_num}}</div> -->
-                        <div class="pre-date">{{$moment(content.create_at).format('YYYY-MM-DD a h:mm:ss')}}</div>
+                        <div class="pre-date">{{$moment(content.create_at).format('YYYY-MM-DD HH:mm')}}</div>
                         <!-- 
                             content.userId === user.userId -> 
                          -->

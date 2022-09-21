@@ -22,8 +22,11 @@
                 </tr>
                 <tr class="info-box " >
                     <td class="padding-10px" ></td>
-                    <td class="padding-10px">{{nickname}}</td>
-                    <td class="padding-10px">{{$moment(createAt).format('YYYY-MM-DD a h:mm:ss')}}</td>
+                    <td class="padding-10px">{{nickname}}</td>   <!--'YYYY-MM-DD a h:mm:ss'         -->
+                    <td class="padding-10px">
+                        <span>{{$moment(createAt).format('YYYY-MM-DD')}}</span>
+                        <span>{{$moment(createAt).format('HH:mm')}}</span>
+                    </td>
                     <td class="padding-10px"><a-icon type="eye" class="view-icon" /> {{viewNum}}</td>
                     <!-- <td v-if="likeStatus"><a-icon type="heart" class="like-icon">좋아요 {{likeNum}}</td>  -->
                    

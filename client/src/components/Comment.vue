@@ -7,24 +7,31 @@
             </div>
             <div class="text-box">
                 <div class="info-box">
-                    <div class="nick-name">{{list.nickName}}</div>
+                    <!-- <div class="nick-name">
+                        {{list.nickName}}
+                        <span v-if="(list.user_id === userId) ? true : false" style="color: #807097; font-weight: bold;"> [작성자] </span>
+                    </div> -->
+                    <div class="nick-name" v-if="(list.user_id === userId) ? true : false" style="color: #807097; font-weight: bold;">
+                        {{list.nickName}} [작성자]
+                    </div>
+                    <div class="nick-name" v-else>{{list.nickName}}</div>
                     <div class="date">
-                        {{$moment(list.create_at).format('YYYY-MM-DD h:mm:ss')}}
+                        {{$moment(list.create_at).format('YYYY-MM-DD HH:mm')}}
                     </div>
 
                     
 
                 </div>
-                <div class="context-box">{{list.context}}</div>
-                <div v-if=" (list.user_id === userId) ? true : false "  >
-                    <div class="delete-btn">
-                        <a-icon type="delete" @click="postDelete(list.comment_id, list.content_id)" /> 
-                    </div>
-                    <!-- <div class="modify-btn">
-                        <a-icon type="edit" @click="postUpdate()"/>
-                    </div>      -->
+                <div class="context-box">{{list.context}}
+                    <div class="delete-modify-Box" v-if="(list.user_id === userId) ? true : false ">
+                        <div class="delete-btn">
+                            <a-icon type="delete" @click="commentDelete(list.comment_id, list.content_id)" /> 
+                        </div>
+                        <div class="modify-btn">
+                            <a-icon type="edit" @click="postUpdate()"/>
+                        </div>     
+                   </div>      
                 </div>
-
             </div>
         </div>
     
@@ -73,7 +80,7 @@ export default {
     
     },
     methods: {
-        postDelete(commentId,contentId){
+        commentDelete(commentId,contentId){
             const deletBtn = confirm("해당 댓글을 삭제하시겠습니까?");
 
             if(deletBtn){ // true 게시글을 삭제하겠따..!
@@ -164,18 +171,20 @@ export default {
     }
 
 
-    .delete-btn{
+    .delete-btn, .modify-btn{
         color: black;
         font-size: 20px;
         display: inline-block;
+        margin-left : 11px;
     }
 
-    .delete-btn i {
-        float: right;
-    }
-
-    .delete-btn i:hover{
+    .delete-btn i:hover, .modify-btn i:hover{
         color: #ff375a;
         transition: all 0.5s ease;
     }
+
+    .delete-modify-Box{
+        float: right;
+    }
+
 </style>
