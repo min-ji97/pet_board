@@ -5,20 +5,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var expressSession = require('express-session');
+var history = require('connect-history-api-fallback');
 
 var passport = require('passport');
-// var LocalStrategy = require('passport-local').Strategy;
+
 var MySQLStore = require('express-mysql-session')(expressSession);
 
-/////
-// var MySQLStore = require('express-mysql-session')(session);
-
-////////
 
 const fileUpload = require('express-fileupload');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users'); // 필요 없음 나중에 지울것
+// var usersRouter = require('./routes/users'); // 필요 없음 나중에 지울것
 var authRouter = require('./routes/auth');
 var userInfoRouter = require('./routes/userInfo');
 var updateRouter = require('./routes/update');
@@ -35,33 +32,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-
-
-
-
-// app.use(express.bodyParser());
-
-// app.configure(function () {
-
-//   app.use(express.bodyParser());
- 
-//  });
-
-
-
-
-
+app.use(history());
 
 app.use(cookieParser());  
-
-
-// app.use(fileUpload());1
-
-// app.use(fileUpload({
-//         createParentPath: true
-// }
-// ))
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -73,7 +46,6 @@ require('dotenv').config();
 
 
 
-// app.post('./routes/userInfo/changeProfile',(req,res))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -83,15 +55,7 @@ app.use(logger('dev'));
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
-// app.use(session({
-//   resave: false,
-//   saveUninitialized: false,
-//   secret: process.env.COOKIE_SECRET,
-//   cookie: {
-//     httpOnly: true,
-//     secure: false,
-//   }
-// }));
+
 
 var option = {
     host: 'localhost', //localhost:7896
@@ -109,12 +73,6 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: true,
     store: sessionStore,
-    // store: new MySQLStore({
-    //   host: 'localhost',
-    //   user: 'root',
-    //   password: '1234',
-    //   database: 'pet_board',
-    // }),
     cookie: {
         maxAge: 24000 * 60 * 60 // 쿠키 유효기간 24시간
     }
@@ -132,34 +90,13 @@ app.use(passport.session());   // passport 사용 시 session 활용
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter); // 지울예정
+// app.use('/users', usersRouter); // 지울예정
 app.use('/api/auth', authRouter);
 app.use('/api/userInfo', userInfoRouter);
 app.use('/api/update', updateRouter);
 app.use('/api/post', postRouter);
 app.use('/api/tap', tapRouter);
 app.use('/api/comment',commentRouter);
-
-// app.post('/api/userInfo/changeProfile',(req,res)=>{
-
-//     console.log('제발..........',req.file);
-//     console.log('이것도 안되면 싸우쟈', req.body);
-
-//     var file;
-
-//     if(!req.file){
-//         res.send("파일을 찾지 못하였습니다^^");
-//         return;
-//     }
-//     file = req.files.FormFieldName;
-//     res.send("파일을 찾음~~");
- 
-// })
-
-  
-
-
-// app.use('/api/logout', loginRouter);
 
 
 

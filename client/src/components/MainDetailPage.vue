@@ -229,9 +229,9 @@ export default {
             },100);
         }
 
-        await this.$store.dispatch('comment/getMainCommentProcess');
-        await this.$store.dispatch('comment/getAskCommentProcess');
-        
+        // await this.$store.dispatch('comment/getMainCommentProcess');
+        // await this.$store.dispatch('comment/getAskCommentProcess');
+            
     },
     mounted() {
         this.editor = new Editor({
@@ -262,10 +262,13 @@ export default {
                 });
 
                 this.$message.success('댓글을 입력했습니다.');
+                try {
+                    this.$router.go(this.$router.currentRoute);
+                } catch (error) {
+                    console.error('Navigation error:', error);
+                }
 
-                this.$router.go(this.$router.push({name: 'MainDetailPage' }));
-           
-
+                // this.$router.go(this.$router.push({name: 'MainDetailPage' }));
             }else if(Number(this.roomNum) === 2){ // ask Comment에서 작성 
                 await this.$store.dispatch('comment/writeAskComment',{
                     contentId : this.contentId,
@@ -273,7 +276,15 @@ export default {
                     context : this.inputComment, 
                 });
                 this.$message.success('댓글을 입력했습니다.');
-                this.$router.go(this.$router.push({name: 'MainDetailPage'}));
+                try{
+                    // this.$router.push({ name: 'MainDetailPage'});
+                    this.$router.go(this.$router.currentRoute);
+
+                }catch(error){
+                    console.error('Navigation error:', error);
+                }
+
+                // this.$router.go(this.$router.push({name: 'MainDetailPage'}));
 
             }else{
                 this.$message.warning('이게 뜨면 망합니다!!!!!');
