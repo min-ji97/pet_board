@@ -22,13 +22,25 @@
                     
 
                 </div>
-                <div class="context-box">{{list.context}}
+                <div class="context-box">
+                    <div v-if="(list.comment_id === changeCommentId)">
+
+                        <div class="comment-input">
+                            <textarea v-model="changeCommentText" name="" id="" cols="100" rows="4" maxlength="500">
+                            </textarea>
+                            <a-button @click="commentChangeBtn" class="comment-btn">댓글</a-button>
+                        </div>
+
+                    </div>
+                    <div v-else>
+                        {{list.context}}
+                    </div>
                     <div class="delete-modify-Box" v-if="(list.user_id === userId) ? true : false ">
                         <div class="delete-btn">
                             <a-icon type="delete" @click="commentDelete(list.comment_id, list.content_id)" /> 
                         </div>
                         <div class="modify-btn">
-                            <a-icon type="edit" @click="postUpdate()"/>
+                            <a-icon type="edit" @click="commentUpdate(list.comment_id, list.context, list.content_id)"/>
                         </div>     
                    </div>      
                 </div>
@@ -52,7 +64,10 @@ export default {
             myWriteBoolean : '',
 
             userId : this.$store.state.user.user.userId,
-
+            changeCommentId: null,
+            changeCommentText: '', // 수정된 댓글
+            originCommentText:'', // 원래댓글
+            changeContentId: null, // 수정하려는 댓글의 content ID 
             // contentId : contentId,
             // roomNum : roomNum,
 
@@ -95,9 +110,61 @@ export default {
                 this.$message.info('댓글 삭제를 취소하였습니다.');
             }
         },
-        // postUpdate(){
-        //     modifyBtn
-        // }
+        commentUpdate(commentId, context, contentId){
+            this.changeCommentId = commentId;
+            this.originCommentText = context;
+            this.changeCommentText = context;
+            this.changeContentId = contentId;
+        
+        },
+
+        async commentChangeBtn(){
+            if(this.changeCommentText===""){
+                this.$message.info('댓글을 입력해주세요.');
+            }else {
+                if(this.changeCommentText === this.originCommentText){
+                    try{
+                    this.$router.go(this.$router.currentRoute);
+                    }catch(error){
+                        console.error('Navigation error:', error);
+                    }
+                }else{
+                    this.changeCommentText = this.changeCommentText + '  ( 수정됨 )' ;
+                    console.log('수정중이라는 말이 추가 됐느냐 => ', this.changeCommentText);
+                    if(Number(this.roomNum) === 1){ // main Comment에서 작성  
+                        await this.$store.dispatch('comment/changeMainComment',{
+                            commentId : this.changeCommentId,
+                            contentId : this.changeContentId,
+                            context : this.changeCommentText, 
+                        });
+                        this.$message.success('댓글을 수정했습니다.');
+                        try {
+                            this.$router.go(this.$router.currentRoute);
+                        } catch (error) {
+                            console.error('Navigation error:', error);
+                        }
+
+                
+                    }else if(Number(this.roomNum) === 2){ // ask Comment에서 작성 
+                        await this.$store.dispatch('comment/changeAskComment',{
+                            commentId : this.changeCommentId,
+                            contentId : this.changeContentId,
+                            context : this.changeCommentText, 
+                        });
+                        this.$message.success('댓글을 수정했습니다.');
+                        try{
+                            this.$router.go(this.$router.currentRoute);
+                        }catch(error){
+                            console.error('Navigation error:', error);
+                        }
+                    }
+                }
+            }     
+            this.changeCommentId = null;
+            this.changeCommentText = '';
+            this.originCommentText = '';
+            this.changeContentId = null;
+        }
     }
 }
 </script>
@@ -185,6 +252,9 @@ export default {
 
     .delete-modify-Box{
         float: right;
+    }
+    .comment-input textarea{
+        width: 100%;
     }
 
 </style>

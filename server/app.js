@@ -56,7 +56,6 @@ app.use(logger('dev'));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 
-
 var option = {
     host: 'localhost', //localhost:7896
     port: '3306',

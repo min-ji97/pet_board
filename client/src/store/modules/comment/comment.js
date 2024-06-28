@@ -23,6 +23,10 @@ const mutations = {
     [types.GET_ASK_COMMENT]( state , contents) {
         state.askComment = contents;
     },
+
+    // [types.UPDATE_MAIN_COMMENT](state, contents) {
+
+    // },
 };  
 
 const actions = {
@@ -66,6 +70,24 @@ const actions = {
             .catch(err=>err);
             
     },
+
+    changeMainComment : async({commit}, payload) => {
+        const { commentId, contentId, context } = payload;
+        const result = await api.updateMainComment( commentId, contentId, context)
+            .then(res=>res)
+            .catch(err=>err)
+
+        
+            commit();
+            
+            console.log(' 여기는 store 결과를 잘 받아왔는가! => ',result);
+    },
+    changeAskComment : async({commit}, payload) => {
+        const { commentId, contentId, context } = payload;
+        const result = await api.updateAskComment( commentId, contentId, context)
+            .then(res=>res)
+            .catch(err=>err)
+    }
 
 };
 

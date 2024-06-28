@@ -122,6 +122,36 @@ router.post('/updatePw',(req,res)=>{
     })
 })
 
+router.post('/updateMainComment',(req,res)=>{
+    let commentId = req.body.commentId;
+    let contentId = req.body.contentId;
+    let context = req.body.context;
+    let sql = `update main_comment set context = ? where comment_id =? and content_id = ?  `;
+
+    connection.query(sql,[context, commentId ,contentId ],(err,result)=>{
+        if(err){
+        }else{
+            res.json({context : context});
+        }
+    })
+})
+
+router.post('/updateAskComment',(req,res)=>{
+    let commentId = req.body.commentId;
+    let contentId = req.body.contentId;
+    let context = req.body.context;
+    let sql = `update ask_comment set context = ? where comment_id =? and content_id = ?  `;
+
+    connection.query(sql,[context, commentId ,contentId ],(err,result)=>{
+        if(err){
+        }else{
+            res.json({context : context});
+        }
+    })
+})
+
+
+
 
 
 

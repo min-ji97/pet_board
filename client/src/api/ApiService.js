@@ -139,6 +139,24 @@ updatePw(userId, newPassword){
     newPassword
   })
 },
+/**
+ *  댓글 변경
+ * @returns 
+ */
+updateMainComment(commentId, contentId, context){
+  return axios.post('/api/update/updateMainComment',{
+    commentId, 
+    contentId, 
+    context
+  });
+},
+updateAskComment(commentId, contentId, context){
+  return axios.post('/api/update/updateAskComment',{
+    commentId, 
+    contentId, 
+    context
+  });
+},
 
 getMainPostPreview(){
   return axios.get('/api/post/getMainPostPreview')
