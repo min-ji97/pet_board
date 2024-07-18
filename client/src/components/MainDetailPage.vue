@@ -299,6 +299,9 @@ export default {
                     contentId : this.contentId,
                     boardNum : this.roomNum
                 });
+                this.$router.push({
+                        path: '/',
+                    });
                 // 게시글 삭제를 하려면 roomNum,contentId, 이 두개를 보내주면 될 듯 합니다..! 
             }else{
                 this.$message.info('게시글 삭제를 취소하였습니다.');
